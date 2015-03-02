@@ -1,18 +1,13 @@
 
 	// Function that runs the experiment. Calls the stimuli from an array one after another.
 	var startExp = function(arr) { 
-			
 		// var that controls the timing of the experiment
 		var ExperimentalDelay = 0;
-		
-		// present 1. stimulus
-		arr[0].present(arr[0].duration);
-
-		// present the other stimuli
-		for (var i = 1; i < arr.length; i++ ) {
-			var j = 1;
-			ExperimentalDelay = ExperimentalDelay + arr[i-1].duration + arr[i-1].ISI;
+		// present the stimuli
+		for (var i = 0; i < arr.length; i++ ) {
+			var j = 0;
 			setTimeout(function() { arr[j].present(arr[j].duration); j++}, ExperimentalDelay); // calls a new stimulus after duration and ISI of the previous stimulus
+			ExperimentalDelay = ExperimentalDelay + arr[i].duration + arr[i].ISI;
 		}
 		return(ExperimentalDelay + arr[arr.length-1].duration + arr[arr.length-1].ISI) // returns how long the experiment runs
 	};
