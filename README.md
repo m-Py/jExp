@@ -6,14 +6,14 @@ It is currently being developed.
 
 The implementation of jExp consists of 2 main parts:
 
-1. Experimental stimuli are implemented as an object hierarchie. You can instantiate stimuli that will be run in your experiment. Stimuli can be anything that you can create using JavaScript, HTML and CSS, or even image or sound files; so the only boundaries in stimulus creation are in your imagination. Stimuli have an appearance that is specified in the *showStimulus* method, a duration and an inter-stimulus-intervall, which are passed as arguments to the constructor.
+1. Experimental stimuli are implemented in an object hierarchie. You can instantiate stimuli to present them in your experiment. Stimuli can be anything that you can create using JavaScript, HTML and CSS, or image and sound files. Stimuli appearance is specified in the *showStimulus* method. The presentation duration and an inter-stimulus-intervall are passed as arguments to the constructor.
 
 2. Functions that run the experiment and especially ensure the correct timing of stimulus presentation. Particularly important is the function *startExp*: It takes an array containing stimuli objects as argument and runs the experiment.
 
 
-## Stimulus-"Interface" (stimulus-object creation contract)
+### "Stimulus-object creation contract"
 
-- inherit from the super object *Stimulus*
+- if you create a new stimulus, inherit from the super object *Stimulus*
 
 - call the constructor of *Stimulus*, add further features by adding more arguments to the constructor
 
@@ -26,7 +26,7 @@ The implementation of jExp consists of 2 main parts:
 - if no argument is given, make central positioning default for your Stimulus
 
 
-**TO DO**
+### TO DO
 
 - implement stimulus positioning by passing arguments to the constructor
 
