@@ -32,4 +32,10 @@ The implementation of jExp consists of 2 main parts:
 
 - implement simultaneous presentation of multiple stimuli
 
+- include possibility for stimuli presentation not having a fixed duration, but rather depending on an external event (like a key press)
+
 - (maybe later): remove the necessity to pass DOM id names to the stimulus constructor
+
+- add input listeners (i.e. key and mouse presses)
+
+- data storing functionality?
