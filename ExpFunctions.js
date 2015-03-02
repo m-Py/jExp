@@ -15,7 +15,8 @@
 			return partArr;
 		};
 
-		// runStimuli takes an array containing stimuli objects and runs all stimuli
+		// runStimuli takes an array containing stimuli objects and runs all stimuli. This is the old startExp function 
+		// is still called by startExp; if my restructuring of startExp fails, use this function
 		var runStimuli = function(arr) {
 			// var that controls the timing of the experiment
 			var ExperimentalDelay = 0;
@@ -32,26 +33,33 @@
 	// Function that runs the experiment. Calls the stimuli from an array one after another.
 	var startExp = function(arr) { 
 		var Stimuli = partExp(arr); // partition passed array
-		for (var i = 0; i < Stimuli.length; i++) {
+		var ExperimentalDelay = 0;
+		for (var i = 0; i < Stimuli.length; i++ ) {
 			var j = 0;
-			ExperimentalDelay = 0;
+			// how long do the Stimuli run
+			var currentDelay = 0;
+			for (var t = 0; t < Stimuli[i].length; t++) {
+				currentDelay = currentDelay + Stimuli[i][t].duration + Stimuli[i][t].ISI;
+			}
 			setTimeout(function() {
-				var clickable = 1;
-				j++;
-				$(window).click(function() {
-					if (clickable === 1) {
-						runStimuli(Stimuli[j]);
-						// remove last presented stimulus
-						var lastStimulus = Stimuli[0].length-1;
-						$(Stimuli[0][lastStimulus].dummyDiv).remove();
-						// run next stimuli on click. After ISI of last shown stimulus
-						setTimeout(function() {
-							runStimuli(Stimuli[1]);
-						}, Stimuli[0][lastStimulus].ISI)
+				$("body").append("<div id='startMe'></div>");
+				$("#startMe").css("height", $(window).height());
+				$("#startMe").css("width", $(window).width());
+				$("#startMe").click(function() {
+					$("#startMe").remove();
+					runStimuli(Stimuli[j]);
+					if (j > 0) {
+						var tmp = Stimuli[j-1].length;
+						$(Stimuli[j-1][tmp].dummyDiv).remove();
 					}
-					clickable = -1;
+					j++;
+					
+						
 				});
-			}, //insert time here );
+			}, currentDelay)
+			
+			
+		}
 	};
 
 
