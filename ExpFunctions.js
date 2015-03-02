@@ -1,15 +1,57 @@
+		// create partial arrays. Presentation of stimuli must be stopped when the duration of 1 stimulus is 0.
+		var partExp = function(arr) {
+			var j = 0; // count the partial arrays that we need
+			var partArr = [[]];
+			for (var i = 0; i < arr.length; i++ ) {
+				if (arr[i].duration === 0) { 
+					partArr[j].push(arr[i]);
+					partArr.push([]);
+					j++;
+				}
+				else { 
+					partArr[j].push(arr[i]);
+				}
+			}
+			return partArr;
+		};
+
+		// runStimuli takes an array containing stimuli objects and runs all stimuli
+		var runStimuli = function(arr) {
+			// var that controls the timing of the experiment
+			var ExperimentalDelay = 0;
+			// present the stimuli
+			for (var i = 0; i < arr.length; i++ ) {
+				var j = 0;
+				setTimeout(function() { arr[j].present(arr[j].duration); j++}, ExperimentalDelay); // calls a new stimulus after duration and ISI of the previous stimulus
+				ExperimentalDelay = ExperimentalDelay + arr[i].duration + arr[i].ISI;
+			}
+			return(ExperimentalDelay) // returns how long the experiment runs
+		};
+		
 
 	// Function that runs the experiment. Calls the stimuli from an array one after another.
 	var startExp = function(arr) { 
-		// var that controls the timing of the experiment
-		var ExperimentalDelay = 0;
-		// present the stimuli
-		for (var i = 0; i < arr.length; i++ ) {
+		var Stimuli = partExp(arr); // partition passed array
+		for (var i = 0; i < Stimuli.length; i++) {
 			var j = 0;
-			setTimeout(function() { arr[j].present(arr[j].duration); j++}, ExperimentalDelay); // calls a new stimulus after duration and ISI of the previous stimulus
-			ExperimentalDelay = ExperimentalDelay + arr[i].duration + arr[i].ISI;
-		}
-		return(ExperimentalDelay + arr[arr.length-1].duration + arr[arr.length-1].ISI) // returns how long the experiment runs
+			ExperimentalDelay = 0;
+			setTimeout(function() {
+				var clickable = 1;
+				j++;
+				$(window).click(function() {
+					if (clickable === 1) {
+						runStimuli(Stimuli[j]);
+						// remove last presented stimulus
+						var lastStimulus = Stimuli[0].length-1;
+						$(Stimuli[0][lastStimulus].dummyDiv).remove();
+						// run next stimuli on click. After ISI of last shown stimulus
+						setTimeout(function() {
+							runStimuli(Stimuli[1]);
+						}, Stimuli[0][lastStimulus].ISI)
+					}
+					clickable = -1;
+				});
+			}, //insert time here );
 	};
 
 
