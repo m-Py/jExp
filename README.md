@@ -2,7 +2,7 @@
 
 **jExp is a JavaScript framework that enables you to run (psychological) experiments in your browser.**
 
-It is currently being developed.
+jExp is meant to be particularly useful in faciliating the timing of sequentially presented experimental stimuli, which can be tricky in JavaScript. It is currently being developed. 
 
 The implementation of jExp consists of 2 main parts:
 
