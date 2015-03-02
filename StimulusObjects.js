@@ -8,7 +8,7 @@
 		this.subDummy = "#"+Name+Name;
 		this.size = size;
 		this.duration = duration; // presentation time of the stimulus. Specify in ms.
-		this.ISI = ISI; // inter-stimulus-intervall
+		this.ISI = ISI; // inter-stimulus-intervall = pause after stimulus before next stimulus is shown
 	}
 	Stimulus.prototype.showStimulus = function() {
 		// create stimulus
