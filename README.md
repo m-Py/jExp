@@ -11,7 +11,7 @@ The implementation of jExp consists of 2 main parts:
 2. Functions that run the experiment and especially ensure the correct timing of stimulus presentation. Particularly important is the function *startExp*: It takes an array containing stimuli objects as argument and runs the experiment.
 
 
-**Stimulus-"Interface" (stimulus-object creation contract)**
+## Stimulus-"Interface" (stimulus-object creation contract)
 
 - inherit from the super object *Stimulus*
 
@@ -21,7 +21,7 @@ The implementation of jExp consists of 2 main parts:
 
 - never override *present*, inherit this method from *Stimulus*
 
-- implement the possibility to position your Stimulus by passing arguments to the object constructor
+- implement the possibility to position your stimulus by passing arguments to the object constructor
 
 - if no argument is given, make central positioning default for your Stimulus
 
@@ -31,3 +31,5 @@ The implementation of jExp consists of 2 main parts:
 - implement stimulus positioning by passing arguments to the constructor
 
 - implement simultaneous presentation of multiple stimuli
+
+- (maybe later): remove the necessity to pass DOM id names to the stimulus constructor
