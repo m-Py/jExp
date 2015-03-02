@@ -5,7 +5,7 @@ $(document).ready(function() {
 
 	// fill an array with stimuli
 	expArr = [];
-	var fixationCross = new Text("stim", "cross", 50, 150, 300, "+", "black");
+	var fixationCross = new Cross("stim", "cross", 20, 150, 300, 2);
 	for (var i = 0; i < 20; i++) {
 		if (i % 2 === 0) {
 			expArr[i] = fixationCross;

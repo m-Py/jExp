@@ -22,7 +22,7 @@
 	};
 
 
-	// function that removes a given div after a specified duration
+	// function that removes a given div after a specified duration. Give duration argument in ms.
 	var countdown = function(duration, div) {
 		var timeLeft = duration/10;
 		var countdown = setInterval(function() {

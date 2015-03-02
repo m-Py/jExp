@@ -16,7 +16,7 @@
 		$(this.dummyDiv).append("<div id="+this.Name+this.Name+"></div>");
 		$(this.dummyDiv).height(this.size+"px");	
 	};	
-	Stimulus.prototype.present = function() {
+	Stimulus.prototype.present = function() { // should not be changed; Can be called from subclasses.
 		this.showStimulus();
 		if (this.duration != 0) {
 			countdown(this.duration, this.dummyDiv);
@@ -24,11 +24,12 @@
 	};			
 	
 	
-	// Textstimulus. Text und color as specialized properties. Inherits from Stimulus
+	// Textstimulus. Text und color (default "black") as specialized properties. Inherits from Stimulus
 	function Text(Parent, Name, size, duration, ISI, text, color) {
 		Stimulus.call(this, Parent, Name, size, duration, ISI); //  call constructor from super class
-		this.text = text; // add special properties
-		this.color = color;
+		// add special properties
+		this.text = text; 
+		this.color = color || "black";
 	}
 	Text.prototype = Object.create(Stimulus.prototype, {
 		contructor: {
@@ -60,10 +61,11 @@
 		Stimulus.prototype.present.call(this);
 	};
 	
+	
 	// Square-stimulus. Has color as special property. Inherits from Stimulus.
 	function Square(Parent, Name, size, duration, ISI, color) {
 		Stimulus.call(this, Parent, Name, size, duration, ISI); 
-		this.color = color;
+		this.color = color || "black";
 	}
 	Square.prototype = Object.create(Stimulus.prototype, { 
 		contructor: {
@@ -90,3 +92,42 @@
 		Stimulus.prototype.present.call(this);
 	};	
 	
+	
+	// Fixation-cross. Inherits from Stimulus. Has line-width as special property  (width = 1 as default)
+	function Cross(Parent, Name, size, duration, ISI, width) {
+		Stimulus.call(this, Parent, Name, size, duration, ISI); 
+		this.width = width || 1;
+	}
+	Cross.prototype = Object.create(Stimulus.prototype, { 
+		contructor: {
+			configurable: true,
+			enumerable: true,
+			value: Cross,
+			writable: true
+		}
+	});
+	Cross.prototype.showStimulus = function() {
+		// fixation cross is drawn using HTML canvas
+		$(this.dummyParent).append("<canvas id="+this.Name+"></canvas>");
+		var canvas = document.getElementById(this.Name);
+		canvas.width = this.size;
+		canvas.height = this.size;
+		var context = canvas.getContext('2d');
+		// center stimulus		
+		var height = $(window).height();
+		var width = $(window).width();
+		$(this.dummyDiv).css("position", "absolute");
+		$(this.dummyDiv).css("top", (height-this.size)/2);
+		$(this.dummyDiv).css("left", (width-this.size)/2);
+		// draw cross
+		context.beginPath();
+		context.lineWidth = this.width;
+		context.moveTo(this.size/2, 0);
+		context.lineTo(this.size/2, this.size);
+		context.moveTo(0, this.size/2);
+		context.lineTo(this.size, this.size/2);
+		context.stroke();
+	};
+	Cross.prototype.present = function() {
+		Stimulus.prototype.present.call(this);
+	};
