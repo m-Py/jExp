@@ -62,7 +62,7 @@ var startExp = function(arr) {
 			$("#startMe").css("width", $(window).width());
 			$("#startMe").click(function() {
 				$("#startMe").remove();
-				if (counter > 0 && counter < arr.length-1) { // dont do this before the first and after the last stimulus
+				if (counter > 0 && counter < arr.length) { // dont do this before the first and after the last stimulus
 					$(arr[counter-1][arr[counter-1].length-1].dummyDiv).remove(); // probably the most ugly code ever; but it does remove the most recently presented stimulus ;-)
 				}
 				runStimuli(arr[counter]);
