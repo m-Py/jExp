@@ -44,10 +44,10 @@ var getExpTime = function(partArr) {
 };			
 
 
-// Function that runs the experiment. TO RUN YOUR EXPERIMENT, CALL THIS FUNCTION AND PASS THE ARRAY THATS CONTAINS ALL STIMULI
-// uses the functions partExp(), runStimuli() and getExpTime() to run an experiment.
+// TO RUN YOUR EXPERIMENT, CALL THIS FUNCTION AND PASS THE ARRAY THATS CONTAINS ALL STIMULI
+// calls the functions partExp(), runStimuli() and getExpTime() to run the complete experiment.
 var startExp = function(arr) { 
-	var Stimuli = partExp(arr); // partition passed array into several units. Partition is at each stimulus that has a duration of 0!
+	var Stimuli = partExp(arr);
 
 	// startOnClick and startTimer recursively call each other to ensure correct timing of stimulus presentation
 	var startTimer = function(arr, counter) {
@@ -55,21 +55,24 @@ var startExp = function(arr) {
 	};
 	
 	var startOnClick = function(arr, counter) {
-		if (counter < arr.length) {
+		if (counter === 0) { // no click needed to start experiment
+			runStimuli(arr[counter]);
+			startTimer(arr, counter+1); 
+		}
+		else if (counter < arr.length) {
 			// there must be a better way to get an event handler that only works in this situation
 			$("body").append("<div id='startMe'></div>");
 			$("#startMe").css("height", $(window).height());
 			$("#startMe").css("width", $(window).width());
 			$("#startMe").click(function() {
 				$("#startMe").remove();
-				if (counter > 0 && counter < arr.length) { // dont do this before the first and after the last stimulus
-					$(arr[counter-1][arr[counter-1].length-1].dummyDiv).remove(); // probably the most ugly code ever; but it does remove the most recently presented stimulus ;-)
-				}
+				$(arr[counter-1][arr[counter-1].length-1].dummyDiv).remove(); // ugly; but it does remove the most recently presented stimulus ;-)
 				runStimuli(arr[counter]);
 				startTimer(arr, counter+1); 
 			});
 		}
 	};
+	
 	startOnClick(Stimuli, 0); // start experiment with first nested array that was created with the partExp function
 };
 
