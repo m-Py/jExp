@@ -60,13 +60,11 @@ var startExp = function(arr) {
 			startTimer(arr, counter+1); 
 		}
 		else if (counter < arr.length) {
-			// there must be a better way to get an event handler that only works in this situation
-			$("body").append("<div id='startMe'></div>");
-			$("#startMe").css("height", $(window).height());
-			$("#startMe").css("width", $(window).width());
-			$("#startMe").click(function() {
-				$("#startMe").remove();
-				$(arr[counter-1][arr[counter-1].length-1].dummyDiv).remove(); // ugly; but it does remove the most recently presented stimulus ;-)
+			// TO DO: better implementation of proceeding in experiment when a zero-duration stimulus is shown
+			// currently: mouse click the DIV in which this stimulus is contained to proceed
+			var currentlyShownStimulus = arr[counter-1][arr[counter-1].length-1];
+			$(currentlyShownStimulus.dummyDiv).click(function() {
+				$(currentlyShownStimulus.dummyDiv).remove();
 				runStimuli(arr[counter]);
 				startTimer(arr, counter+1); 
 			});
