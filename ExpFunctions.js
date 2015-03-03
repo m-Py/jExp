@@ -23,6 +23,7 @@ var partExp = function(arr) {
 // runStimuli is the function used to actually present the stimuli: takes an array containing stimuli objects as argument and presents all stimuli
 var runStimuli = function(partArr) {
 	// var that controls the timing of the experiment
+	$("body").css("cursor", "none"); // let cursor disappear during stimulus presentation
 	var ExperimentalDelay = 0;
 	// present the stimuli
 	for (var i = 0; i < partArr.length; i++ ) {
@@ -30,6 +31,9 @@ var runStimuli = function(partArr) {
 		setTimeout(function() { partArr[j].present(partArr[j].duration); j++}, ExperimentalDelay); // calls a new stimulus after duration and ISI of the previous stimulus
 		ExperimentalDelay = ExperimentalDelay + partArr[i].duration + partArr[i].ISI;
 	}
+	setTimeout(function() {
+		$("body").css("cursor", "auto"); // cursor reappears after stimulus presentation
+	}, getExpTime(partArr));
 };
 
 	
