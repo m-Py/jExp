@@ -4,9 +4,10 @@ $(document).ready(function() {
 	// Create a dummy experiment
 
 	// fill an array with stimuli
-	expArr = [];
 	var fixationCross = new Cross("stim", "cross", 20, 150, 300, 2);
-	for (var i = 0; i < 4; i++) {
+	expArr = [];
+	expArr.push(new Text("stim", "start", 50, 0, 0, "Start the experiment"));
+	for (var i = 0; i < 6; i++) {
 		if (i % 2 === 0) {
 			expArr.push(fixationCross);
 		}
@@ -14,29 +15,21 @@ $(document).ready(function() {
 			expArr.push(new Square("stim", "st"+i, rndSize(), 800, 1000, rndCol())); // Parent div is always the same, but each new Square object has a seperate div which contains the stimulus
 		}
 	}
-	expArr.push(new Text("stim", "end", 50, 0, 0, "The experiment is over")); 
-	expArr.push(new Text("stim", "bla", 50, 500, 500, "But wait...")); 
-	expArr.push(new Text("stim", "moe", 50, 500, 500, "I think...")); 
-	expArr.push(new Text("stim", "shu", 50, 500, 500, "I still got it!"));
-	for (var i = 0; i < 4; i++) {
-		if (i % 2 === 0) {
-			expArr.push(fixationCross);
+	
+	for (var t = 0; t < 5; t++) {
+		expArr.push(new Text("stim", "shub", 50, 0, 0, "Go for next trial")); 
+		expArr.push(new Text("stim", "mup", 50, 500, 500, "wait for it...")); 
+		for (var i = 0; i < 6; i++) {
+			if (i % 2 === 0) {
+				expArr.push(fixationCross);
+			}
+			else {
+				expArr.push(new Square("stim", "st"+i, rndSize(), 800, 1000, rndCol())); // Parent div is always the same, but each new Square object has a seperate div which contains the stimulus
+			}
 		}
-		else {
-			expArr.push(new Square("stim", "st"+i, rndSize(), 800, 1000, rndCol())); // Parent div is always the same, but each new Square object has a seperate div which contains the stimulus
-		}
-	}	
-	expArr.push(new Text("stim", "end", 50, 0, 0, "Now it's really over ;-)")); 
-	expArr.push(new Text("stim", "end", 50, 1000, 500, "Or is it.....")); 
-	for (var i = 0; i < 20; i++) {
-		if (i % 2 === 0) {
-			expArr.push(fixationCross);
-		}
-		else {
-			expArr.push(new Square("stim", "st"+i, rndSize(), 800, 1000, rndCol())); // Parent div is always the same, but each new Square object has a seperate div which contains the stimulus
-		}
-	}		
-	expArr.push(new Text("stim", "end", 50, 0, 500, "=)"));
+	}
+	
+	expArr.push(new Text("stim", "zzt", 50, 0, 500, "Over!"));
 	
 	 	
 	// start the experiment!
