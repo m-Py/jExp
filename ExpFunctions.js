@@ -47,16 +47,15 @@ var getExpTime = function(partArr) {
 // TO RUN YOUR EXPERIMENT, CALL THIS FUNCTION AND PASS THE ARRAY THATS CONTAINS ALL STIMULI
 // startExp() calls the functions partExp(), runStimuli() and getExpTime() to run the complete experiment.
 var startExp = function(arr) { 
-	$("*").css("cursor", "none"); // let cursor disappear when experiment starts
+	// $("*").css("cursor", "none"); // let cursor disappear when experiment starts
 	var Stimuli = partExp(arr);
+	
 	// startOnClick and startTimer recursively call each other to ensure correct timing of stimulus presentation
-	// the difficulty is that the timer must pause when ever a stimulus with the duration of 0 is shown
-	// then the experiment proceeds after a specified event has been registered (a mouse click is currently this event)
 	var startTimer = function(arr, counter) {
-		setTimeout(function() { startOnClick(arr, counter); }, getExpTime(arr[counter-1])); 
+		setTimeout(function() { startTrial(arr, counter); }, getExpTime(arr[counter-1])); 
 	};
 	
-	var startOnClick = function(arr, counter) {
+	var startTrial= function(arr, counter) {
 		if (counter === 0) { // no click needed to start experiment
 			runStimuli(arr[counter]);
 			startTimer(arr, counter+1); 
@@ -75,7 +74,7 @@ var startExp = function(arr) {
 		}
 	};
 	
-	startOnClick(Stimuli, 0); // start experiment with first nested array that was created with the partExp function
+	startTrial(Stimuli, 0); // start experiment with first nested array that was created with the partExp function
 };
 
 
