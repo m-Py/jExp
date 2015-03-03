@@ -3,12 +3,12 @@ $(document).ready(function() {
 	
 	// Create a dummy experiment
 
-	// fill an array with stimuli
-	// create Stimuli that are called multiple time in the experiment
+	// create stimuli that are called multiple times during the experiment
 	var fixationCross = new Cross("stim", "cross", 20, 150, 300, 2);
 	var waitForIt = new Text("stim", "mup", 50, 500, 500, "wait for it..."); 
 	var goNext = new Text("stim", "shub", 50, 0, 0, "Go for next trial"); 
 	
+	// set up array & fill with stimuli
 	expArr = [];
 	expArr.push(new Text("stim", "start", 50, 0, 0, "Start the experiment"));
 	expArr.push(waitForIt);
@@ -17,7 +17,7 @@ $(document).ready(function() {
 			expArr.push(fixationCross);
 		}
 		else {
-			expArr.push(new Square("stim", "st"+i, rndSize(), 800, 1000, rndCol())); // Parent div is always the same, but each new Square object has a seperate div which contains the stimulus
+			expArr.push(new Square("stim", "st"+i, rndSize(), 800, 1000, rndCol()));
 		}
 	}
 	for (var t = 0; t < 3; t++) {
@@ -28,7 +28,7 @@ $(document).ready(function() {
 				expArr.push(fixationCross);
 			}
 			else {
-				expArr.push(new Square("stim", "st"+i, rndSize(), 800, 1000, rndCol())); // Parent div is always the same, but each new Square object has a seperate div which contains the stimulus
+				expArr.push(new Square("stim", "st"+i, rndSize(), 800, 1000, rndCol()));
 			}
 		}
 	}
