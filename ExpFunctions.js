@@ -6,8 +6,10 @@ var partExp = function(arr) {
 	for (var i = 0; i < arr.length; i++ ) {
 		if (arr[i].duration === 0) { 
 			partArr[j].push(arr[i]);
-			partArr.push([]);
-			j++;
+			if (i < arr.length-1) {
+				partArr.push([]);
+				j++;
+			}
 		}
 		else { 
 			partArr[j].push(arr[i]);
