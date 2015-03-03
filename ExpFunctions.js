@@ -23,7 +23,6 @@ var partExp = function(arr) {
 // runStimuli is the function used to actually present the stimuli: takes an array containing stimuli objects as argument and presents all stimuli
 var runStimuli = function(partArr) {
 	// var that controls the timing of the experiment
-	$("body").css("cursor", "none"); // let cursor disappear during stimulus presentation
 	var ExperimentalDelay = 0;
 	// present the stimuli
 	for (var i = 0; i < partArr.length; i++ ) {
@@ -31,9 +30,6 @@ var runStimuli = function(partArr) {
 		setTimeout(function() { partArr[j].present(partArr[j].duration); j++}, ExperimentalDelay); // calls a new stimulus after duration and ISI of the previous stimulus
 		ExperimentalDelay = ExperimentalDelay + partArr[i].duration + partArr[i].ISI;
 	}
-	setTimeout(function() {
-		$("body").css("cursor", "auto"); // cursor reappears after stimulus presentation
-	}, getExpTime(partArr));
 };
 
 	
@@ -51,8 +47,8 @@ var getExpTime = function(partArr) {
 // TO RUN YOUR EXPERIMENT, CALL THIS FUNCTION AND PASS THE ARRAY THATS CONTAINS ALL STIMULI
 // startExp() calls the functions partExp(), runStimuli() and getExpTime() to run the complete experiment.
 var startExp = function(arr) { 
+	$("*").css("cursor", "none"); // let cursor disappear when experiment starts
 	var Stimuli = partExp(arr);
-
 	// startOnClick and startTimer recursively call each other to ensure correct timing of stimulus presentation
 	// the difficulty is that the timer must pause when ever a stimulus with the duration of 0 is shown
 	// then the experiment proceeds after a specified event has been registered (a mouse click is currently this event)
@@ -66,13 +62,15 @@ var startExp = function(arr) {
 			startTimer(arr, counter+1); 
 		}
 		else if (counter < arr.length) { // stopping condition for recursion!
-			// TO DO: better implementation of experiment continuation after a zero-duration stimulus has been shown
-			// currently: mouse clicking the DIV in which this stimulus is contained proceeds the experiment
+			// proceed experiment after a zero-duration stimulus has been shown by pressing a key
 			var currentlyShownStimulus = arr[counter-1][arr[counter-1].length-1];
-			$(currentlyShownStimulus.dummyDiv).click(function() {
-				$(currentlyShownStimulus.dummyDiv).remove();
-				runStimuli(arr[counter]);
-				startTimer(arr, counter+1); 
+			$(function(){
+				$(document).bind("keypress", function() {
+					$(document).unbind();
+					$(currentlyShownStimulus.dummyDiv).remove();
+					runStimuli(arr[counter]);
+					startTimer(arr, counter+1); 
+				});
 			});
 		}
 	};
