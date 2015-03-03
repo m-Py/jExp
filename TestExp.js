@@ -34,6 +34,8 @@ $(document).ready(function() {
 	}
 	expArr.push(new Text("stim", "zzt", 50, 0, 500, "Over!"));
 	
+	
+	
 	 	
 	// start the experiment!
 	startExp((expArr));

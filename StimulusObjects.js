@@ -131,3 +131,29 @@
 	Cross.prototype.present = function() {
 		Stimulus.prototype.present.call(this);
 	};
+
+/*
+	// dummy code: implement several stimuli as an stimulus Object
+	function MultiStim() {
+		for (var i = 0; i < arguments.length; i++) { 
+			this["stimulus"+i] = arguments[i]; // might work? 
+		}
+		// this.ISI = longest ISI value of passed stimuli
+		// this.duration = longest duration of passed stimuli
+	}
+	MultiStim.prototype = Object.create(Stimulus.prototype, { 
+		contructor: {
+			configurable: true,
+			enumerable: true,
+			value: MultiStim,
+			writable: true
+		}
+	});
+	MultiStim.prototype.showStimulus = function() {
+		// call showStimulus of all passed stimuli. Enumerate objects properties to do this
+	};
+	MultiStim.prototype.present = function() {
+		Stimulus.prototype.present.call(this);
+	};
+					 
+*/
