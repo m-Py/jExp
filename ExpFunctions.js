@@ -45,11 +45,13 @@ var getExpTime = function(partArr) {
 
 
 // TO RUN YOUR EXPERIMENT, CALL THIS FUNCTION AND PASS THE ARRAY THATS CONTAINS ALL STIMULI
-// calls the functions partExp(), runStimuli() and getExpTime() to run the complete experiment.
+// startExp() calls the functions partExp(), runStimuli() and getExpTime() to run the complete experiment.
 var startExp = function(arr) { 
 	var Stimuli = partExp(arr);
 
 	// startOnClick and startTimer recursively call each other to ensure correct timing of stimulus presentation
+	// the difficulty is that the timer must pause when ever a stimulus with the duration of 0 is shown
+	// then the experiment proceeds after a specified event has been registered (a mouse click is currently this event)
 	var startTimer = function(arr, counter) {
 		setTimeout(function() { startOnClick(arr, counter); }, getExpTime(arr[counter-1])); 
 	};
@@ -59,9 +61,9 @@ var startExp = function(arr) {
 			runStimuli(arr[counter]);
 			startTimer(arr, counter+1); 
 		}
-		else if (counter < arr.length) {
-			// TO DO: better implementation of proceeding in experiment when a zero-duration stimulus is shown
-			// currently: mouse click the DIV in which this stimulus is contained to proceed
+		else if (counter < arr.length) { // stopping condition for recursion!
+			// TO DO: better implementation of experiment continuation after a zero-duration stimulus has been shown
+			// currently: mouse clicking the DIV in which this stimulus is contained proceeds the experiment
 			var currentlyShownStimulus = arr[counter-1][arr[counter-1].length-1];
 			$(currentlyShownStimulus.dummyDiv).click(function() {
 				$(currentlyShownStimulus.dummyDiv).remove();
