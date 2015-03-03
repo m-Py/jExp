@@ -52,18 +52,20 @@ var startExp = function(arr) {
 	};
 	
 	var startOnClick = function(arr, counter) {
-		// there must be a better way to get an event handler that only works in this situation
-		$("body").append("<div id='startMe'></div>");
-		$("#startMe").css("height", $(window).height());
-		$("#startMe").css("width", $(window).width());
-		$("#startMe").click(function() {
-			$("#startMe").remove();
-			if (counter > 0 && counter < arr.length-1) {
-				$(arr[counter-1][arr[counter-1].length-1].dummyDiv).remove(); // probably the most ugly code ever; but it does remove the most recently presented stimulus ;-)
-			}
-			runStimuli(arr[counter]);
-			startTimer(arr, counter+1); // call startOnClick again after a timer has run out: then, the next stimuli are called
-		});
+		if (counter < arr.length) {
+			// there must be a better way to get an event handler that only works in this situation
+			$("body").append("<div id='startMe'></div>");
+			$("#startMe").css("height", $(window).height());
+			$("#startMe").css("width", $(window).width());
+			$("#startMe").click(function() {
+				$("#startMe").remove();
+				if (counter > 0 && counter < arr.length-1) {
+					$(arr[counter-1][arr[counter-1].length-1].dummyDiv).remove(); // probably the most ugly code ever; but it does remove the most recently presented stimulus ;-)
+				}
+				runStimuli(arr[counter]);
+				startTimer(arr, counter+1); // call startOnClick again after a timer has run out: then, the next stimuli are called
+			});
+		}
 	};
 	startOnClick(Stimuli, 0); // start experiment with first experimental unit
 };
