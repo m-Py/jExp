@@ -28,11 +28,11 @@ The implementation of jExp consists of 2 main parts:
 
 ### TO DO
 
+- change start event for the presentation of new stimuli after one stimulus with duration = 0 was presented
+
 - implement stimulus positioning by passing arguments to the constructor
 
 - implement simultaneous presentation of multiple stimuli
-
-- include possibility for stimuli presentation not having a fixed duration, but rather depending on an external event (like a key press)
 
 - (maybe later): remove the necessity to pass DOM id names to the stimulus constructor
 
