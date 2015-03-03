@@ -1,12 +1,13 @@
 
-// create partial arrays. Presentation of stimuli must be stopped when the duration of 1 stimulus is 0.
+// function that partitions the passed array into an array containing > 0 arrays. 
+// Partitition is made so that only the last stimulus object in each nested array has a duration of 0.
 var partExp = function(arr) {
 	var j = 0; // count the partial arrays that we need
 	var partArr = [[]];
 	for (var i = 0; i < arr.length; i++ ) {
 		if (arr[i].duration === 0) { 
 			partArr[j].push(arr[i]);
-			if (i < arr.length-1) {
+			if (i < arr.length-1) { // do not add unnecessary empty array if the last stimulus in the passed array has a duration of 0
 				partArr.push([]);
 				j++;
 			}
@@ -19,7 +20,7 @@ var partExp = function(arr) {
 };
 
 
-// runStimuli actually presents the stimuli: takes an array containing stimuli objects as argument and presents all stimuli
+// runStimuli is the function used to actually present the stimuli: takes an array containing stimuli objects as argument and presents all stimuli
 var runStimuli = function(partArr) {
 	// var that controls the timing of the experiment
 	var ExperimentalDelay = 0;
@@ -44,11 +45,13 @@ var getExpTime = function(partArr) {
 
 
 // Function that runs the experiment. TO RUN YOUR EXPERIMENT, CALL THIS FUNCTION AND PASS THE ARRAY THATS CONTAINS ALL STIMULI
+// uses the functions partExp(), runStimuli() and getExpTime() to run an experiment.
 var startExp = function(arr) { 
 	var Stimuli = partExp(arr); // partition passed array into several units. Partition is at each stimulus that has a duration of 0!
 
+	// startOnClick and startTimer recursively call each other to ensure correct timing of stimulus presentation
 	var startTimer = function(arr, counter) {
-		setTimeout(function() { startOnClick(arr, counter); }, getExpTime(arr[counter-1])); // calls startsOnClick after the stimuli of the current set have been presented
+		setTimeout(function() { startOnClick(arr, counter); }, getExpTime(arr[counter-1])); 
 	};
 	
 	var startOnClick = function(arr, counter) {
@@ -59,19 +62,20 @@ var startExp = function(arr) {
 			$("#startMe").css("width", $(window).width());
 			$("#startMe").click(function() {
 				$("#startMe").remove();
-				if (counter > 0 && counter < arr.length-1) {
+				if (counter > 0 && counter < arr.length-1) { // dont do this before the first and after the last stimulus
 					$(arr[counter-1][arr[counter-1].length-1].dummyDiv).remove(); // probably the most ugly code ever; but it does remove the most recently presented stimulus ;-)
 				}
 				runStimuli(arr[counter]);
-				startTimer(arr, counter+1); // call startOnClick again after a timer has run out: then, the next stimuli are called
+				startTimer(arr, counter+1); 
 			});
 		}
 	};
-	startOnClick(Stimuli, 0); // start experiment with first experimental unit
+	startOnClick(Stimuli, 0); // start experiment with first nested array that was created with the partExp function
 };
 
 
-// function that removes a given div after a specified duration. Give duration argument in ms.
+// countdown: function that removes a given div after a specified duration. Pass duration in ms.
+// is called by the present method of the stimulus objects
 var countdown = function(duration, div) {
 	var timeLeft = duration/10;
 	var countdown = setInterval(function() {
