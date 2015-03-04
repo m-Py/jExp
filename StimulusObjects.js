@@ -132,14 +132,18 @@
 		Stimulus.prototype.present.call(this);
 	};
 
-/*
+
 	// dummy code: implement several stimuli as an stimulus Object
 	function MultiStim() {
+		var _longestDuration = 0;
+		var _longestISI = 0;
 		for (var i = 0; i < arguments.length; i++) { 
-			this["stimulus"+i] = arguments[i]; // might work? 
+			this["stimulus"+i] = arguments[i]; // might work?
+			if (arguments[i].duration >= _longestDuration) { _longestDuration = arguments[i].duration; }
+			if (arguments[i].ISI >= _longestISI) { _longestISI = arguments[i].ISI; }
 		}
-		// this.ISI = longest ISI value of passed stimuli
-		// this.duration = longest duration of passed stimuli
+		this.duration = _longestDuration
+		this.ISI = _longestISI
 	}
 	MultiStim.prototype = Object.create(Stimulus.prototype, { 
 		contructor: {
@@ -150,10 +154,18 @@
 		}
 	});
 	MultiStim.prototype.showStimulus = function() {
-		// call showStimulus of all passed stimuli. Enumerate objects properties to do this
+		for (var property in this) {
+			if (property.indexOf("stimulus") > -1) { // call stimuli that are bound in this object
+				this[property].showStimulus();
+			}
+		}
 	};
 	MultiStim.prototype.present = function() {
-		Stimulus.prototype.present.call(this);
+		for (var property in this) {
+			if (property.indexOf("stimulus") > -1) { // call stimuli that are bound in this object
+				this[property].present();
+			}
+		}
 	};
 					 
-*/
+
