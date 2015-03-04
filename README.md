@@ -2,16 +2,16 @@
 
 **jExp is a JavaScript framework that enables you to run psychological experiments in your browser.**
 
-The jExp library can be used to present experimental stimuli sequentially in a precisely timed manner. The implementation of jExp consists of 2 main parts:
+The jExp library can be used to present experimental stimuli simultaneously and sequentially in a precisely timed manner. The implementation of jExp consists of 2 main parts:
 
-1. Experimental stimuli are implemented in an object hierarchie. You can instantiate stimuli to present them in your experiment. Stimuli can be anything that you can create using JavaScript, HTML and CSS, or any media files that a browser understands. The appearance of a stimulus is specified in the *showStimulus* method of the stimulus prototype. The presentation duration and an inter-stimulus-intervall of a stimulus are passed as arguments to the constructor when a stimulus is instantiated. TO DO: passing of stimulus position as constructor argument.
+1. Experimental stimuli are implemented in an object hierarchie. You can instantiate stimuli to present them in your experiment. Stimuli can be anything that you can create using JavaScript, HTML and CSS, or any media files a browsercan handle. The appearance of a stimulus is specified in the *showStimulus* method of the stimulus prototype. The presentation duration and an inter-stimulus-intervall of a stimulus are passed as arguments to the constructor when a stimulus is instantiated.
 
 2. Functions that run the experiment and especially ensure the correct timing of stimulus presentation. Particularly important is the function *startExp*: It takes an array containing stimuli objects as argument and runs the experiment.
 
 
 ### TO DO
 
-** major
+**major
 
 - stimulus positioning
 
@@ -19,7 +19,7 @@ The jExp library can be used to present experimental stimuli sequentially in a p
 
 - data storing functionality
 
-** minor
+**minor
 
 - make object instantiation more comfortable
 
