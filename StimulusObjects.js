@@ -5,7 +5,6 @@
 		this.dummyParent = "#"+Parent;
 		// create dummy divs that will contain the stimulus
 		this.dummyDiv = "#"+Name;
-		this.subDummy = "#"+Name+Name;
 		this.size = size;
 		this.duration = duration; // presentation time of the stimulus. Specify in ms.
 		this.ISI = ISI; // inter-stimulus-intervall = pause after stimulus before next stimulus is shown
@@ -13,7 +12,6 @@
 	Stimulus.prototype.showStimulus = function() {
 		// create stimulus
 		$(this.dummyParent).append("<div id="+this.Name+"></div>");
-		$(this.dummyDiv).append("<div id="+this.Name+this.Name+"></div>");
 		$(this.dummyDiv).height(this.size+"px");	
 	};	
 	Stimulus.prototype.present = function() { // should not be changed; Can be called from subclasses.
@@ -30,6 +28,7 @@
 		// add special properties
 		this.text = text; 
 		this.color = color || "black";
+		this.subDummy = "#"+Name+Name; // for positioning of text stimulus
 	}
 	Text.prototype = Object.create(Stimulus.prototype, {
 		contructor: {
@@ -41,6 +40,7 @@
 	});
 	Text.prototype.showStimulus = function() {
 		Stimulus.prototype.showStimulus.call(this);
+		$(this.dummyDiv).append("<div id="+this.Name+this.Name+"></div>");		
 		// show text in center alignment
 		$(this.dummyDiv).css("text-align", "center");
 		// position text stimulus horizontally
@@ -51,7 +51,7 @@
 		$(this.subDummy).css("left", "-50%");
 		// position text stimulus vertically
 		var height = $(window).height();
-		$(this.dummyDiv).css("top", (height-this.size)/2);
+		$(this.subDummy).css("top", (height-this.size)/2);
 		// show text stimulus
 		$(this.subDummy).css("color", this.color);
 		$(this.subDummy).css("font-size", this.size);
@@ -61,6 +61,44 @@
 		Stimulus.prototype.present.call(this);
 	};
 	
+	
+	// Text stimulus. During presentation a countdown is shown; so use even seconds as durations 
+	function CountdownText(Parent, Name, size, duration, ISI, text, color, cdSize) {
+		Text.call(this, Parent, Name, size, duration, ISI, text, color); //  call constructor from super class
+		this.cdSize = cdSize;
+	}
+	CountdownText.prototype = Object.create(Text.prototype, {
+		contructor: {
+			configurable: true,
+			enumerable: true,
+			value: CountdownText,
+			writable: true
+		}
+	});
+	// adds countdown to text displayed
+	CountdownText.prototype.showStimulus = function() {
+		Text.prototype.showStimulus.call(this);			
+		$(this.dummyDiv).prepend("<div id='countdown'></div>");
+		$("#countdown").css("position", "relative");
+		$("#countdown").css("left", "-50%");
+		var height = $(window).height();
+		$("#countdown").css("top", (height-this.size*2)/2);
+		$("#countdown").css("font-size", this.cdSize);
+		// Anzeige des Countdowns
+		var timeLeft = (this.duration/1000)+1;
+		$("#countdown").html(--timeLeft);
+		var countdown = setInterval(function() {
+			$("#countdown").html(--timeLeft);
+			if (timeLeft <= 0) {
+				$("#countdown").css("color", "transparent");
+				clearInterval(countdown)
+			}
+		}, 1000);
+	};
+	CountdownText.prototype.present = function() {
+		Stimulus.prototype.present.call(this);
+	};	
+		
 	
 	// Square-stimulus. Has color as special property. Inherits from Stimulus.
 	function Square(Parent, Name, size, duration, ISI, color) {
