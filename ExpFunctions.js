@@ -64,7 +64,7 @@ var startExp = function(arr) {
 			// proceed experiment after a zero-duration stimulus has been shown by pressing a key
 			var currentlyShownStimulus = arr[counter-1][arr[counter-1].length-1];
 			$(function(){
-				$(document).bind("keypress", function() {
+				$(document).on("keypress click", function() {
 					$(document).unbind();
 					$(currentlyShownStimulus.dummyDiv).remove();
 					runStimuli(arr[counter]);
