@@ -171,12 +171,14 @@
 	};
 
 
-	// dummy code: implement several stimuli as an stimulus Object
+	// create an object that binds multiple stimuli objects into one stimulus object: MultiStim
+	// has duration and ISI that are equal to the maximum duration and ISI of the passed stimulus objects
+	// each stimulus of the MultiStim is called as long as its own duration is, however
 	function MultiStim() {
 		var _longestDuration = 0;
 		var _longestISI = 0;
-		for (var i = 0; i < arguments.length; i++) { 
-			this["stimulus"+i] = arguments[i]; // might work?
+		for (var i = 0; i < arguments.length; i++) {
+			this["stimulus"+i] = arguments[i];
 			if (arguments[i].duration >= _longestDuration) { _longestDuration = arguments[i].duration; }
 			if (arguments[i].ISI >= _longestISI) { _longestISI = arguments[i].ISI; }
 		}
