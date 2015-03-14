@@ -12,6 +12,7 @@ The jExp library can be used to present experimental stimuli simultaneously and 
 ### TO DO
 
 **major**
+
 1. event handling
   1. add event listener method to Stimuli that is also called by present()
   2. It should record key- / mouse presses as well as the reaction time
@@ -24,6 +25,7 @@ The jExp library can be used to present experimental stimuli simultaneously and 
   1. the HTML canvas element; then positioning can be done via coordinates  
 
 **minor**
+
 1. make object instantiation more comfortable
 
 
