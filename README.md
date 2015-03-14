@@ -11,15 +11,20 @@ The jExp library can be used to present experimental stimuli simultaneously and 
 
 ### TO DO
 
-**major
+**major**
 
 - stimulus positioning
+-- the HTML canvas element; then positioning can be done via coordinates  
 
 - event handling (a big one...)
+-- add listener method to stimuli. It should record key- / mouse presses as well as the reaction time
+-- when should event listening stop (idea: after duration + ISI)
 
 - data storing functionality
+-- not client - server exchange functionality, but how will the reactions be stored in JavaScript
+-- idea: add data-save properties to stimulus: this.time, this.key?
 
-**minor
+**minor**
 
 - make object instantiation more comfortable
 
