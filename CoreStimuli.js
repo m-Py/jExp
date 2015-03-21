@@ -26,7 +26,7 @@
 	Stimulus.prototype.present = function() { // should not be changed; Can be called from subclasses.
 		this.showStimulus();
 		if (this.duration != 0) {
-			countdown(this.duration, this.dummyDiv);
+			countdown(this.duration, this.dummyDiv); // to do: remove event listener after countdown; maybe countdown should be implemented as an stimulus method
 		}
 	};			
 	
@@ -103,8 +103,12 @@
 		$(this.dummyDiv).css("width", this.size);
 		$(this.dummyDiv).css("background-color", this.color);
 	};
+	Square.prototype.listen = function() {
+		Stimulus.prototype.listen.call(this);	
+	};
 	Square.prototype.present = function() {
 		Stimulus.prototype.present.call(this);
+		this.listen();
 	};	
 	
 	
