@@ -14,14 +14,17 @@ The jExp library can be used to present experimental stimuli simultaneously and 
 **major**
 
 1. event handling
-  1. add event listener method to Stimuli that is also called by present()
-  2. It should record key- / mouse presses as well as the reaction time
-  3. consider how to implement stopping of event listening (after duration + ISI ?)
-  4. look at performance.now() to save reaction times
-2. data storing functionality
+  1. add event listener method to Stimuli that is also called by *present*
+  2. add listener as function to stimuli (Check)
+  3. remove listener after duration + ISI (to do)
+  4. probably move *countdown* function to the Stimulus super object rather than using it as a global function
+  5. which events should be listened to? Should be implemented at object creation (via constructor probably)
+  6. implement the possibility to listen or not listen to reaction
+2. add toString method to Stimuli objects  
+3. data storing functionality
   1. not client - server exchange functionality, but how will the reactions be stored in JavaScript
   2. idea: add data-save properties to stimulus: this.time, this.key?
-3. stimulus positioning
+4. stimulus positioning
   1. the HTML canvas element; then positioning can be done via coordinates  
 
 **minor**
