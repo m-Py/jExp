@@ -11,11 +11,14 @@
 		this.ISI = ISI; // inter-stimulus-intervall = pause after stimulus before next stimulus is shown
 		this.RT;
 	}
+	Stimulus.prototype.toString = function() {
+		return("Type: Stimulus, duration: " + this.duration + ", ISI: " + this.ISI + ", RT: " + this.RT); 
+	};
 	Stimulus.prototype.showStimulus = function() {
 		// create stimulus
 		$(this.dummyParent).append("<div id="+this.Name+"></div>");
 		$(this.dummyDiv).height(this.size+"px");	
-	};	
+	};
 	Stimulus.prototype.present = function() { // should not be changed; Can be called from subclasses.
 		this.showStimulus();
 		if (this.duration != 0) {
@@ -41,6 +44,9 @@
 			writable: true
 		}
 	});
+	Text.prototype.toString = function() {
+		return("Type: Text, duration: " + this.duration + ", ISI: " + this.ISI + ", RT: " + this.RT); 
+	};
 	Text.prototype.showStimulus = function() {
 		Stimulus.prototype.showStimulus.call(this);
 		$(this.dummyDiv).append("<div id="+this.Name+this.Name+"></div>");		
@@ -80,6 +86,9 @@
 			writable: true
 		}
 	});
+	Square.prototype.toString = function() {
+		return("Type: Square, duration: " + this.duration + ", ISI: " + this.ISI + ", RT: " + this.RT); 
+	};
 	Square.prototype.showStimulus = function() {
 		Stimulus.prototype.showStimulus.call(this);
 		$(this.dummyDiv).css("width", this.size);
@@ -93,10 +102,28 @@
 		$(this.dummyDiv).css("width", this.size);
 		$(this.dummyDiv).css("background-color", this.color);
 	};
+	Square.prototype.listen = function () {
+		var t0 = performance.now();
+		var that = this; // save reaction time value into RT property of each object
+		that.RT = 0;
+		$("*").on("keypress click", function() {
+			that.RT = performance.now() - t0;
+			console.log(that.RT);
+			$("*").off();
+		});	
 
+		var timeLeft = (this.duration+this.ISI)/10;
+		var countdown = setInterval(function() {
+			timeLeft--; // countdown
+			if (timeLeft <= 0) {
+				clearInterval(countdown);
+				$("*").off();
+			}
+		}, 10); // timing precision of 10ms
+	};
 	Square.prototype.present = function() {
 		Stimulus.prototype.present.call(this);
-		this.RT = listen(this.duration, this.ISI);
+		this.listen(); 
 	};	
 	
 	
@@ -113,6 +140,9 @@
 			writable: true
 		}
 	});
+	Cross.prototype.toString = function() {
+		return("Type: Fixationcross, duration: " + this.duration + ", ISI: " + this.ISI); 
+	};	
 	Cross.prototype.showStimulus = function() {
 		// fixation cross is drawn using HTML canvas
 		$(this.dummyParent).append("<canvas id="+this.Name+"></canvas>");
@@ -138,5 +168,31 @@
 	Cross.prototype.present = function() {
 		Stimulus.prototype.present.call(this);
 	};
+	
+	
+	// log results in the end of the experiment
+	function Results(Parent, Name, size, duration, ISI, text, color, expArr) {
+		Text.call(this, Parent, Name, size, duration, ISI, text, color); 
+		this.expArr = expArr;
+	}
+	Results.prototype = Object.create(Text.prototype, {
+		contructor: {
+			configurable: true,
+			enumerable: true,
+			value: Results,
+			writable: true
+		}
+	});
+	Results.prototype.showStimulus = function() {
+		Text.prototype.showStimulus.call(this);	
+		for (var i = 0; i < this.expArr.length; i++) {
+			//if (this.expArr[i].constructor == Square) {
+				console.log("Stimulus " + (i+1) + ", " + this.expArr[i].toString());
+			//}
+		}
+	};
+	Results.prototype.present = function() {
+		Stimulus.prototype.present.call(this);
+	};				
 
 
