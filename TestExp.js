@@ -29,7 +29,7 @@ $(document).ready(function() {
 			expArr.push(new Square("stim", "st"+i, rndSize(), 800, 1000, rndCol()));
 		}
 	}
-	for (var t = 0; t < 3; t++) {
+	for (var t = 0; t < 1; t++) {
 		expArr.push(goNext);
 		expArr.push(waitForIt);
 		for (var i = 0; i < 6; i++) {
@@ -41,7 +41,7 @@ $(document).ready(function() {
 			}
 		}
 	}
-	expArr.push(new Text("stim", "zzt", 50, 0, 500, "Over!"));
+	expArr.push(new Results("stim", "zzt", 50, 0, 500, "Over!", "black", expArr));
 	
 	
 	
