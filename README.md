@@ -23,7 +23,7 @@ The jExp library can be used to present experimental stimuli simultaneously and 
 3. create sample experiment with data storage and event handling  
 4. stimulus positioning
   1. implement all stimuli via HTML canvas element? Then positioning can be done via coordinates  
-5. I forgot one more point ;-) (it was important)
+5. add functionality to group several stimuli into one block
 
 **minor**
 
