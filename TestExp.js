@@ -4,7 +4,7 @@ $(document).ready(function() {
 	// Create a dummy experiment
 
 	// create stimuli that are called multiple times during the experiment
-	var fixationCross = new Cross("stim", "cross", 20, 150, 300, 2);
+	
 	var waitForIt = new Text("stim", "mup", 50, 500, 500, "wait for it..."); 
 	var goNext = new Text("stim", "shub", 50, 0, 0, "Go for next trial"); 
 	
@@ -21,23 +21,23 @@ $(document).ready(function() {
 	expArr = [];
 	expArr.push(new Text("stim", "start", 50, 0, 0, "Start the experiment"));
 	expArr.push(waitForIt);
-	for (var i = 0; i < 6; i++) {
+	for (var i = 0; i < 12; i++) {
 		if (i % 2 === 0) {
-			expArr.push(fixationCross);
+			expArr.push(new Cross("stim", "st"+i, 20, 150, rndInt(500, 800), 2));
 		}
 		else {
-			expArr.push(new Square("stim", "st"+i, rndSize(), 800, 1000, rndCol()));
+			expArr.push(new Square("stim", "st"+i, rndInt(10, 300), 800, rndInt(800, 2000), rndCol()));
 		}
 	}
-	for (var t = 0; t < 1; t++) {
+	for (var t = 0; t < 4; t++) {
 		expArr.push(goNext);
 		expArr.push(waitForIt);
-		for (var i = 0; i < 6; i++) {
+		for (var i = 0; i < 12; i++) {
 			if (i % 2 === 0) {
-				expArr.push(fixationCross);
+				expArr.push(new Cross("stim", "st"+i, 20, 150, rndInt(500, 800), 2));
 			}
 			else {
-				expArr.push(new Square("stim", "st"+i, rndSize(), 800, 1000, rndCol()));
+				expArr.push(new Square("stim", "st"+i, rndInt(10, 300), 800, rndInt(800, 2000), rndCol()));
 			}
 		}
 	}

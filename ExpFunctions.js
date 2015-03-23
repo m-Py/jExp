@@ -92,15 +92,13 @@ var countdown = function(duration, div) {
 };
 
 
-	
-	
 // create a random rgb color: "rgb(x,y,z)"
 var rndCol = function() {
 	return("rgb("+Math.floor(Math.random()*256)+","+Math.floor(Math.random()*256)+","+Math.floor(Math.random()*256)+")");
 };	
 	
 	
-// create a random number, max 350. Can be used in order to randomize the size of a stimulus
-var rndSize = function() {
-	return(Math.floor(Math.random()*340)+10);
+// create a random number
+var rndInt = function(max, min) {
+	return(Math.floor(Math.random()*(max-min))+min);
 };
