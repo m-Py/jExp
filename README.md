@@ -14,34 +14,31 @@ The jExp library can be used to present experimental stimuli simultaneously and 
 **major**
 
 1. event handling
-  1. add event listener method to Stimuli that is also called by *present*
-  2. add listener as function to stimuli (Check)
-  3. remove listener after duration + ISI (to do)
-  4. probably move *countdown* function to the Stimulus super object rather than using it as a global function
-  5. which events should be listened to? Should be implemented at object creation (via constructor probably)
-  6. implement the possibility to listen or not listen to reaction
-2. add toString method to Stimuli objects  
-3. data storing functionality
-  1. not client - server exchange functionality, but how will the reactions be stored in JavaScript
-  2. idea: add data-save properties to stimulus: this.time, this.key?
+  1. specify allowed key presses
+  2. specify keys responsible for different parts of a task
+  3. specify correct / incorrect keypresses 
+  4. store key pressed and whether press was correct
+  5. implement no go as correct response
+2. data storage client and server side
+3. create sample experiment with data storage and event handling  
 4. stimulus positioning
-  1. the HTML canvas element; then positioning can be done via coordinates  
+  1. implement all stimuli via HTML canvas element? Then positioning can be done via coordinates  
+5. I forgot one more point ;-) (it was important)
 
 **minor**
 
 1. make object instantiation more comfortable
+  1. implement an experiment object that gets passed the parent div
+  2. experiment object can have methods to add stimuli
+  3. startExp can be method of experiment object
+2. make creation of new stimulus objects more comfortable
 
 
 ### "Stimulus-object creation contract"
 
 - if you create a new stimulus, inherit from the super object *Stimulus*
-
 - call the constructor of *Stimulus*, add further features by adding more arguments to the constructor
-
 - override *showStimulus* to specify the appearance of your stimulus
-
 - never override *present*, inherit this method from *Stimulus*
-
 - implement the possibility to position your stimulus by passing arguments to the object constructor
-
 - if no argument is given, make central positioning default for your Stimulus
