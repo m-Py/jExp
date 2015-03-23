@@ -95,10 +95,10 @@ var countdown = function(duration, div) {
 // create a random rgb color: "rgb(x,y,z)"
 var rndCol = function() {
 	return("rgb("+Math.floor(Math.random()*256)+","+Math.floor(Math.random()*256)+","+Math.floor(Math.random()*256)+")");
-};	
+};
 	
 	
-// create a random number
-var rndInt = function(max, min) {
+// create a random integer, includes passed min and max value
+var rndInt = function(min, max) {
 	return(Math.floor(Math.random()*(max-min))+min);
 };
