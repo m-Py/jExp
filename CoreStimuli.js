@@ -9,26 +9,19 @@
 		this.size = size;
 		this.duration = duration; // presentation time of the stimulus. Specify in ms.
 		this.ISI = ISI; // inter-stimulus-intervall = pause after stimulus before next stimulus is shown
+		this.RT;
 	}
 	Stimulus.prototype.showStimulus = function() {
 		// create stimulus
 		$(this.dummyParent).append("<div id="+this.Name+"></div>");
 		$(this.dummyDiv).height(this.size+"px");	
 	};	
-	// add event listener method!
-	Stimulus.prototype.listen = function() {
-		var t0 = performance.now();
-		$(document).on("keypress click", function() {
-			var RT = performance.now() - t0;
-			console.log(RT);
-		});
-	};
 	Stimulus.prototype.present = function() { // should not be changed; Can be called from subclasses.
 		this.showStimulus();
 		if (this.duration != 0) {
 			countdown(this.duration, this.dummyDiv); // to do: remove event listener after countdown; maybe countdown should be implemented as an stimulus method
 		}
-	};			
+	};
 	
 	
 	
@@ -67,12 +60,9 @@
 		$(this.subDummy).css("font-size", this.size);
 		$(this.subDummy).html(this.text);
 	};
-	Text.prototype.listen = function() {
-		Stimulus.prototype.listen.call(this);	
-	};
+
 	Text.prototype.present = function() {
 		Stimulus.prototype.present.call(this);
-		this.listen();
 	};
 	
 	
@@ -103,12 +93,10 @@
 		$(this.dummyDiv).css("width", this.size);
 		$(this.dummyDiv).css("background-color", this.color);
 	};
-	Square.prototype.listen = function() {
-		Stimulus.prototype.listen.call(this);	
-	};
+
 	Square.prototype.present = function() {
 		Stimulus.prototype.present.call(this);
-		this.listen();
+		this.RT = listen(this.duration, this.ISI);
 	};	
 	
 	
@@ -151,41 +139,4 @@
 		Stimulus.prototype.present.call(this);
 	};
 
-
-
-	// Stimulus Object that can consist of multiple stimuli
-	function MultiStim() {
-		var _longestDuration = 0;
-		var _longestISI = 0;
-		for (var i = 0; i < arguments.length; i++) {
-			this["stimulus"+i] = arguments[i];
-			if (arguments[i].duration >= _longestDuration) { _longestDuration = arguments[i].duration; }
-			if (arguments[i].ISI >= _longestISI) { _longestISI = arguments[i].ISI; }
-		}
-		this.duration = _longestDuration
-		this.ISI = _longestISI
-	}
-	MultiStim.prototype = Object.create(Stimulus.prototype, { 
-		contructor: {
-			configurable: true,
-			enumerable: true,
-			value: MultiStim,
-			writable: true
-		}
-	});
-	MultiStim.prototype.showStimulus = function() {
-		for (var property in this) {
-			if (property.indexOf("stimulus") > -1) { // call stimuli that are bound in this object
-				this[property].showStimulus();
-			}
-		}
-	};
-	MultiStim.prototype.present = function() {
-		for (var property in this) {
-			if (property.indexOf("stimulus") > -1) { // call stimuli that are bound in this object
-				this[property].present();
-			}
-		}
-	};
-					 
 

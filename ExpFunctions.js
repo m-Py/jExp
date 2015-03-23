@@ -63,14 +63,14 @@ var startExp = function(arr) {
 		else if (counter < arr.length) { // stopping condition for recursion!
 			// proceed experiment after a zero-duration stimulus has been shown by pressing a key
 			var currentlyShownStimulus = arr[counter-1][arr[counter-1].length-1];
-			$(function(){
+
 				$(document).on("keypress click", function() {
-					$(document).unbind();
+					$(document).off();
 					$(currentlyShownStimulus.dummyDiv).remove();
 					runStimuli(arr[counter]);
 					startTimer(arr, counter+1); 
 				});
-			});
+
 		}
 	};
 	
@@ -83,12 +83,37 @@ var startExp = function(arr) {
 var countdown = function(duration, div) {
 	var timeLeft = duration/10;
 	var countdown = setInterval(function() {
-	timeLeft--; // countdown
-	if (timeLeft <= 0) {
-		clearInterval(countdown)
-		$(div).remove();
-	}
+		timeLeft--; // countdown
+		if (timeLeft <= 0) {
+			clearInterval(countdown);
+			$(div).remove();
+		}
 	}, 10); // timing precision of 10ms
+};
+
+var listen = function(duration, ISI) {
+	var t0 = performance.now();
+	var RT = 0;
+	$(document).on("keypress click", function() {
+		RT = performance.now() - t0;
+		if (RT > duration + ISI) {
+			RT = duration + ISI;
+		}
+		console.log(RT);
+		$(document).off();
+	});	
+	
+	if (duration != 0) {
+		var timeLeft = (duration+ISI)/10;
+		var countdown = setInterval(function() {
+			timeLeft--; // countdown
+			if (timeLeft <= 0) {
+				clearInterval(countdown);
+				// $(document).off();
+			}
+		}, 10); // timing precision of 10ms	
+	}
+	return RT;
 };
 	
 	
