@@ -91,30 +91,7 @@ var countdown = function(duration, div) {
 	}, 10); // timing precision of 10ms
 };
 
-var listen = function(duration, ISI) {
-	var t0 = performance.now();
-	var RT = 0;
-	$(document).on("keypress click", function() {
-		RT = performance.now() - t0;
-		if (RT > duration + ISI) {
-			RT = duration + ISI;
-		}
-		console.log(RT);
-		$(document).off();
-	});	
-	
-	if (duration != 0) {
-		var timeLeft = (duration+ISI)/10;
-		var countdown = setInterval(function() {
-			timeLeft--; // countdown
-			if (timeLeft <= 0) {
-				clearInterval(countdown);
-				// $(document).off();
-			}
-		}, 10); // timing precision of 10ms	
-	}
-	return RT;
-};
+
 	
 	
 // create a random rgb color: "rgb(x,y,z)"
