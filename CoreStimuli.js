@@ -1,6 +1,6 @@
 	
 	// Stimulus-object. Super class of all stimuli. In itself it only creates an empty div with a specified height.
-	function Stimulus(Parent, Name, size, duration, ISI) {
+	function Stimulus(Parent, Name, size, duration, ISI) { // in new form the constructor should only take: duration, ISI, listening (true / false)
 		this.Parent = Parent;
 		this.Name = Name;
 		this.dummyParent = "#"+Parent;
@@ -18,6 +18,25 @@
 		// create stimulus
 		$(this.dummyParent).append("<div id="+this.Name+"></div>");
 		$(this.dummyDiv).height(this.size+"px");	
+	};
+	Stimulus.prototype.listen = function () {
+		var t0 = performance.now();
+		var that = this; // save reaction time value into RT property of each object
+		that.RT = 0;
+		$("*").on("keypress click", function() {
+			that.RT = performance.now() - t0;
+			console.log(that.RT);
+			$("*").off();
+		});	
+
+		var timeLeft = (this.duration+this.ISI)/10;
+		var countdown = setInterval(function() {
+			timeLeft--; // countdown
+			if (timeLeft <= 0) {
+				clearInterval(countdown);
+				$("*").off();
+			}
+		}, 10); // timing precision of 10ms
 	};
 	Stimulus.prototype.present = function() { // should not be changed; Can be called from subclasses.
 		this.showStimulus();
@@ -66,7 +85,6 @@
 		$(this.subDummy).css("font-size", this.size);
 		$(this.subDummy).html(this.text);
 	};
-
 	Text.prototype.present = function() {
 		Stimulus.prototype.present.call(this);
 	};
@@ -102,28 +120,12 @@
 		$(this.dummyDiv).css("width", this.size);
 		$(this.dummyDiv).css("background-color", this.color);
 	};
-	Square.prototype.listen = function () {
-		var t0 = performance.now();
-		var that = this; // save reaction time value into RT property of each object
-		that.RT = 0;
-		$("*").on("keypress click", function() {
-			that.RT = performance.now() - t0;
-			console.log(that.RT);
-			$("*").off();
-		});	
-
-		var timeLeft = (this.duration+this.ISI)/10;
-		var countdown = setInterval(function() {
-			timeLeft--; // countdown
-			if (timeLeft <= 0) {
-				clearInterval(countdown);
-				$("*").off();
-			}
-		}, 10); // timing precision of 10ms
+	Square.prototype.listen = function() {
+		Stimulus.prototype.listen.call(this);
 	};
 	Square.prototype.present = function() {
 		Stimulus.prototype.present.call(this);
-		this.listen(); 
+		this.listen();
 	};	
 	
 	
@@ -186,13 +188,11 @@
 	Results.prototype.showStimulus = function() {
 		Text.prototype.showStimulus.call(this);	
 		for (var i = 0; i < this.expArr.length; i++) {
-			//if (this.expArr[i].constructor == Square) {
-				console.log("Stimulus " + (i+1) + ", " + this.expArr[i].toString());
-			//}
+			console.log("Stimulus " + (i+1) + ", " + this.expArr[i].toString());
 		}
 	};
 	Results.prototype.present = function() {
 		Stimulus.prototype.present.call(this);
-	};				
+	};
 
 
