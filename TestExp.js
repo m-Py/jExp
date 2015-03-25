@@ -30,9 +30,7 @@ $(document).ready(function() {
 	}
 	expArr.push(new Results("stim", "zzt", 50, 0, 500, "Over!", "black", expArr));
 	
-	
-	
-	 	
+
 	// start the experiment!
 	startExp((expArr));
 	console.log(partExp(expArr));
