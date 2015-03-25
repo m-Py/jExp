@@ -11,3 +11,5 @@ var Experiment = {
 	expArr: [], // Array: contains all stimuli of the experiment; add and addBlock push Stimuli to this array
 };	
 	
+	
+// add function that returns a Stimulus?
