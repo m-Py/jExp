@@ -10,10 +10,15 @@ $(document).ready(function() {
 	
 	var stim2 = new Stimulus(1400, 400, true);
 	stim2.addFeature("Moep", "text");	
+
+	var stim3 = new Stimulus(1400, 400, true);
+	stim2.addFeature("", "text");		
 	
 	
 	myExp.add(stim1);
+	myExp.add(stim3);
 	myExp.add(stim2);
+	
 	
 			
 	myExp.start();

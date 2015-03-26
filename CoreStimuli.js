@@ -21,19 +21,13 @@
 		var that = this;
 		switch(type) {
 			
-			case "pause":
-				var draw = function() {
-					console.log("i just rest");
-				};
-			break;
-			
 			case "text":
-			var draw = function () {
-				that.experiment.context.font="100px Arial";
-				that.experiment.context.fillStyle = "blue";
-				that.experiment.context.textAlign = "center"; 
-				that.experiment.context.fillText(text, that.experiment.canvas.width/2, that.experiment.canvas.height/2);
-			};
+				var draw = function () {
+					that.experiment.context.font="100px Arial";
+					that.experiment.context.fillStyle = "blue";
+					that.experiment.context.textAlign = "center";
+					that.experiment.context.fillText(text, that.experiment.canvas.width/2, that.experiment.canvas.height/2);
+				};
 			break;
 
 			case "cross":
@@ -92,7 +86,7 @@
 		}
 		// 3) remove after duration
 		if (that.duration !== 0) {
-			that.experiment.countdown(that.duration); // to do: remove event listener after countdown; maybe countdown should be implemented as an stimulus method
+			that.experiment.countdown(that.duration); // remove stimulus after countdown
 		}
 	};
 	
