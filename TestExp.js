@@ -5,11 +5,11 @@ $(document).ready(function() {
 	
 	myExp = new Experiment("stim");
 	
-	var stim1 = new Stimulus(1000, 400, false);
+	var stim1 = new Stimulus(1000, 400, true);
 	stim1.addText("Hello World", 100, rndCol());
 	
-	var stim2 = new Stimulus(1000, 500, false);
-	stim2.addText("Moep", 100, rndCol());	
+	var stim2 = new Stimulus(1000, 500, true); // listening works only for first Stimulus  -- check on that!
+	stim2.addText("Moep", 100, rndCol());	 
 
 	var stim3 = new Stimulus(1000, 500, false);
 	stim3.addText("Shanol", 50, rndCol());		

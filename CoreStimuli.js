@@ -25,16 +25,12 @@
 			that.experiment.context.textAlign = "center";
 			that.experiment.context.fillText(text, that.experiment.canvas.width/2, that.experiment.canvas.height/2);
 		};
-
 		that.features[that.featureNumber] = draw;
 		that.featureNumber = that.featureNumber + 1;		
-		
 	};
-	
 	Stimulus.prototype.showStimulus = function() {
-		var that = this;
 		for (var i = 0; i < this.features.length; i++) {
-			that.features[i](); // show all the features
+			this.features[i](); // show all Stimulus features
 		}
 	};
 	Stimulus.prototype.listen = function () {
@@ -45,8 +41,8 @@
 			var RT = performance.now() - t0;
 			that.experiment.expRT.pop(); 
 			that.experiment.expRT.push(RT);
-			console.log(RT);
-			// $("*").off();
+			console.log(RT); // only gets logged for first RT in exp; this must be fixed :-)
+			$("*").off();
 		});
 		var timeLeft = (this.duration+this.ISI)/10;
 		var countdown = setInterval(function() {
@@ -62,7 +58,7 @@
 		// 1) show 
 		that.showStimulus();
 		// 2) listen to reaction
-		if (that.listening === true) { 
+		if (that.listening === true) {
 			that.listen(); 
 		}
 		// 3) remove after duration
