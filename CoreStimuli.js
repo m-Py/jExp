@@ -7,6 +7,8 @@
 		this.listening = listening; // should a reaction be recorded?
 
 		this.RT; // initialize; will be written to if listen() is executed
+		this.t0;
+		
 		this.featureNumber = 0;
 		this.features = []; // features of the stimulus that will be called by showStimulus()
 		this.next; // can be added to zero duration stimuli to specify press that continues experiment
@@ -14,6 +16,7 @@
 		this.experiment; // property gets added when stimulus is added to experiment
 
 	}
+	
 	Stimulus.prototype.toString = function() {
 		return("Type: Stimulus, duration: " + this.duration + ", ISI: " + this.ISI + ", RT: " + this.RT);
 	};
@@ -34,17 +37,18 @@
 		}
 	};
 	Stimulus.prototype.listen = function () {
-		var t0 = performance.now();
+
 		var that = this; // save reaction time value into RT property of each object
+		that.t0 = performance.now();		
 		that.experiment.expRT.push(0);
 		$("*").on("keypress click", function() {
-			var RT = performance.now() - t0;
+			var RT = performance.now() - that.t0;
 			that.experiment.expRT.pop(); 
 			that.experiment.expRT.push(RT);
 			console.log(RT); // only gets logged for first RT in exp; this must be fixed :-)
 			$("*").off();
 		});
-		var timeLeft = (this.duration+this.ISI)/10;
+		var timeLeft = (that.duration+that.ISI)/10;
 		var countdown = setInterval(function() {
 			timeLeft--; // countdown
 			if (timeLeft <= 0) {
