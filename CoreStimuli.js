@@ -17,37 +17,18 @@
 	Stimulus.prototype.toString = function() {
 		return("Type: Stimulus, duration: " + this.duration + ", ISI: " + this.ISI + ", RT: " + this.RT);
 	};
-	Stimulus.prototype.addFeature = function(text, type, size, x1, y1, x2, y2) { // name feature type and coordinates, radius, size etc. Overloading is necessary here; see how to best implement it
+	Stimulus.prototype.addText = function(text, size, color, x1, y1) { // name feature type and coordinates, radius, size etc. Overloading is necessary here; see how to best implement it
 		var that = this;
-		switch(type) {
-			
-			case "text":
-				var draw = function () {
-					that.experiment.context.font="100px Arial";
-					that.experiment.context.fillStyle = "blue";
-					that.experiment.context.textAlign = "center";
-					that.experiment.context.fillText(text, that.experiment.canvas.width/2, that.experiment.canvas.height/2);
-				};
-			break;
+		var draw = function () {
+			that.experiment.context.font = ""+size + "px Arial" || "100px Arial";
+			that.experiment.context.fillStyle = color || "blue";
+			that.experiment.context.textAlign = "center";
+			that.experiment.context.fillText(text, that.experiment.canvas.width/2, that.experiment.canvas.height/2);
+		};
 
-			case "cross":
-			// var draw = function () {};
-			break;
-
-			case "rectangle":
-			// var draw = function () {};
-			break;
-
-			case "triangle":
-			// var draw = function () {};
-			break;
-
-			case "circle":
-			// var draw = function () {};
-			break;
-		}
 		that.features[that.featureNumber] = draw;
 		that.featureNumber = that.featureNumber + 1;		
+		
 	};
 	
 	Stimulus.prototype.showStimulus = function() {
