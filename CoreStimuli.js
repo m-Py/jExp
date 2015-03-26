@@ -5,41 +5,53 @@
 		this.duration = duration; // presentation time of the stimulus. Specify in ms.
 		this.ISI = ISI; // inter-stimulus-intervall = pause after stimulus before next stimulus is shown
 		this.listening = listening; // should a reaction be recorded?
-		
+
 		this.RT; // initialize; will be written to if listen() is executed
+		this.featureNumber = 0;
 		this.features = []; // features of the stimulus that will be called by showStimulus()
+		this.next; // can be added to zero duration stimuli to specify press that continues experiment
+		
+		this.experiment; // property gets added when stimulus is added to experiment
 
 	}
 	Stimulus.prototype.toString = function() {
 		return("Type: Stimulus, duration: " + this.duration + ", ISI: " + this.ISI + ", RT: " + this.RT); 
 	};
-	Stimulus.prototype.addFeature(type, size, x1, y1, x2, y2) { // name feature type and coordinates, radius, size etc. Overloading is necessary here; see how to best implement it
+	Stimulus.prototype.addFeature = function(type, size, x1, y1, x2, y2) { // name feature type and coordinates, radius, size etc. Overloading is necessary here; see how to best implement it
+		var that = this;
 		switch(type) {
 			case "text":
-			// var doStuff = function () {};
+			var draw = function () {
+				that.experiment.context.font="20px Georgia";
+				that.experiment.context.fillStyle = "blue";
+				that.experiment.context.fillText("Moep", 100, 100);
+				console.log(that.experiment.context); 
+			};
 			break;
-			
+
 			case "cross":
 			// var doStuff = function () {};
 			break;
-			
-			case: "rectangle":
+
+			case "rectangle":
 			// var doStuff = function () {};
 			break;	
-			
-			case: "triangle":
+
+			case "triangle":
 			// var doStuff = function () {};
 			break;	
-			
-			case: "circle":
+
+			case "circle":
 			// var doStuff = function () {};
-			break;					
+			break;
 		}
-			this.features[featureNumber] = doStuff();
-	};	
+		var that = this;
+		that.features[that.featureNumber] = draw;
+		that.featureNumber = that.featureNumber + 1;		
+	};
 	Stimulus.prototype.showStimulus = function() {
 		for (var i = 0; i < this.features.length; i++) {
-			this.features[i].doStuff(); // load all the features
+			this.features[i](); // load all the features
 		}
 	};
 	Stimulus.prototype.listen = function () {
@@ -50,7 +62,7 @@
 			that.RT = performance.now() - t0;
 			console.log(that.RT);
 			$("*").off();
-		});	
+		});
 		var timeLeft = (this.duration+this.ISI)/10;
 		var countdown = setInterval(function() {
 			timeLeft--; // countdown
@@ -68,8 +80,8 @@
 			this.listen(); 
 		}
 		// 3) remove after duration
-		if (this.duration != 0) {
-			countdown(this.duration, this.dummyDiv); // to do: remove event listener after countdown; maybe countdown should be implemented as an stimulus method
+		if (this.duration !== 0) {
+			this.experiment.countdown(this.duration); // to do: remove event listener after countdown; maybe countdown should be implemented as an stimulus method
 		}
 	};
 	

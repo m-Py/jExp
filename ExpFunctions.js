@@ -66,7 +66,7 @@ var startExp = function(arr) {
 			var continueEvent = currentlyShownStimulus.next || "keypress click";
 				$(document).on(continueEvent, function() {
 					$(document).off();
-					$(currentlyShownStimulus.dummyDiv).remove();
+					$(currentlyShownStimulus.experiment).clear();
 					runStimuli(arr[counter]);
 					startTimer(arr, counter+1); 
 				});
@@ -76,21 +76,6 @@ var startExp = function(arr) {
 	
 	startTrial(Stimuli, 0); // start experiment with first nested array that was created with the partExp function
 };
-
-
-// countdown: function that removes a given div after a specified duration. Pass duration in ms.
-// is called by the present method of the stimulus objects
-var countdown = function(duration, div) {
-	var timeLeft = duration/10;
-	var countdown = setInterval(function() {
-		timeLeft--; // countdown
-		if (timeLeft <= 0) {
-			clearInterval(countdown);
-			$(div).remove();
-		}
-	}, 10); // timing precision of 10ms
-};
-
 
 // create a random rgb color: "rgb(x,y,z)"
 var rndCol = function() {
