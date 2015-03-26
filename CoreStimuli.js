@@ -1,23 +1,25 @@
 	
 	// Stimulus-object. Super class of all stimuli. In itself it only creates an empty div with a specified height.
-	function Stimulus(Parent, Name, size, duration, ISI) { // in new form the constructor should only take: duration, ISI, listening (true / false)
+	function Stimulus(Parent, Name, duration, ISI, listening) { // in new form the constructor should only take: duration, ISI, listening (true / false)
 		this.Parent = Parent;
 		this.Name = Name;
 		this.dummyParent = "#"+Parent;
 		// create dummy divs that will contain the stimulus
 		this.dummyDiv = "#"+Name;
-		this.size = size;
 		this.duration = duration; // presentation time of the stimulus. Specify in ms.
 		this.ISI = ISI; // inter-stimulus-intervall = pause after stimulus before next stimulus is shown
-		this.RT;
+		this.listening = listening; // should a reaction be recorded?
+		this.RT; // initialize; will be written to if listen() is executed
+		this.features = [];
+		this.featureNumber = 0;
 	}
 	Stimulus.prototype.toString = function() {
 		return("Type: Stimulus, duration: " + this.duration + ", ISI: " + this.ISI + ", RT: " + this.RT); 
 	};
 	Stimulus.prototype.showStimulus = function() {
-		// create stimulus
-		$(this.dummyParent).append("<div id="+this.Name+"></div>");
-		$(this.dummyDiv).height(this.size+"px");	
+		for (var i = 0; i < this.features.length; i++) {
+			this.features[i].doStuff(); // load all the features
+		}
 	};
 	Stimulus.prototype.listen = function () {
 		var t0 = performance.now();
@@ -28,7 +30,6 @@
 			console.log(that.RT);
 			$("*").off();
 		});	
-
 		var timeLeft = (this.duration+this.ISI)/10;
 		var countdown = setInterval(function() {
 			timeLeft--; // countdown
@@ -38,8 +39,14 @@
 			}
 		}, 10); // timing precision of 10ms
 	};
-	Stimulus.prototype.present = function() { // should not be changed; Can be called from subclasses.
+	Stimulus.prototype.present = function() {
+		// 1) show 
 		this.showStimulus();
+		// 2) listen to reaction
+		if (this.listening === true) { 
+			this.listen(); 
+		}
+		// 3) remove after duration
 		if (this.duration != 0) {
 			countdown(this.duration, this.dummyDiv); // to do: remove event listener after countdown; maybe countdown should be implemented as an stimulus method
 		}
