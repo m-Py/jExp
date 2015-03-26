@@ -5,22 +5,17 @@ $(document).ready(function() {
 	
 	myExp = new Experiment("stim");
 	
-	HelloWorld = new Stimulus(1000, 400, true);
-	HelloWorld.addFeature("text");
+	var stim1 = new Stimulus(1000, 400, true);
+	stim1.addFeature("Hello World", "text");
 	
-	HelloWorld2 = new Stimulus(0, 400, true);
-	HelloWorld2.addFeature("text");	
+	var stim2 = new Stimulus(1400, 400, true);
+	stim2.addFeature("Moep", "text");	
 	
-	myExp.add(HelloWorld);
-	myExp.add(HelloWorld);
-	myExp.add(HelloWorld);	
-	myExp.add(HelloWorld2);		
-	myExp.add(HelloWorld);
-	myExp.add(HelloWorld);
-	myExp.add(HelloWorld);		
 	
-		
-		
+	myExp.add(stim1);
+	myExp.add(stim2);
+	
+			
 	myExp.start();
 	
 
