@@ -3,12 +3,13 @@
 
 function Experiment(container) {
 	
-	this.container = container || "body"; // Property: parent element in which the experiment canvas element is created
+	this.container = container || "body"; // add jQuery selector as container. Not merely id!
 	this.contains = 0; // Property: how many Stimuli are contained in the experiment. Gets increased by add()
 	this.expArr = []; // Array: contains all stimuli of the experiment; add and addBlock push Stimuli to this array	
 	
 	this.expRT = [];
 	
+	// methods: to be added later
 	this.addBlock = undefined; // Method: Adds a block of Stimuli to the experiment. Pass a block of stimuli and a repetition number	
 	this.printStimuli = undefined; // Method: prints all Stimuli that are currently contained in the Experiment	
 	this.printResults = undefined; // Method: print results of the experiment; especially correctness and RT of responses
@@ -18,8 +19,7 @@ function Experiment(container) {
 // add Stimulus to experiment
 Experiment.prototype.add = function(stim) {
 	var that = this;
-	stim.experiment = that;
-	Experiment.contains = Experiment.contains + 1;
+	stim.experiment = that; // adds experiment as property to the stimulus!
 	that.expArr.push(stim);
 	that.contains = that.contains + 1;
 };
@@ -41,7 +41,7 @@ Experiment.prototype.countdown = function(duration) {
 };
 
 Experiment.prototype.createCanvas = function() { // Method: when experiment is initialized, create a canvas element in container element in browser		
-	$("#"+this.container).append("<canvas id='myCanvas' width='" + $(window).width() + "'height= '" + $(window).height() + "'></canvas>");
+	$(this.container).append("<canvas id='myCanvas' width='" + $(window).width() + "'height= '" + $(window).height() + "'></canvas>");
 	this.canvas = document.getElementById("myCanvas");
 	this.context = this.canvas.getContext("2d");
 };
