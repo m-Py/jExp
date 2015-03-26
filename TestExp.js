@@ -6,16 +6,16 @@ $(document).ready(function() {
 	myExp = new Experiment("stim");
 	
 	var stim1 = new Stimulus(1000, 400, false);
-	stim1.addText("Hello World", 100);
+	stim1.addText("Hello World", 100, rndCol());
 	
 	var stim2 = new Stimulus(1000, 500, false);
-	stim2.addText("Moep", 100);	
+	stim2.addText("Moep", 100, rndCol());	
 
 	var stim3 = new Stimulus(1000, 500, false);
-	stim3.addText("Shanol");		
+	stim3.addText("Shanol", 50, rndCol());		
 
 	var stim4 = new Stimulus(1000, 500, false);
-	stim4.addText("FU U");			
+	stim4.addText("FFFUUUUUUUU", 150, rndCol());			
 	
 	
 	myExp.add(stim1);
