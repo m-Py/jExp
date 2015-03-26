@@ -1,7 +1,6 @@
 // Store the experiment in a JavaScript object; experiment gets started by method start, which calls startExp()
 // to do: make html canvas the basis of all stimulus presentation. Experiment object will initialize a canvas on 
 
-
 function Experiment(container) {
 	
 	this.container = container || "body"; // Property: parent element in which the experiment canvas element is created
@@ -13,38 +12,21 @@ function Experiment(container) {
 	this.start = startExp; // Method: call to start experiment	
 	this.printResults = undefined; // Method: print results of the experiment; especially correctness and RT of responses
 	
-	createCanvas(); // Method: when experiment is initialized, create a canvas element in container element in browser		
-	
+	this.createCanvas = function() { // Method: when experiment is initialized, create a canvas element in container element in browser		
+		$(container).append("<canvas id='myCanvas' width=" + $(window).width() + "height= " + $(window).height() + "></canvas>");
+		this.canvas = document.getElementById("myCanvas");
+		this.context = canvas.getContext("2d");
+	};
+
 };
-	
-	
+
+Experiment.prototype.clear() {
+	this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+}
+
 // add function that returns a Stimulus?
-Experiment.prototype.createStim(duration, ISI, listening) {
-	
+Experiment.prototype.add(duration, ISI, listening) {
 	Experiment.contains = Experiment.contains + 1;
-	
-	return new Stimulus(Experiment.container, "st"+Experiment.contains, duration, ISI, listening);
-	
+	return new Stimulus(duration, ISI, listening);
 };
 
-Stimulus.prototype.addFeature(type, size, x1, y1, x2, y2) { // name feature type and coordinates, radius, size etc. Overloading is necessary here; see how to best implement it
-	switch(type) {
-		case "cross":
-		// doStuff()
-		break;
-		
-		case: "rectangle":
-		// doStuff()
-		break;	
-		
-		case: "rectangle":
-		// doStuff()
-		break;		
-		
-		this.features[featureNumber] = doStuff();
-		this.featureNumber = this.featureNumber + 1;
-};
-
-Stimulus.prototype.loadFeatures() { // I want this: a function that adds a feature to the stimulus. This code should get called by showStimulus()
-
-};

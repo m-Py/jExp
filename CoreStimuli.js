@@ -1,21 +1,42 @@
 	
 	// Stimulus-object. Super class of all stimuli. In itself it only creates an empty div with a specified height.
-	function Stimulus(Parent, Name, duration, ISI, listening) { // in new form the constructor should only take: duration, ISI, listening (true / false)
-		this.Parent = Parent;
-		this.Name = Name;
-		this.dummyParent = "#"+Parent;
-		// create dummy divs that will contain the stimulus
-		this.dummyDiv = "#"+Name;
+	function Stimulus(duration, ISI, listening) {
+
 		this.duration = duration; // presentation time of the stimulus. Specify in ms.
 		this.ISI = ISI; // inter-stimulus-intervall = pause after stimulus before next stimulus is shown
 		this.listening = listening; // should a reaction be recorded?
+		
 		this.RT; // initialize; will be written to if listen() is executed
-		this.features = [];
-		this.featureNumber = 0;
+		this.features = []; // features of the stimulus that will be called by showStimulus()
+
 	}
 	Stimulus.prototype.toString = function() {
 		return("Type: Stimulus, duration: " + this.duration + ", ISI: " + this.ISI + ", RT: " + this.RT); 
 	};
+	Stimulus.prototype.addFeature(type, size, x1, y1, x2, y2) { // name feature type and coordinates, radius, size etc. Overloading is necessary here; see how to best implement it
+		switch(type) {
+			case "text":
+			// var doStuff = function () {};
+			break;
+			
+			case "cross":
+			// var doStuff = function () {};
+			break;
+			
+			case: "rectangle":
+			// var doStuff = function () {};
+			break;	
+			
+			case: "triangle":
+			// var doStuff = function () {};
+			break;	
+			
+			case: "circle":
+			// var doStuff = function () {};
+			break;					
+		}
+			this.features[featureNumber] = doStuff();
+	};	
 	Stimulus.prototype.showStimulus = function() {
 		for (var i = 0; i < this.features.length; i++) {
 			this.features[i].doStuff(); // load all the features
