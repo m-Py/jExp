@@ -66,7 +66,7 @@ var startExp = function(arr) {
 			var continueEvent = currentlyShownStimulus.next || "keypress click";
 				$(document).on(continueEvent, function() {
 					$(document).off();
-					$(currentlyShownStimulus.experiment).clear();
+					currentlyShownStimulus.experiment.clear();
 					runStimuli(arr[counter]);
 					startTimer(arr, counter+1); 
 				});

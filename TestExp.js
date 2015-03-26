@@ -5,18 +5,23 @@ $(document).ready(function() {
 	
 	myExp = new Experiment("stim");
 	
-	HelloWorld = new Stimulus(0, 0, false);
+	HelloWorld = new Stimulus(1000, 400, true);
 	HelloWorld.addFeature("text");
 	
+	HelloWorld2 = new Stimulus(0, 400, true);
+	HelloWorld2.addFeature("text");	
+	
 	myExp.add(HelloWorld);
-	myExp.createCanvas();
+	myExp.add(HelloWorld);
+	myExp.add(HelloWorld);	
+	myExp.add(HelloWorld2);		
+	myExp.add(HelloWorld);
+	myExp.add(HelloWorld);
+	myExp.add(HelloWorld);		
+	
+		
+		
 	myExp.start();
 	
-	// create stimuli that are called multiple times during the experiment
-	
 
-	/* start the experiment!
-	startExp((expArr));
-	console.log(partExp(expArr));*/
-	
 });

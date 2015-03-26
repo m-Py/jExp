@@ -27,18 +27,19 @@ Experiment.prototype.clear = function() {
 }
 
 Experiment.prototype.countdown = function(duration) {
+	var that = this;	
 	var timeLeft = duration/10;
 	var countdown = setInterval(function() {
 		timeLeft--; // countdown
 		if (timeLeft <= 0) {
 			clearInterval(countdown);
-			this.clear(); // removes shown stimulus
+			that.clear(); // removes shown stimulus
 		}
 	}, 10); // timing precision of 10ms
 };
 
 Experiment.prototype.createCanvas = function() { // Method: when experiment is initialized, create a canvas element in container element in browser		
-	$("#"+this.container).append("<canvas id='myCanvas' width=" + $(window).width() + "height= " + $(window).height() + "></canvas>");
+	$("#"+this.container).append("<canvas id='myCanvas' width='" + $(window).width() + "'height= '" + $(window).height() + "'></canvas>");
 	this.canvas = document.getElementById("myCanvas");
 	this.context = this.canvas.getContext("2d");
 };

@@ -24,25 +24,26 @@
 			var draw = function () {
 				that.experiment.context.font="20px Georgia";
 				that.experiment.context.fillStyle = "blue";
-				that.experiment.context.fillText("Moep", 100, 100);
+				that.experiment.context.textAlign = "center"; 
+				that.experiment.context.fillText("Hello World hshshshshhshshhshsh", that.experiment.canvas.width/2, that.experiment.canvas.height/2);
 				console.log(that.experiment.context); 
 			};
 			break;
 
 			case "cross":
-			// var doStuff = function () {};
+			// var draw = function () {};
 			break;
 
 			case "rectangle":
-			// var doStuff = function () {};
+			// var draw = function () {};
 			break;	
 
 			case "triangle":
-			// var doStuff = function () {};
+			// var draw = function () {};
 			break;	
 
 			case "circle":
-			// var doStuff = function () {};
+			// var draw = function () {};
 			break;
 		}
 		var that = this;
