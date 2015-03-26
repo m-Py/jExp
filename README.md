@@ -14,15 +14,16 @@ The jExp library can be used to present experimental stimuli simultaneously and 
 **major**
 
 1. event handling
-  1. specify allowed key presses
-  2. specify keys responsible for different parts of a task
-  3. specify correct / incorrect keypresses 
-  4. store key pressed and whether press was correct
-  5. implement no go as correct response
+  1. fix event recording; was destroyed by restructuring of jExp. 
+  2. specify allowed key presses
+  3. specify keys responsible for different parts of a task
+  4. specify correct / incorrect keypresses 
+  5. store key pressed and whether press was correct
+  6. implement no go as correct response
 2. data storage client and server side
 3. create sample experiment with data storage and event handling  
 4. stimulus positioning
-  1. implement all stimuli via HTML canvas element? Then positioning can be done via coordinates  
+  1. implement all stimuli via HTML canvas element? DONE
 5. add functionality to group several stimuli into one block
 
 **minor**
