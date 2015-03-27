@@ -43,7 +43,7 @@ Stimulus.prototype.listen = function () {
 		that.RT = performance.now() - that.t0;
 		that.experiment.expRT.pop(); 
 		that.experiment.expRT.push(that.RT);
-		console.log(that.toString()); // only gets logged for first RT in exp; this must be fixed :-)
+		console.log(that.toString());
 		$("*").off();
 	});
 	var timeLeft = (that.duration+that.ISI)/10;
@@ -51,21 +51,21 @@ Stimulus.prototype.listen = function () {
 		timeLeft--; // countdown
 		if (timeLeft <= 0) {
 			clearInterval(countdown);
-			//$("*").off(); // this prohibits response measurement after first stimulus; not sure why, used to be different
+			$("*").off(); // this prohibits response measurement after first stimulus; not sure why, used to be different
 		}
 	}, 10); // timing precision of 10ms
 };
 Stimulus.prototype.present = function() {
-	var that = this;
 	// 1) show 
-	that.showStimulus();
+	this.showStimulus();
 	// 2) listen to reaction
-	if (that.listening === true) {
-		that.listen(); 
+	if (this.listening === true) {
+		
+		this.listen();
 	}
 	// 3) remove after duration
-	if (that.duration !== 0) {
-		that.experiment.countdown(that.duration); // remove stimulus after countdown
+	if (this.duration !== 0) {
+		this.experiment.countdown(this.duration); // remove stimulus after countdown
 	}
 };
 
