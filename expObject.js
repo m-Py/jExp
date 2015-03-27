@@ -3,7 +3,7 @@
 
 function Experiment(container) {
 	
-	this.container = container || "body"; // add jQuery selector as container. Not merely id!
+	this.container = container || "body"; // add jQuery selector as container. Not id!
 	this.contains = 0; // Property: how many Stimuli are contained in the experiment. Gets increased by add()
 	this.expArr = []; // Array: contains all stimuli of the experiment; add and addBlock push Stimuli to this array	
 	
@@ -19,7 +19,7 @@ function Experiment(container) {
 // add Stimulus to experiment
 Experiment.prototype.add = function(stim) {
 	var that = this;
-	stim.experiment = that; // adds experiment as property to the stimulus!
+	stim.experiment = that; // adds experiment as property to the stimulus
 	that.expArr.push(stim);
 	that.contains = that.contains + 1;
 };
@@ -50,4 +50,3 @@ Experiment.prototype.start = function() {
 	this.createCanvas();
 	startExp(this.expArr);
 };
-

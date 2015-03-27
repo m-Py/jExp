@@ -5,19 +5,19 @@ $(document).ready(function() {
 	
 	myExp = new Experiment("#stim");
 	
-	var stim0 = new Stimulus(0, 0, true);
+	var stim0 = new Stimulus(0, 0, false);
 	stim0.addText("Start", 100, rndCol());
 	
-	var stim1 = new Stimulus(1000, 400, true);
+	var stim1 = new Stimulus(1000, 500, true);
 	stim1.addText("Hello World", 100, rndCol());
 	
 	var stim2 = new Stimulus(1000, 500, true); // listening works only for first Stimulus  -- check on that!
 	stim2.addText("Moep", 100, rndCol());	 
 
-	var stim3 = new Stimulus(1000, 500, false);
+	var stim3 = new Stimulus(1000, 500, true);
 	stim3.addText("Shanol", 100, rndCol());		
 
-	var stim4 = new Stimulus(1000, 500, false);
+	var stim4 = new Stimulus(1000, 500, true);
 	stim4.addText("Schaf", 100, rndCol());			
 	
 	var stim5 = new Stimulus(0, 0, false);

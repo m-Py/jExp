@@ -1,5 +1,5 @@
 
-	// Stimulus-object. Super class of all stimuli. In itself it only creates an empty div with a specified height.
+	// Stimulus: basic of all presentations on screen
 	function Stimulus(duration, ISI, listening) {
 
 		this.duration = duration; // presentation time of the stimulus. Specify in ms.
@@ -37,15 +37,15 @@
 		}
 	};
 	Stimulus.prototype.listen = function () {
-
 		var that = this; // save reaction time value into RT property of each object
+		that.RT = 0;
 		that.t0 = performance.now();		
 		that.experiment.expRT.push(0);
 		$("*").on("keypress click", function() {
-			var RT = performance.now() - that.t0;
+			that.RT = performance.now() - that.t0;
 			that.experiment.expRT.pop(); 
-			that.experiment.expRT.push(RT);
-			console.log(RT); // only gets logged for first RT in exp; this must be fixed :-)
+			that.experiment.expRT.push(that.RT);
+			console.log(that.RT); // only gets logged for first RT in exp; this must be fixed :-)
 			$("*").off();
 		});
 		var timeLeft = (that.duration+that.ISI)/10;
@@ -53,7 +53,7 @@
 			timeLeft--; // countdown
 			if (timeLeft <= 0) {
 				clearInterval(countdown);
-				$("*").off();
+				//$("*").off();
 			}
 		}, 10); // timing precision of 10ms
 	};
