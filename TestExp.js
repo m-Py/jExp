@@ -1,6 +1,4 @@
 
-$(document).ready(function() {
-	
 	// Create a dummy experiment
 	
 	myExp = new Experiment("#stim");
@@ -11,7 +9,7 @@ $(document).ready(function() {
 	var stim1 = new Stimulus(1000, 500, true);
 	stim1.addText("Hello World", 100, rndCol());
 	
-	var stim2 = new Stimulus(1000, 500, true); // listening works only for first Stimulus  -- check on that!
+	var stim2 = new Stimulus(1000, 500, true);
 	stim2.addText("Moep", 100, rndCol());	 
 
 	var stim3 = new Stimulus(1000, 500, true);
@@ -29,6 +27,9 @@ $(document).ready(function() {
 	myExp.add(stim3);
 	myExp.add(stim4);	
 	myExp.add(stim5);
+
+$(document).ready(function() {
+
 				
 	myExp.start();
 	
