@@ -37,20 +37,20 @@ Stimulus.prototype.showStimulus = function() {
 Stimulus.prototype.listen = function () {
 	var that = this; // save reaction time value into RT property of each object
 	that.RT = 0;
-	that.t0 = performance.now();		
-	that.experiment.expRT.push(0);
-	$("*").on("keypress click", function() {
-		that.RT = performance.now() - that.t0;
-		that.experiment.expRT.pop(); 
-		that.experiment.expRT.push(that.RT);
-		console.log(that.toString());
-		$("*").off();
-	});
+	that.t0 = performance.now();
+	console.log("Stimulus t0: " +that.t0);
+	
+	var reaction = getRT();
+	
 	var timeLeft = (that.duration+that.ISI)/10;
 	var countdown = setInterval(function() {
 		timeLeft--; // countdown
 		if (timeLeft <= 0) {
 			clearInterval(countdown);
+			that.RT = reaction - that.t0;	
+			that.experiment.expRT.push(that.RT);
+			console.log(that.toString());	
+			
 			$("*").off(); // this prohibits response measurement after first stimulus; not sure why, used to be different
 		}
 	}, 10); // timing precision of 10ms

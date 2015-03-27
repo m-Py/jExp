@@ -1,3 +1,11 @@
+var getRT = function() {
+	$("*").on("keypress click", function() {
+		$("*").off();
+		console.log(performance.now());
+		return performance.now();
+	});
+};
+
 
 // function that partitions the passed array into an array containing > 0 arrays. 
 // Partitition is made so that only the last stimulus object in each nested array has a duration of 0.
