@@ -1,7 +1,7 @@
 var getRT = function() {
 	$("*").on("keypress click", function() {
-		$("*").off();
-		console.log(performance.now());
+		// $("*").off();
+		console.log("Reaction t0: " + performance.now());
 		return performance.now();
 	});
 };
