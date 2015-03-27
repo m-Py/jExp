@@ -16,7 +16,7 @@ function Stimulus(duration, ISI, listening) {
 }
 	
 Stimulus.prototype.toString = function() {
-	return("Type: Stimulus, duration: " + this.duration + ", ISI: " + this.ISI + ", RT: " + this.RT);
+	return("duration: " + this.duration + ", ISI: " + this.ISI + ", RT: " + this.RT);
 };
 Stimulus.prototype.addText = function(text, size, color, x1, y1) { // name feature type and coordinates, radius, size etc. Overloading is necessary here; see how to best implement it
 	var that = this;
@@ -43,7 +43,7 @@ Stimulus.prototype.listen = function () {
 		that.RT = performance.now() - that.t0;
 		that.experiment.expRT.pop(); 
 		that.experiment.expRT.push(that.RT);
-		console.log(that.RT); // only gets logged for first RT in exp; this must be fixed :-)
+		console.log(that.toString()); // only gets logged for first RT in exp; this must be fixed :-)
 		$("*").off();
 	});
 	var timeLeft = (that.duration+that.ISI)/10;
