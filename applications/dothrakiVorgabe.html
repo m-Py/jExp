@@ -1,0 +1,363 @@
+<!-- this survey makes use of jExp: A framework for creating online experiments using JavaScript
+see https://github.com/m-Py/jExp for more information
+-->
+
+<style>
+#stim {
+margin: 30px;
+height: 100px;
+}
+</style>
+
+<div id="stim"> </div>
+
+<script>
+
+var COUNTDOWN = 5000;
+
+
+var ItemBedingung = #c_0001#;
+
+
+if (ItemBedingung === 1) {
+	var DothrakiList = {
+		"hundert": "ken", 
+		"Zügel": "javrath",
+		"erinnern": "vineserat", 
+		"Baum": "feshith",
+		"wie": "kifinosi",
+		"Hallo": "M’athchomaroon",
+		"nein": "vos",
+		"schön": "zheana",
+		"Null": "som",
+		"rosa": "theyaven",
+		"stoppen": "nakhat",
+		"lieben": "zhilat",
+		"Bruder": "gaezo",
+		"alt": "ershe",
+		"Haut": "ilek",
+		"Pelz": "hemikh"		
+	};
+}
+else if (ItemBedingung === 2) {
+	var DothrakiList = { 
+		"Schmerz": "athnithar",
+		"schmecken": "lekhilat", 
+		"weiß": "zaqa", 
+		"jemanden kennen": "shilat", 
+		"fragen": "qafat", 
+		"Pfeil":"loqam", 
+		"wir": "kisha",
+		"Flüsse": "ashefasi",
+		"jung": "imesh",
+		"Zunge": "gomma",
+		"Schwester": "inavva",
+		"Weinhändler": "jerak sewafikhaan",
+		"helfen": "rhelalat",
+		"Knochen": "tolorro",
+		"sehen": "tihat",
+		"Niederlage": "athohharar"
+	};
+}
+else if (ItemBedingung === 3) {
+	var DothrakiList = { 
+		"kurz": "fitte", 
+		"Auf Wiedersehen": "Fonas chek!", 
+		"trübe": "flech", 
+		"Kind": "yalli", 
+		"als letztes": "ha nakhaan", 
+		"Ohr": "chare", 
+		"scharf": "has",
+		"wo": "finne",
+		"schnell sein": "dikat",
+		"Sieger": "najahak",
+		"Täuschung": "qosarvenikh",
+		"Freund": "okeo",		
+		"Sklave": "zafra",
+		"Kopfschmerzen": "mhari",
+		"stark": "haj",
+		"riechen": "rivvat"
+	};
+}
+else {
+	var DothrakiList = { 
+		"ich": "anha", 
+		"zusammen": "niyanqoy", 
+		"sechzig": "chizhinda", 
+		"Ente": "alegra", 
+		"füttern": "vadakherat", 
+		"Erde": "sorfosor", 
+		"schützen": "vijazerat",
+		"hervorragend": "chekosshi",
+		"dünn": "redda",
+		"Berg": "krazaaj",
+		"Salz": "zhif",
+		"definitiv": "sekosshi",
+		"Großmutter": "kristasof",
+		"Blut": "qoy",
+		"dreißig": "chisen",
+		"achthundert": "oriken"
+	};	
+}
+
+
+// Store the experiment in a JavaScript object; experiment gets started by method start, which calls startExp()
+// to do: make html canvas the basis of all stimulus presentation. Experiment object will initialize a canvas on 
+
+function Experiment(container) {
+	
+	this.container = container || "body"; // add jQuery selector as container. Not id!
+	this.contains = 0; // Property: how many Stimuli are contained in the experiment. Gets increased by add()
+	this.expArr = []; // Array: contains all stimuli of the experiment; add and addBlock push Stimuli to this array	
+	
+	this.expRT = [];
+	
+	// methods: to be added later
+	this.addBlock = undefined; // Method: Adds a block of Stimuli to the experiment. Pass a block of stimuli and a repetition number	
+	this.printStimuli = undefined; // Method: prints all Stimuli that are currently contained in the Experiment	
+	this.printResults = undefined; // Method: print results of the experiment; especially correctness and RT of responses
+	
+};
+
+// add Stimulus to experiment
+Experiment.prototype.add = function(stim) {
+	var that = this;
+	stim.experiment = that; // adds experiment as property to the stimulus
+	that.expArr.push(stim);
+	that.contains = that.contains + 1;
+};
+
+Experiment.prototype.clear = function() {
+	this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+}
+
+Experiment.prototype.countdown = function(duration) {
+	var that = this;	
+	var timeLeft = duration/10;
+	var countdown = setInterval(function() {
+		timeLeft--; // countdown
+		if (timeLeft <= 0) {
+			clearInterval(countdown);
+			that.clear(); // removes shown stimulus
+		}
+	}, 10); // timing precision of 10ms
+};
+
+Experiment.prototype.createCanvas = function() { // Method: when experiment is initialized, create a canvas element in container element in browser		
+	$(this.container).append("<canvas id='myCanvas' width='" + $(".qwrap").width() + "' height='" + $(".qwrap").height() + "'></canvas>");
+	this.canvas = document.getElementById("myCanvas");
+	this.context = this.canvas.getContext("2d");
+};
+
+Experiment.prototype.start = function() {
+	this.createCanvas();
+	startExp(this.expArr);
+};
+
+
+
+// Stimulus: basic of all presentations on screen
+function Stimulus(duration, ISI, listening) {
+	this.duration = duration; // presentation time of the stimulus. Specify in ms.
+	this.ISI = ISI; // inter-stimulus-intervall = pause after stimulus before next stimulus is shown
+	this.listening = listening; // should a reaction be recorded?
+
+	this.RT; // initialize; will be written to if listen() is executed
+	this.t0;
+		
+	this.featureNumber = 0;
+	this.features = []; // features of the stimulus that will be called by showStimulus()
+	this.next; // can be added to zero duration stimuli to specify press that continues experiment
+		
+	this.experiment; // property gets added when stimulus is added to experiment
+}
+	
+Stimulus.prototype.toString = function() {
+	return("duration: " + this.duration + ", ISI: " + this.ISI + ", RT: " + this.RT);
+};
+Stimulus.prototype.addText = function(text, size, color, x1, y1) { // name feature type and coordinates, radius, size etc. Overloading is necessary here; see how to best implement it
+	var that = this;
+	var draw = function () {
+		that.experiment.context.font = ""+size + "px Arial" || "100px Arial";
+		that.experiment.context.fillStyle = color || "black";
+		that.experiment.context.textAlign = "center";
+		that.experiment.context.fillText(text, that.experiment.canvas.width/2, that.experiment.canvas.height/2);
+	};
+	that.features[that.featureNumber] = draw;
+	that.featureNumber = that.featureNumber + 1;		
+};
+Stimulus.prototype.addSubmit = function() { // name feature type and coordinates, radius, size etc. Overloading is necessary here; see how to best implement it
+	var that = this;
+	var draw = function () {
+		$("form[name=f1]").submit();
+	};
+	that.features[that.featureNumber] = draw;
+	that.featureNumber = that.featureNumber + 1;		
+};
+Stimulus.prototype.showStimulus = function() {
+	for (var i = 0; i < this.features.length; i++) {
+		this.features[i](); // show all Stimulus features
+	}
+};
+Stimulus.prototype.listen = function () {
+	var that = this; // save reaction time value into RT property of each object
+	that.RT = 0;
+	that.t0 = performance.now();		
+	that.experiment.expRT.push(0);
+	$("*").on("keypress click", function() {
+		that.RT = performance.now() - that.t0;
+		that.experiment.expRT.pop(); 
+		that.experiment.expRT.push(that.RT);
+		console.log(that.toString());
+		$("*").off();
+	});
+	var timeLeft = (that.duration+that.ISI)/10;
+	var countdown = setInterval(function() {
+		timeLeft--; // countdown
+		if (timeLeft <= 0) {
+			clearInterval(countdown);
+			// $("*").off(); // this prohibits response measurement after first stimulus; not sure why, used to be different
+		}
+	}, 10); // timing precision of 10ms
+};
+Stimulus.prototype.present = function() {
+	// 1) show 
+	this.showStimulus();
+	// 2) listen to reaction
+	if (this.listening === true) {
+		
+		this.listen();
+	}
+	// 3) remove after duration
+	if (this.duration !== 0) {
+		this.experiment.countdown(this.duration); // remove stimulus after countdown
+	}
+};
+
+
+var getRT = function() {
+	$("*").on("keypress click", function() {
+		// $("*").off();
+		console.log("Reaction t0: " + performance.now());
+		return performance.now();
+	});
+};
+
+
+// function that partitions the passed array into an array containing > 0 arrays. 
+// Partitition is made so that only the last stimulus object in each nested array has a duration of 0.
+var partExp = function(arr) {
+	var j = 0; // count the partial arrays that we need
+	var partArr = [[]];
+	for (var i = 0; i < arr.length; i++ ) {
+		if (arr[i].duration === 0) { 
+			partArr[j].push(arr[i]);
+			if (i < arr.length-1) { // do not add unnecessary empty array if the last stimulus in the passed array has a duration of 0
+				partArr.push([]);
+				j++;
+			}
+		}
+		else { 
+			partArr[j].push(arr[i]);
+		}
+	}
+	return partArr;
+};
+
+
+// runStimuli is the function used to actually present the stimuli: takes an array containing stimuli objects as argument and presents all stimuli
+var runStimuli = function(partArr) {
+	// var that controls the timing of the experiment
+	var ExperimentalDelay = 0;
+	// present the stimuli
+	for (var i = 0; i < partArr.length; i++ ) {
+		var j = 0;
+		setTimeout(function() { partArr[j].present(partArr[j].duration); j++}, ExperimentalDelay); // calls a new stimulus after duration and ISI of the previous stimulus
+		ExperimentalDelay = ExperimentalDelay + partArr[i].duration + partArr[i].ISI;
+	}
+};
+
+	
+// function that computes the time that an experimental unit needs to finish
+var getExpTime = function(partArr) {
+	var currentDelay = 0;
+	// to consider: ignore ISI of last stimulus?
+	for (var t = 0; t < partArr.length; t++) {
+		currentDelay = currentDelay + partArr[t].duration + partArr[t].ISI;
+	}		
+	return currentDelay
+};			
+
+
+// TO RUN YOUR EXPERIMENT, CALL THIS FUNCTION AND PASS THE ARRAY THATS CONTAINS ALL STIMULI
+// startExp() calls the functions partExp(), runStimuli() and getExpTime() to run the complete experiment.
+var startExp = function(arr) { 
+	// $("*").css("cursor", "none"); // let cursor disappear when experiment starts
+	var Stimuli = partExp(arr);
+	
+	// startOnClick and startTimer recursively call each other to ensure correct timing of stimulus presentation
+	var startTimer = function(arr, counter) {
+		setTimeout(function() { startTrial(arr, counter); }, getExpTime(arr[counter-1])); 
+	};
+	
+	var startTrial= function(arr, counter) {
+		if (counter === 0) { // no click needed to start experiment
+			runStimuli(arr[counter]);
+			startTimer(arr, counter+1); 
+		}
+		else if (counter < arr.length) { // stopping condition for recursion!
+			// proceed experiment after a zero-duration stimulus has been shown by pressing a key
+			var currentlyShownStimulus = arr[counter-1][arr[counter-1].length-1];
+			var continueEvent = currentlyShownStimulus.next || "keypress click";
+				$(document).on(continueEvent, function() {
+					$(document).off();
+					currentlyShownStimulus.experiment.clear();
+					runStimuli(arr[counter]);
+					startTimer(arr, counter+1); 
+				});
+
+		}
+	};
+	
+	startTrial(Stimuli, 0); // start experiment with first nested array that was created with the partExp function
+};
+
+
+
+
+$(document).ready(function() {	
+	
+	var textSize = 30;
+	var dothExp = new Experiment("#stim");
+
+	var stim0 = new Stimulus(0, 0, false);
+	stim0.addText("Zum Starten Tastatur oder die Maus drücken", textSize);
+	var stim1 = new Stimulus(1000, 50, false);
+	stim1.addText("...", textSize);	
+	var stim2 = new Stimulus(1000, 50, false);
+	stim2.addText("..", textSize );	
+	var stim3 = new Stimulus(1000, 50, false);
+	stim3.addText(".", textSize );
+
+	dothExp.add(stim0); dothExp.add(stim1); dothExp.add(stim2); dothExp.add(stim3);
+
+	for (var key in DothrakiList) {
+		if (DothrakiList.hasOwnProperty(key )) {
+			var text = '"'+ key + '"' + ' heißt auf dothrakisch ' + '"' + DothrakiList[key] + '".';
+			console.log(text);
+			var tempStim = new Stimulus(COUNTDOWN, 1000, false);
+			tempStim.addText(text, textSize);
+			dothExp.add(tempStim);
+		}
+	}
+	
+		
+	var submit = new Stimulus(50, 0, false);
+	submit.addSubmit();
+	dothExp.add(submit);
+	
+	dothExp.start();
+	
+});
+
+</script>
