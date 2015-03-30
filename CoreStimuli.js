@@ -4,15 +4,16 @@ function Stimulus(duration, ISI, listening) {
 	this.duration = duration; // presentation time of the stimulus. Specify in ms.
 	this.ISI = ISI; // inter-stimulus-intervall = pause after stimulus before next stimulus is shown
 	this.listening = listening; // should a reaction be recorded?
-	this.RT = 0; // initialize; will be written to if listen() is executed
+	this.RT; // initialize; will be written to if listen() is executed
 	this.featureNumber = 0;
 	this.features = []; // features of the stimulus that will be called by showStimulus()
+	this.presentType; // gets added by add methods
 	this.next; // can be added to zero duration stimuli to specify press that continues experiment	
 	this.experiment; // property gets added when stimulus is added to experiment
 }
 	
 Stimulus.prototype.toString = function() {
-	return("duration: " + this.duration + ", ISI: " + this.ISI + ", RT: " + this.RT);
+	return("type: " + this.presentType + ", duration: " + this.duration + ", ISI: " + this.ISI + ", RT: " + this.RT);
 };
 Stimulus.prototype.addText = function(text, size, color, x1, y1) { // name feature type and coordinates, radius, size etc. Overloading is necessary here; see how to best implement it
 	var that = this;
@@ -23,7 +24,8 @@ Stimulus.prototype.addText = function(text, size, color, x1, y1) { // name featu
 		that.experiment.context.fillText(text, that.experiment.canvas.width/2, that.experiment.canvas.height/2);
 	};
 	that.features[that.featureNumber] = draw;
-	that.featureNumber = that.featureNumber + 1;		
+	that.featureNumber = that.featureNumber + 1;
+	that.presentType = "text";		
 };
 Stimulus.prototype.showStimulus = function() {
 	for (var i = 0; i < this.features.length; i++) {
