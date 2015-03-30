@@ -4,7 +4,7 @@ function Stimulus(duration, ISI, listening) {
 	this.duration = duration; // presentation time of the stimulus. Specify in ms.
 	this.ISI = ISI; // inter-stimulus-intervall = pause after stimulus before next stimulus is shown
 	this.listening = listening; // should a reaction be recorded?
-	this.RT; // initialize; will be written to if listen() is executed
+	this.RT = 0; // initialize; will be written to if listen() is executed
 	this.featureNumber = 0;
 	this.features = []; // features of the stimulus that will be called by showStimulus()
 	this.next; // can be added to zero duration stimuli to specify press that continues experiment	
@@ -50,7 +50,6 @@ Stimulus.prototype.listen = function () {
 		timeLeft--; // countdown
 		if (timeLeft <= 0) {
 			clearInterval(countdown);
-			that.RT = 0; // no reaction
 		}
 	}, 10); // timing precision of 10ms
 };
