@@ -7,8 +7,6 @@ jExp takes care of precise timing of stimulus presentations and.
 
 ### TO DO
 
-**major**
-
 1. event handling
   1. specify allowed key presses
   2. specify keys responsible for different parts of a task
@@ -17,10 +15,12 @@ jExp takes care of precise timing of stimulus presentations and.
   5. implement no go as correct response
 2. data storage client and server side
   1. set up informative toString method
-3. create sample experiment with data storage and event handling  
+  2. added printStimuli method for experiment objects
+  3. now: learn how to properly store data as json or other 
+3. create sample experiment with preliminary data storage and event handling (see point 1)
 4. stimulus creation
-  1. implement stimuli features in new Stimulus implementation
+  1. implement more stimuli features in new Stimulus implementation (rectangle, triangle, fixation cross...)
 5. stimulus positioning
   1. implement all stimuli via HTML canvas element? CHECK
-  2. implement stimulus positioning via argument passing to addText (and others) method
+  2. implement stimulus positioning via argument passing to add feature methods
 6. add functionality to group several stimuli into one block
