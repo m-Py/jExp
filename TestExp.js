@@ -20,11 +20,18 @@
 	
 	var stim5 = new Stimulus(0, 0, false);
 	stim5.addText("The experiment is over.", 50, rndCol());	
+	
+	var cross = new Stimulus(500, 300, false);
+	cross.addCross(30, 2);
 		
 	myExp.add(stim0);
+	myExp.add(cross);
 	myExp.add(stim1);
+	myExp.add(cross);
 	myExp.add(stim2);
+	myExp.add(cross);
 	myExp.add(stim3);
+	myExp.add(cross);
 	myExp.add(stim4);	
 	myExp.add(stim5);
 

@@ -15,18 +15,6 @@ function Stimulus(duration, ISI, listening) {
 Stimulus.prototype.toString = function() {
 	return("type: " + this.presentType + ", duration: " + this.duration + ", ISI: " + this.ISI + ", RT: " + this.RT);
 };
-Stimulus.prototype.addText = function(text, size, color, x1, y1) { // name feature type and coordinates, radius, size etc. Overloading is necessary here; see how to best implement it
-	var that = this;
-	var draw = function () {
-		that.experiment.context.font = ""+size + "px Arial" || "100px Arial";
-		that.experiment.context.fillStyle = color || "black";
-		that.experiment.context.textAlign = "center";
-		that.experiment.context.fillText(text, that.experiment.canvas.width/2, that.experiment.canvas.height/2);
-	};
-	that.features[that.featureNumber] = draw;
-	that.featureNumber = that.featureNumber + 1;
-	that.presentType = "text";		
-};
 Stimulus.prototype.showStimulus = function() {
 	for (var i = 0; i < this.features.length; i++) {
 		this.features[i](); // show all Stimulus features
@@ -68,49 +56,35 @@ Stimulus.prototype.present = function() {
 	}
 };
 
-
-
-
-//  deprecated fixation cross: TO DO - make fixation cross in new experiment structure
-
-// Fixation-cross. Inherits from Stimulus. Has line-width as special property  (width = 1 as default)
-function Cross(Parent, Name, size, duration, ISI, width) {
-	Stimulus.call(this, Parent, Name, size, duration, ISI); 
-	this.width = width || 1;
-}
-Cross.prototype = Object.create(Stimulus.prototype, { 
-	contructor: {
-		configurable: true,
-		enumerable: true,
-		value: Cross,
-		writable: true
-	}
-});
-Cross.prototype.toString = function() {
-	return("Type: Fixationcross, duration: " + this.duration + ", ISI: " + this.ISI); 
-};	
-Cross.prototype.showStimulus = function() {
-	// fixation cross is drawn using HTML canvas
-	$(this.dummyParent).append("<canvas id="+this.Name+"></canvas>");
-	var canvas = document.getElementById(this.Name);
-	canvas.width = this.size;
-	canvas.height = this.size;
-	var context = canvas.getContext('2d');
-	// center stimulus		
-	var height = $(window).height();
-	var width = $(window).width();
-	$(this.dummyDiv).css("position", "absolute");
-	$(this.dummyDiv).css("top", (height-this.size)/2);
-	$(this.dummyDiv).css("left", (width-this.size)/2);
-	// draw cross
-	context.beginPath();
-	context.lineWidth = this.width;
-	context.moveTo(this.size/2, 0);
-	context.lineTo(this.size/2, this.size);
-	context.moveTo(0, this.size/2);
-	context.lineTo(this.size, this.size/2);
-	context.stroke();
+// prototype methods to add features to Stimuli
+Stimulus.prototype.addText = function(text, size, color, x1, y1) { // name feature type and coordinates, radius, size etc. Overloading is necessary here; see how to best implement it
+	var that = this;
+	var draw = function () {
+		that.experiment.context.font = ""+size + "px Arial" || "100px Arial";
+		that.experiment.context.fillStyle = color || "black";
+		that.experiment.context.textAlign = "center";
+		that.experiment.context.fillText(text, that.experiment.canvas.width/2, (that.experiment.canvas.height/2)+(size/2.5)); // trying to vertically align text
+	};
+	that.features[that.featureNumber] = draw;
+	that.featureNumber = that.featureNumber + 1;
+	that.presentType = "text";		
 };
-Cross.prototype.present = function() {
-	Stimulus.prototype.present.call(this);
+
+Stimulus.prototype.addCross = function(size, width) {
+	var that = this;
+	var draw = function() {
+		that.experiment.context.beginPath();
+		that.experiment.context.lineWidth = width;
+		// horizontal line
+		that.experiment.context.moveTo((that.experiment.canvas.width/2) + size/2, (that.experiment.canvas.height/2));
+		that.experiment.context.lineTo((that.experiment.canvas.width/2) - size/2, (that.experiment.canvas.height/2));
+		// vertical line
+		that.experiment.context.moveTo((that.experiment.canvas.width/2), (that.experiment.canvas.height/2) + size/2);
+		that.experiment.context.lineTo((that.experiment.canvas.width/2), (that.experiment.canvas.height/2) - size/2);
+		that.experiment.context.stroke();
+	};
+	that.features[that.featureNumber] = draw;
+	that.featureNumber = that.featureNumber + 1;
+	that.presentType = "fixation-cross";		
 };
+
