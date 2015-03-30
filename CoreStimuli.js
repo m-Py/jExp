@@ -12,9 +12,6 @@ function Stimulus(duration, ISI, listening) {
 	this.experiment; // property gets added when stimulus is added to experiment
 }
 	
-Stimulus.prototype.toString = function() {
-	return("type: " + this.presentType + ", duration: " + this.duration + ", ISI: " + this.ISI + ", RT: " + this.RT);
-};
 Stimulus.prototype.showStimulus = function() {
 	for (var i = 0; i < this.features.length; i++) {
 		this.features[i](); // show all Stimulus features
@@ -88,3 +85,7 @@ Stimulus.prototype.addCross = function(size, width) {
 	that.presentType = "fixation-cross";		
 };
 
+
+Stimulus.prototype.toString = function() {
+	return("type: " + this.presentType + ", duration: " + this.duration + ", ISI: " + this.ISI + ", RT: " + this.RT);
+};
