@@ -4,14 +4,10 @@ function Stimulus(duration, ISI, listening) {
 	this.duration = duration; // presentation time of the stimulus. Specify in ms.
 	this.ISI = ISI; // inter-stimulus-intervall = pause after stimulus before next stimulus is shown
 	this.listening = listening; // should a reaction be recorded?
-
 	this.RT; // initialize; will be written to if listen() is executed
-	this.t0;
-		
 	this.featureNumber = 0;
 	this.features = []; // features of the stimulus that will be called by showStimulus()
-	this.next; // can be added to zero duration stimuli to specify press that continues experiment
-		
+	this.next; // can be added to zero duration stimuli to specify press that continues experiment	
 	this.experiment; // property gets added when stimulus is added to experiment
 }
 	
@@ -36,13 +32,16 @@ Stimulus.prototype.showStimulus = function() {
 };
 Stimulus.prototype.listen = function () {
 	var that = this; // save reaction time value into RT property of each object
-	that.RT = 0;
-	that.t0 = performance.now();		
-	that.experiment.expRT.push(0);
+	var RT = 0;
+	var t0 = performance.now();
 	$("*").on("keypress click", function() {
-		that.RT = performance.now() - that.t0;
-		that.experiment.expRT.pop(); 
-		that.experiment.expRT.push(that.RT);
+		RT = performance.now() - t0;
+		if (RT > that.duration + that.ISI) {
+			that.RT = 0; // no reaction
+		} 
+		else {
+			that.RT = RT;
+		}
 		console.log(that.toString());
 		$("*").off();
 	});
@@ -51,7 +50,7 @@ Stimulus.prototype.listen = function () {
 		timeLeft--; // countdown
 		if (timeLeft <= 0) {
 			clearInterval(countdown);
-			// $("*").off(); // this prohibits response measurement after first stimulus; not sure why, used to be different
+			that.RT = 0; // no reaction
 		}
 	}, 10); // timing precision of 10ms
 };
@@ -60,7 +59,6 @@ Stimulus.prototype.present = function() {
 	this.showStimulus();
 	// 2) listen to reaction
 	if (this.listening === true) {
-		
 		this.listen();
 	}
 	// 3) remove after duration
@@ -70,7 +68,10 @@ Stimulus.prototype.present = function() {
 };
 
 
-	
+
+
+//  deprecated fixation cross: TO DO - make fixation cross in new experiment structure
+
 // Fixation-cross. Inherits from Stimulus. Has line-width as special property  (width = 1 as default)
 function Cross(Parent, Name, size, duration, ISI, width) {
 	Stimulus.call(this, Parent, Name, size, duration, ISI); 
