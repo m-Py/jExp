@@ -315,6 +315,12 @@ var startExp = function(arr) {
 					runStimuli(arr[counter]);
 					startTimer(arr, counter+1); 
 				});
+				$("#myCanvas").on("click", function() {
+					$("#myCanvas").off();
+					currentlyShownStimulus.experiment.clear();
+					runStimuli(arr[counter]);
+					startTimer(arr, counter+1); 
+				});				
 
 		}
 	};
@@ -331,15 +337,15 @@ $(document).ready(function() {
 	var dothExp = new Experiment("#stim");
 
 	var stim0 = new Stimulus(0, 0, false);
-	stim0.addText("Zum Starten Tastatur oder die Maus drücken", textSize);
-	var stim1 = new Stimulus(1000, 50, false);
+	stim0.addText("Zum Starten klicken", textSize);
+	var stim1 = new Stimulus(1000, 100, false);
 	stim1.addText("...", textSize);	
-	var stim2 = new Stimulus(1000, 50, false);
+	var stim2 = new Stimulus(1000, 100, false);
 	stim2.addText("..", textSize );	
-	var stim3 = new Stimulus(1000, 50, false);
+	var stim3 = new Stimulus(1000, 100, false);
 	stim3.addText(".", textSize );
 
-	dothExp.add(stim0); dothExp.add(stim1); dothExp.add(stim2); dothExp.add(stim3);
+	dothExp.add(stim0); //dothExp.add(stim1); dothExp.add(stim2); dothExp.add(stim3);
 
 	for (var key in DothrakiList) {
 		if (DothrakiList.hasOwnProperty(key )) {
