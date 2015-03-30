@@ -1,10 +1,3 @@
-var getRT = function() {
-	$("*").on("keypress click", function() {
-		// $("*").off();
-		console.log("Reaction t0: " + performance.now());
-		return performance.now();
-	});
-};
 
 
 // function that partitions the passed array into an array containing > 0 arrays. 
