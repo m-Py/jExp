@@ -64,7 +64,7 @@ var startExp = function(arr) {
 		else if (counter < arr.length) { // stopping condition for recursion!
 			// proceed experiment after a zero-duration stimulus has been shown by pressing a key
 			var currentlyShownStimulus = arr[counter-1][arr[counter-1].length-1];
-			var continueEvent = currentlyShownStimulus.next || "keypress click";
+			var continueEvent = currentlyShownStimulus.listenTo || "keypress click";
 				$(document).on(continueEvent, function() {
 					$(document).off();
 					currentlyShownStimulus.experiment.clear();
