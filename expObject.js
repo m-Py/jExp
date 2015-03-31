@@ -7,7 +7,6 @@ function Experiment(container) {
 	this.expArr = []; // Array: contains all stimuli of the experiment; add and addBlock push Stimuli to this array		
 	// methods: to be added later
 	this.addBlock = undefined; // Method: Adds a block of Stimuli to the experiment. Pass a block of stimuli and a repetition number	
-	this.printResults = undefined; // Method: print results of the experiment; especially correctness and RT of responses
 	
 };
 

@@ -1,6 +1,8 @@
 
 // Stimulus: basic of all presentations on screen
-function Stimulus(duration, ISI, listening, listenTo, correctResponse) {
+function Stimulus(id, duration, ISI, listening, listenTo, correctResponse) {
+	
+	this.id = id; 
 	this.duration = duration; // presentation time of the stimulus. Specify in ms.
 	this.ISI = ISI; // inter-stimulus-intervall = pause after stimulus before next stimulus is shown
 	
@@ -14,7 +16,6 @@ function Stimulus(duration, ISI, listening, listenTo, correctResponse) {
 	
 	this.featureNumber = 0;
 	this.features = []; // features of the stimulus that will be called by showStimulus()
-	this.presentType; // gets added by add methods
 	this.experiment; // property gets added when stimulus is added to experiment
 }
 	
@@ -114,7 +115,6 @@ Stimulus.prototype.addText = function(text, size, color, x1, y1) { // name featu
 	};
 	that.features[that.featureNumber] = draw;
 	that.featureNumber = that.featureNumber + 1;
-	that.presentType = "text";
 };
 // add fixation cross
 Stimulus.prototype.addCross = function(size, width) {
@@ -150,9 +150,9 @@ Stimulus.prototype.toString = function() {
 	
 	var that = this;
 	if (that.event) {
-		return("type: " + this.presentType + ",\n duration: " + this.duration + ",\n ISI: " + this.ISI + ",\n RT: " + this.RT + ",\n event: " + this.event + ",\n correct: " + this.correct);
+		return("id: " + this.id + ",\n RT: " + this.RT + ",\n event: " + this.event + ",\n correct: " + this.correct);
 	}
 	else {
-		return("type: " + this.presentType + ",\n duration: " + this.duration + ",\n ISI: " + this.ISI);
+		return("id: " + this.id);
 	}
 };
