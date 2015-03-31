@@ -111,7 +111,7 @@ Stimulus.prototype.addText = function(text, size, color, x1, y1) { // name featu
 		that.experiment.context.font = ""+size + "px Arial" || "100px Arial";
 		that.experiment.context.fillStyle = color || "black";
 		that.experiment.context.textAlign = "center";
-		that.experiment.context.fillText(text, that.experiment.canvas.width/2, (that.experiment.canvas.height/2)+(size/2.5)); // trying to vertically align text
+		that.experiment.context.fillText(that.text, that.experiment.canvas.width/2, (that.experiment.canvas.height/2)+(size/2.5)); // trying to vertically align text
 	};
 	that.features[that.featureNumber] = draw;
 	that.featureNumber = that.featureNumber + 1;
@@ -131,9 +131,9 @@ Stimulus.prototype.addCross = function(size, width) {
 		that.experiment.context.stroke();
 	};
 	that.features[that.featureNumber] = draw;
-	that.featureNumber = that.featureNumber + 1;
-	that.presentType = "fixation-cross";		
+	that.featureNumber = that.featureNumber + 1;	
 };
+
 Stimulus.prototype.removeFeatures = function() { // add functionality to replace the content of a stimulus by other content; remove all features!
 	var that = this;
 	that.featureNumber = 0;

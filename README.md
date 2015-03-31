@@ -11,7 +11,8 @@ jExp takes care of precise timing of stimulus presentations and.
 2. create sample experiment that demostrates functionality
 3. data storage client and server side
   1. implement possibility to store / export relevant data 
-4. stimulus positioning
+4. add possibility to change stimulus appearance during experiment so that not everything must be set a priori  
+5. stimulus positioning
   1. implement stimulus positioning via argument passing to add feature methods
-5. add functionalities to control experimental flow
+6. add functionalities to control experimental flow
   1. add functionality to group several stimuli into one block that can be repeatedly presented
