@@ -13,6 +13,7 @@ jExp takes care of precise timing of stimulus presentations and.
   1. implement possibility to store / export relevant data 
 4. add possibility to change stimulus appearance during experiment so that not everything must be set a priori  
   1. for example for feedback during the experiment
+  2. probably the solution is to add "coding" features to stimuli
 5. stimulus positioning
   1. implement stimulus positioning via argument passing to add feature methods
 6. add functionalities to control experimental flow

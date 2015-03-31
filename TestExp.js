@@ -10,6 +10,7 @@
 	
 	var cross = new Stimulus("cross", 250, 300, false);
 	cross.addCross(30, 2);	
+	cross.addCode("console.log('Woohoo I can code');");
 	
 	var stim0 = new Stimulus("startscreen", 0, 0, false);
 	stim0.addText("Start", 100, rndCol());
@@ -22,6 +23,7 @@
 	
 	var stim2 = new Stimulus(rightID, 1000, 500, true, allowedKeys, 108);	
 	stim2.addText("right", 100, rndCol());	 
+	stim2.addCode("console.log(stim1.correct);"); // this way I can access the correctness of a previous stimulus for feedback
 
 	var stim2_1 = new Stimulus(nogoID, 1000, 500, true, allowedKeys, "nogo");
 	stim2_1.addText("nothing", 50, rndCol());	
