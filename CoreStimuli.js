@@ -135,19 +135,17 @@ Stimulus.prototype.addCross = function(size, width) {
 	that.featureNumber = that.featureNumber + 1;
 	that.presentType = "fixation-cross";		
 };
-Stimulus.prototype.removeFeatures = function() // add functionality to replace the content of a stimulus by other content; remove all features!
+Stimulus.prototype.removeFeatures = function() {// add functionality to replace the content of a stimulus by other content; remove all features!
 	var that = this;
 	that.featureNumber = 0;
 	that.features = [];
 };
 
 Stimulus.prototype.toString = function() {
-
 	for ( var p in this ) {
 		if (this.hasOwnProperty(p)) {
 			console.log(p + ": " + this[p]);
 		}
 	}
-		
 	//return("type: " + this.presentType + ", duration: " + this.duration + ", ISI: " + this.ISI + ", RT: " + this.RT + ", event: " + this.event + ", correct: " + this.correct);
 };
