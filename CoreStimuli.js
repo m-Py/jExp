@@ -1,14 +1,18 @@
 
 // Stimulus: basic of all presentations on screen
-function Stimulus(duration, ISI, listening) {
+function Stimulus(duration, ISI, listening, listenTo) {
 	this.duration = duration; // presentation time of the stimulus. Specify in ms.
 	this.ISI = ISI; // inter-stimulus-intervall = pause after stimulus before next stimulus is shown
 	this.listening = listening; // should a reaction be recorded?
-	this.RT; // initialize; will be written to if listen() is executed
+	this.listenTo = listenTo;
+	
+	this.RT; // will be written to if listen method is executed
+	this.correct; // was given response correct
+	this.event;
+	
 	this.featureNumber = 0;
 	this.features = []; // features of the stimulus that will be called by showStimulus()
 	this.presentType; // gets added by add methods
-	this.next; // can be added to zero duration stimuli to specify press that continues experiment	
 	this.experiment; // property gets added when stimulus is added to experiment
 }
 	
@@ -21,24 +25,33 @@ Stimulus.prototype.listen = function () {
 	var that = this; // save reaction time value into RT property of each object
 	var RT = 0;
 	var t0 = performance.now();
-	$("*").on("keypress click", function() {
+	$(document).on("keypress click", function(e) {
+		// record reaction time
 		RT = performance.now() - t0;
-		if (RT > that.duration + that.ISI) {
-			that.RT = 0; // no reaction
+		if (RT > that.duration + that.ISI && that.duration > 0) { // only stop listening to event if duration is not 0
+			that.RT = 0; // no reaction after duration + ISI
 		} 
 		else {
 			that.RT = RT;
 		}
+		
+		// record response
+		// how to implement
+		that.event = e.which; // store key pressed
+		console.log(e.which + " " + e.type);
+		
 		console.log(that.toString());
-		$("*").off();
+		$(document).off();
 	});
-	var timeLeft = (that.duration+that.ISI)/10;
-	var countdown = setInterval(function() {
-		timeLeft--; // countdown
-		if (timeLeft <= 0) {
-			clearInterval(countdown);
-		}
-	}, 10); // timing precision of 10ms
+	if (this.duration !== 0) { // listen until duration + ISI is over
+		var timeLeft = (that.duration+that.ISI)/10;
+		var countdown = setInterval(function() {
+			timeLeft--; // countdown
+			if (timeLeft <= 0) {
+				clearInterval(countdown);
+			}
+		}, 10); // timing precision of 10ms
+	}
 };
 Stimulus.prototype.present = function() {
 	// 1) show 
