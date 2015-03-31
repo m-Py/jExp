@@ -30,16 +30,28 @@ Stimulus.prototype.listen = function () {
 	var recorded = false; // keeps track whether response has been recorded
 	
 	var recordResponse = function(e) {
+		$(document).off();		
 		that.event = e; // store key pressed as stimulus property
 		that.RT = RT;
 		recorded = true;
-		$(document).off();
+		if (e === that.correctResponse) {
+			that.correct = 1;
+		}
+		else {
+			that.correct = 0;
+		}
 	};
 	
 	var recordNonresponse = function() {
+		$(document).off();		
 		that.RT = 0; // no reaction after duration + ISI
-		that.event = undefined;
-		$(document).off();
+		that.event = "nonresponse";
+		if (that.correctResponse === "nogo") {
+			that.correct = 1;
+		}
+		else {
+			that.correct = 0;
+		}
 	};
 	
 	$(document).on("keypress click", function(e) {
@@ -69,7 +81,9 @@ Stimulus.prototype.listen = function () {
 			timeLeft--; // countdown
 			if (timeLeft <= 0) {
 				clearInterval(countdown);
-				if (!recorded) { recordNonresponse(); } // non response was given
+				if (!recorded) { // no response was given
+					recordNonresponse(); 
+				} 
 			}
 		}, 10); // timing precision of 10ms
 	}
@@ -86,7 +100,6 @@ Stimulus.prototype.present = function() {
 		this.experiment.countdown(this.duration); // remove stimulus after countdown
 	}
 };
-
 
 
 // prototype methods to add features to Stimuli
@@ -124,5 +137,12 @@ Stimulus.prototype.addCross = function(size, width) {
 
 
 Stimulus.prototype.toString = function() {
-	return("type: " + this.presentType + ", duration: " + this.duration + ", ISI: " + this.ISI + ", RT: " + this.RT + ", event: " + this.event);
+
+	for ( var p in this ) {
+		if (this.hasOwnProperty(p)) {
+			console.log(p + ": " + this[p]);
+		}
+	}
+		
+	//return("type: " + this.presentType + ", duration: " + this.duration + ", ISI: " + this.ISI + ", RT: " + this.RT + ", event: " + this.event + ", correct: " + this.correct);
 };
