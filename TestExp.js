@@ -15,7 +15,7 @@
 	var stim0 = new Stimulus("startscreen", 0, 0, false);
 	stim0.addText("Start", 100, rndCol());
 	
-	var stim1 = new Stimulus(leftID, 1000, 500, true, allowedKeys, 115);
+	var stim1 = new Stimulus(id = leftID, duration = 1000, ISI = 500, listening = true, listenTo = allowedKeys, correctResponse = 115);
 	stim1.addText("left", 100, rndCol());
 	
 	var stim1_1 = new Stimulus("dummy", 1000, 500, false);
