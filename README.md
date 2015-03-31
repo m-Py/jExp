@@ -8,7 +8,7 @@ jExp takes care of precise timing of stimulus presentations and.
 ### TO DO
 
 1. implement more stimuli features in new Stimulus implementation (rectangle, triangle, ...)
-2. create sample experiment that demostrates functionality
+2. create simple sample experiment that demostrates functionality (simon experiment)
 3. data storage client and server side
   1. implement possibility to store / export relevant data 
   2. add save() method to experiment object. Arguments are stimulus properties (e.g. RT). Returns a object containing the saved properties. Must be convertable to Json

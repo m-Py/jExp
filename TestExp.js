@@ -13,20 +13,21 @@
 	cross.addCode("console.log('Woohoo I can code');");
 	
 	var stim0 = new Stimulus("startscreen", 0, 0, false, [32]);
-	stim0.addText("Start", 100, rndCol());
+	stim0.addText("Press space to start", 100, rndCol());
 	
 	var stim1 = new Stimulus(id = leftID, duration = 1000, ISI = 500, listening = true, listenTo = allowedKeys, correctResponse = 115);
 	stim1.addText("left", 100, rndCol());
 	
-	var stim1_1 = new Stimulus("dummy", 1000, 500, false);
-	stim1_1.addText("i do nothing and do not record anything", 80, rndCol());
+
+	var stim1_1 = new Stimulus(nogoID, 1000, 500, true, allowedKeys, "nogo");
+	stim1_1.addText("DON'T", 100, rndCol());		
 	
 	var stim2 = new Stimulus(rightID, 1000, 500, true, allowedKeys, 108);	
 	stim2.addText("right", 100, rndCol());	 
 	stim2.addCode("console.log(stim1.correct);"); // this way I can access the correctness of a previous stimulus for feedback
 
 	var stim2_1 = new Stimulus(nogoID, 1000, 500, true, allowedKeys, "nogo");
-	stim2_1.addText("nothing", 50, rndCol());	
+	stim2_1.addText("DON'T", 100, rndCol());	
 
 	var stim3 = new Stimulus(leftID, 1000, 500, true, allowedKeys, 115);
 	stim3.addText("left", 100, rndCol());		
@@ -35,7 +36,7 @@
 	stim4.addText("right", 100, rndCol());			
 	
 	var stim5 = new Stimulus(nogoID, 1000, 500, true, allowedKeys, "nogo");
-	stim5.addText("nothing", 50, rndCol());	
+	stim5.addText("DON'T", 100, rndCol());	
 	
 	var stim6 = new Stimulus("endScreen", 0, 0, false);
 	stim6.addText("The experiment is over.", 50, rndCol());	
