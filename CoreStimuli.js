@@ -72,7 +72,6 @@ Stimulus.prototype.listen = function () {
 			}
 		}
 		
-		console.log(that.toString());
 	});
 	// set countdown for listening
 	if (this.duration !== 0) { 
@@ -106,7 +105,7 @@ Stimulus.prototype.present = function() {
 // add text
 Stimulus.prototype.addText = function(text, size, color, x1, y1) { // name feature type and coordinates, radius, size etc. Overloading is necessary here; see how to best implement it
 	var that = this;
-	// that.text = text;
+	that.text = text;
 	var draw = function () {
 		that.experiment.context.font = ""+size + "px Arial" || "100px Arial";
 		that.experiment.context.fillStyle = color || "black";
@@ -115,7 +114,7 @@ Stimulus.prototype.addText = function(text, size, color, x1, y1) { // name featu
 	};
 	that.features[that.featureNumber] = draw;
 	that.featureNumber = that.featureNumber + 1;
-	that.presentType = "text";		
+	that.presentType = "text";
 };
 // add fixation cross
 Stimulus.prototype.addCross = function(size, width) {
@@ -135,17 +134,25 @@ Stimulus.prototype.addCross = function(size, width) {
 	that.featureNumber = that.featureNumber + 1;
 	that.presentType = "fixation-cross";		
 };
-Stimulus.prototype.removeFeatures = function() {// add functionality to replace the content of a stimulus by other content; remove all features!
+Stimulus.prototype.removeFeatures = function() { // add functionality to replace the content of a stimulus by other content; remove all features!
 	var that = this;
 	that.featureNumber = 0;
 	that.features = [];
 };
 
 Stimulus.prototype.toString = function() {
-	for ( var p in this ) {
+	
+	/*for ( var p in this ) {
 		if (this.hasOwnProperty(p)) {
 			console.log(p + ": " + this[p]);
 		}
+	}*/
+	
+	var that = this;
+	if (that.event) {
+		return("type: " + this.presentType + ",\n duration: " + this.duration + ",\n ISI: " + this.ISI + ",\n RT: " + this.RT + ",\n event: " + this.event + ",\n correct: " + this.correct);
 	}
-	//return("type: " + this.presentType + ", duration: " + this.duration + ", ISI: " + this.ISI + ", RT: " + this.RT + ", event: " + this.event + ", correct: " + this.correct);
+	else {
+		return("type: " + this.presentType + ",\n duration: " + this.duration + ",\n ISI: " + this.ISI);
+	}
 };
