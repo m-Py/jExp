@@ -11,6 +11,7 @@ jExp takes care of precise timing of stimulus presentations and.
 2. create sample experiment that demostrates functionality
 3. data storage client and server side
   1. implement possibility to store / export relevant data 
+  2. add save() method to experiment object. Arguments are stimulus properties (e.g. RT). Returns a object containing the saved properties. Must be convertable to Json
 4. add possibility to change stimulus appearance during experiment so that not everything must be set a priori  
   1. for example for feedback during the experiment
   2. probably the solution is to add "coding" features to stimuli
