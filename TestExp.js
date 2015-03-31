@@ -39,7 +39,7 @@
 	stim5.addText("DON'T", 100, rndCol());	
 	
 	var stim6 = new Stimulus("endScreen", 0, 0, false);
-	stim6.addText("The experiment is over.", 50, rndCol());	
+	stim6.addText("The experiment is over.", 100, rndCol());	
 	
 
 	myExp.add(stim0);
