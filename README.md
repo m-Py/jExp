@@ -7,6 +7,9 @@ jExp takes care of precise timing of stimulus presentations and.
 
 ### TO DO
 
+**major**
+- fix bug that causes experiment canvas height larger than window height
+
 1. implement more stimuli features in new Stimulus implementation (rectangle, triangle, ...)
 2. create simple sample experiment that demostrates functionality (simon experiment)
 3. data storage client and server side
