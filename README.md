@@ -14,8 +14,8 @@ jExp takes care of precise timing of stimulus presentations and.
   4. store key pressed and whether press was correct
   5. implement no go as correct response
 2. data storage client and server side
-  1. set up informative toString method
-  2. added printStimuli method for experiment objects
+  1. set up informative toString method. CHECK
+  2. added printStimuli method for experiment objects. CHECK
   3. now: learn how to properly store data as json or other 
 3. create sample experiment with preliminary data storage and event handling (see point 1)
 4. stimulus creation
