@@ -133,6 +133,14 @@ Stimulus.prototype.addCross = function(size, width) {
 	that.features[that.featureNumber] = draw;
 	that.featureNumber = that.featureNumber + 1;	
 };
+// use the prototype addCode function to execute code during runtime of the experiment
+Stimulus.prototype.addCode = function(code) {
+	var that = this;
+	var draw = function() { eval(code); };
+	that.features[that.featureNumber] = draw;
+	that.featureNumber = that.featureNumber + 1;	
+};
+
 
 Stimulus.prototype.removeFeatures = function() { // add functionality to replace the content of a stimulus by other content; remove all features!
 	var that = this;
