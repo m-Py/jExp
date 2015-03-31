@@ -64,14 +64,24 @@ var startExp = function(arr) {
 		else if (counter < arr.length) { // stopping condition for recursion!
 			// proceed experiment after a zero-duration stimulus has been shown by pressing a key
 			var currentlyShownStimulus = arr[counter-1][arr[counter-1].length-1];
-			var continueEvent = "keypress click";
-				$(document).on(continueEvent, function() {
+			$(document).on("keypress click", function(e) {
+				if (currentlyShownStimulus.listenTo) {
+					for (var i = 0; i < currentlyShownStimulus.listenTo.length; i++) {
+						if (e.which === currentlyShownStimulus.listenTo[i]) { // proceed if allowed key was pressed
+							$(document).off();
+							currentlyShownStimulus.experiment.clear();
+							runStimuli(arr[counter]);
+							startTimer(arr, counter+1); 
+						}
+					}
+				}
+				else {
 					$(document).off();
 					currentlyShownStimulus.experiment.clear();
 					runStimuli(arr[counter]);
-					startTimer(arr, counter+1); 
-				});
-
+					startTimer(arr, counter+1);
+				}
+			});
 		}
 	};
 	

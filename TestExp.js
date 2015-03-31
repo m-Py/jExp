@@ -12,7 +12,7 @@
 	cross.addCross(30, 2);	
 	cross.addCode("console.log('Woohoo I can code');");
 	
-	var stim0 = new Stimulus("startscreen", 0, 0, false);
+	var stim0 = new Stimulus("startscreen", 0, 0, false, [32]);
 	stim0.addText("Start", 100, rndCol());
 	
 	var stim1 = new Stimulus(id = leftID, duration = 1000, ISI = 500, listening = true, listenTo = allowedKeys, correctResponse = 115);
