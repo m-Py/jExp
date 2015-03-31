@@ -106,6 +106,7 @@ Stimulus.prototype.present = function() {
 // add text
 Stimulus.prototype.addText = function(text, size, color, x1, y1) { // name feature type and coordinates, radius, size etc. Overloading is necessary here; see how to best implement it
 	var that = this;
+	// that.text = text;
 	var draw = function () {
 		that.experiment.context.font = ""+size + "px Arial" || "100px Arial";
 		that.experiment.context.fillStyle = color || "black";
@@ -134,7 +135,11 @@ Stimulus.prototype.addCross = function(size, width) {
 	that.featureNumber = that.featureNumber + 1;
 	that.presentType = "fixation-cross";		
 };
-
+Stimulus.prototype.removeFeatures = function() // add functionality to replace the content of a stimulus by other content; remove all features!
+	var that = this;
+	that.featureNumber = 0;
+	that.features = [];
+};
 
 Stimulus.prototype.toString = function() {
 
