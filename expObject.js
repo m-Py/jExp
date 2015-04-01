@@ -15,7 +15,7 @@ Experiment.prototype.add = function(stim) {
 	that.contains = that.contains + 1;
 };
 
-// block several stimuli into one unit; these stimuli are presented repetition times
+// block several stimuli into one unit; this block of stimuli is presented as many times as specified in repetition argument
 Experiment.prototype.addBlock = function(repetition) { 
 	for (var t = 0; t < repetition; t++) {
 		for (var i = 1; i < arguments.length; i++) {

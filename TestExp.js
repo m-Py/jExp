@@ -32,7 +32,8 @@
 
 	// test addBlock functioning
 	myExp.add(start);
-	myExp.addBlock(3, startTrial, cross, stim1, cross, stim2, cross, stim3, cross, anyKey);
+	myExp.addBlock(1, startTrial, cross, stim1, cross, stim2, cross, stim3, cross, anyKey);
+	// myExp.addLogger(stim1.RT, stim1.correct, stim1.event, stim2.RT, stim2.correct, stim2.event, stim3.RT, stim3.correct, stim3.event)
 	myExp.add(end);
 
 
