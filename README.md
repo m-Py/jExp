@@ -10,7 +10,7 @@
 
 
 1. improve data storage functionality (client side first)
-  1. add save() method to experiment object. Arguments are stimulus properties (e.g. RT). Returns a object containing the saved properties. Must be convertable to Json
+  1. added addLogger to Stimulus object
 2. stimulus positioning
   1. implement stimulus positioning via argument passing to add feature methods 
   2. do this for addText first

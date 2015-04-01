@@ -161,7 +161,6 @@ Stimulus.prototype.addLogger = function(toBeSavedStimuli) {
 					data[key] = saveMe[i][key];
 				}
 			}
-			console.log(data);
 			that.experiment.data.push(data);
 		}
 	};
