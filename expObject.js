@@ -29,6 +29,7 @@ Experiment.prototype.clear = function() {
 	this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 }
 
+// method to remove stimulus after Stimulus.duration 
 Experiment.prototype.countdown = function(duration) {
 	var that = this;	
 	var timeLeft = duration/10;
@@ -55,9 +56,16 @@ Experiment.prototype.start = function() {
 	startExp(this.expArr);
 };
 
+// method to log results of stimuli
 Experiment.prototype.printStimuli = function() {
 	for (var i = 0; i < this.expArr.length; i++) {
 		console.log("stimulus" + (i+1) + ",\n " + this.expArr[i].toString());
 	}
 };
 
+// store specified results in an object
+Experiment.prototype.addLogger = function(toBeSavedData) {
+	for (var i = 0; i < arguments.length; i++) {
+		console.log(arguments[i]);
+	}
+};
