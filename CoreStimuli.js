@@ -41,7 +41,6 @@ Stimulus.prototype.listen = function () {
 			that.correct = 1;
 		}
 		else {
-			console.log("why am i here?");
 			that.correct = 0;
 		}
 	};
@@ -60,7 +59,7 @@ Stimulus.prototype.listen = function () {
 		}
 	};
 	
-	$(document).off(); // remove any listeners that might still be listening
+	$(document).off(); // 
 	$(document).on("keypress click", function(e) {
 		
 		// get RT and event

@@ -5,9 +5,6 @@ function Experiment(container) {
 	this.container = container || "body"; // add jQuery selector as container. Not id!
 	this.contains = 0; // Property: how many Stimuli are contained in the experiment. Gets increased by add()
 	this.expArr = []; // Array: contains all stimuli of the experiment; add and addBlock push Stimuli to this array		
-	// methods: to be added later
-	this.addBlock = undefined; // Method: Adds a block of Stimuli to the experiment. Pass a block of stimuli and a repetition number	
-	
 };
 
 // add Stimulus to experiment
@@ -16,6 +13,13 @@ Experiment.prototype.add = function(stim) {
 	stim.experiment = that; // adds experiment as property to the stimulus
 	that.expArr.push(stim);
 	that.contains = that.contains + 1;
+};
+
+// block several stimuli into one unit; these stimuli are presented repetition times
+Experiment.prototype.addBlock = function() { 
+	for (var i = 1; i < arguments.length; i++) {
+		this.add(arguments[i]);
+	}
 };
 
 // clear stimulus
@@ -54,3 +58,4 @@ Experiment.prototype.printStimuli = function() {
 		console.log("stimulus" + (i+1) + ",\n " + this.expArr[i].toString());
 	}
 };
+

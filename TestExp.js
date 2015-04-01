@@ -25,16 +25,10 @@
 	
 	var breakStim = new Stimulus("pause", 0, 0);
 	breakStim.addText("relax dude.", 100, rndCol());
-	
-	myExp.add(start);
-	myExp.add(cross);		
-	myExp.add(stim1);	
-	myExp.add(cross);
-	myExp.add(stim2);
-	myExp.add(cross);
-	myExp.add(stim3);
-	myExp.add(end);
 
+
+	// test addBlock functioning
+	myExp.addBlock(0, start, cross, stim1, cross, stim2, cross, stim3, end);
 
 $(document).ready(function() {
 
