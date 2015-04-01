@@ -51,6 +51,6 @@ Experiment.prototype.start = function() {
 
 Experiment.prototype.printStimuli = function() {
 	for (var i = 0; i < this.expArr.length; i++) {
-		console.log("stimulus" + i + ",\n " + this.expArr[i].toString());
+		console.log("stimulus" + (i+1) + ",\n " + this.expArr[i].toString());
 	}
 };
