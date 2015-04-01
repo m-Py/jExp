@@ -16,9 +16,11 @@ Experiment.prototype.add = function(stim) {
 };
 
 // block several stimuli into one unit; these stimuli are presented repetition times
-Experiment.prototype.addBlock = function() { 
-	for (var i = 1; i < arguments.length; i++) {
-		this.add(arguments[i]);
+Experiment.prototype.addBlock = function(repetition) { 
+	for (var t = 0; t < repetition; t++) {
+		for (var i = 1; i < arguments.length; i++) {
+			this.add(arguments[i]);
+		}
 	}
 };
 

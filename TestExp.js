@@ -9,7 +9,10 @@
 	cross.addCross(30, 2);	
 	
 	var start = new Stimulus("startscreen", 0, 0, [32]);
-	start.addText("Press space to start", 100, rndCol());
+	start.addText("Press space to start experiment", 100, rndCol());
+	
+	var startTrial = new Stimulus("trial_begin", 0, 0, [32]);
+	startTrial.addText("Press space to start trial", 100, rndCol());	
 	
 	var stim1 = new Stimulus("left" ,1000, 500, allowedKeys, 115);
 	stim1.addText("left", 100, rndCol());	
@@ -28,7 +31,9 @@
 
 
 	// test addBlock functioning
-	myExp.addBlock(0, start, cross, stim1, cross, stim2, cross, stim3, cross, anyKey, end);
+	myExp.add(start);
+	myExp.addBlock(3, startTrial, cross, stim1, cross, stim2, cross, stim3, cross, anyKey);
+	myExp.add(end);
 
 
 $(document).ready(function() {
