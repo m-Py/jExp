@@ -11,6 +11,7 @@
 
 1. improve data storage functionality (client side first)
   1. added addLogger to Stimulus object
+  2. can be turned to a JSON string via JSON.stringify(myExp.data)
 2. stimulus positioning
   1. implement stimulus positioning via argument passing to add feature methods 
   2. do this for addText first

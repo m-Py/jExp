@@ -9,10 +9,10 @@
 	cross.addCross(30, 2);	
 	
 	var start = new Stimulus("startscreen", 0, 0, [32]);
-	start.addText("Press space to start experiment", 100, rndCol());
+	start.addText("Press space to start experiment", 50, rndCol());
 	
 	var startTrial = new Stimulus("trial_begin", 0, 0, [32]);
-	startTrial.addText("Press space to start trial", 100, rndCol());	
+	startTrial.addText("Press space to start trial", 50, rndCol());	
 	
 	var stim1 = new Stimulus("left" ,1000, 500, allowedKeys, 115);
 	stim1.addText("left", 100, rndCol());	
@@ -24,7 +24,7 @@
 	stim3.addText("DON'T", 100, rndCol());
 	
 	var end = new Stimulus("endScreen", 0, 0);
-	end.addText("The experiment is over.", 100, rndCol());
+	end.addText("The experiment is over.", 50, rndCol());
 	
 	var anyKey = new Stimulus("react to all", 0, 0);
 	anyKey.addText("press any key", 100, rndCol());
@@ -36,8 +36,6 @@
 	myExp.addBlock(3, startTrial, cross, stim1, cross, stim2, cross, stim3, anyKey);
 	myExp.add(end);
 	
-	// JSON.stringify(myExp.data) can be used to store saved data as a json string :-)
-
 $(document).ready(function() {
 
 	myExp.start();

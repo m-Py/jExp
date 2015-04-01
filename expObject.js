@@ -58,10 +58,8 @@ Experiment.prototype.start = function() {
 };
 
 // method to log results of stimuli
-Experiment.prototype.printStimuli = function() {
-	for (var i = 0; i < this.expArr.length; i++) {
-		console.log("stimulus" + (i+1) + ",\n " + this.expArr[i].toString());
-	}
+Experiment.prototype.saveResults = function() {
+	return(JSON.stringify(this.data));
 };
 
 

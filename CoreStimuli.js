@@ -114,7 +114,7 @@ Stimulus.prototype.addText = function(text, size, color, x1, y1) { // name featu
 	var that = this;
 	that.text = text;
 	var draw = function () {
-		that.experiment.context.font = ""+size + "px Arial" || "100px Arial";
+		that.experiment.context.font = ""+size + "px Arial" || "30px Arial";
 		that.experiment.context.fillStyle = color || "black";
 		that.experiment.context.textAlign = "center";
 		that.experiment.context.fillText(that.text, that.experiment.canvas.width/2, (that.experiment.canvas.height/2)+(size/2.5)); // trying to vertically align text
@@ -152,7 +152,7 @@ Stimulus.prototype.addLogger = function(toBeSavedStimuli) {
 	var that = this;
 	
 	var save = function() {
-		var saveData = ["id", "repetition", "RT", "event", "correct", "duration", "ISI"];
+		var saveData = ["id", "repetition", "RT", "event", "correct"];
 		
 		for (var i = 0; i < saveMe.length; i++) {
 			var data = {};
