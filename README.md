@@ -21,4 +21,3 @@
   1. for example for feedback during the experiment
   2. probably the solution is to add "coding" features to stimuli
 7. add functionalities to control experimental flow
-  
