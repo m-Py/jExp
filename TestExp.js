@@ -23,12 +23,13 @@
 	var end = new Stimulus("endScreen", 0, 0);
 	end.addText("The experiment is over.", 100, rndCol());
 	
-	var breakStim = new Stimulus("pause", 0, 0);
-	breakStim.addText("relax dude.", 100, rndCol());
+	var anyKey = new Stimulus("react to all", 0, 0);
+	anyKey.addText("press any key", 100, rndCol());
 
 
 	// test addBlock functioning
-	myExp.addBlock(0, start, cross, stim1, cross, stim2, cross, stim3, end);
+	myExp.addBlock(0, start, cross, stim1, cross, stim2, cross, stim3, cross, anyKey, end);
+
 
 $(document).ready(function() {
 
