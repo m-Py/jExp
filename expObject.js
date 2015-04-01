@@ -4,7 +4,9 @@
 function Experiment(container) {
 	this.container = container || "body"; // add jQuery selector as container. Not id!
 	this.contains = 0; // Property: how many Stimuli are contained in the experiment. Gets increased by add()
-	this.expArr = []; // Array: contains all stimuli of the experiment; add and addBlock push Stimuli to this array		
+	this.expArr = []; // Array: contains all stimuli of the experiment; add and addBlock push Stimuli to this array
+	this.data = {};
+	this.logged = 0;
 };
 
 // add Stimulus to experiment
@@ -63,9 +65,5 @@ Experiment.prototype.printStimuli = function() {
 	}
 };
 
-// store specified results in an object
-Experiment.prototype.addLogger = function(toBeSavedData) {
-	for (var i = 0; i < arguments.length; i++) {
-		console.log(arguments[i]);
-	}
-};
+
+

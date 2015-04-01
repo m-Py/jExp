@@ -143,6 +143,30 @@ Stimulus.prototype.addCode = function(code) {
 	this.features[this.featureNumber] = draw;
 	this.featureNumber = this.featureNumber + 1;	
 };
+// store specified results in an object
+Stimulus.prototype.addLogger = function(toBeSavedStimuli) {
+	
+	saveMe = arguments;
+	var that = this;
+	
+	var save = function() {
+		var saveData = ["ISI", "duration", "RT", "event", "correct"];
+		var data = {};
+		
+		for (var i = 0; i < saveMe.length; i++) {
+			for (key in saveMe[i]) {
+				if ( $.inArray(key, saveData) !== -1 ) { 
+					data[key] = saveMe[i][key];
+				}
+			}
+		}
+		that.experiment.data["log" + that.experiment.logged] = data;
+		that.experiment.logged++;		
+		return data;
+	};
+	this.features[this.featureNumber] = save;
+	this.featureNumber = this.featureNumber + 1;	
+};
 
 
 Stimulus.prototype.removeFeatures = function() { // add functionality to replace the content of a stimulus by other content; remove all features!
