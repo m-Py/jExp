@@ -10,6 +10,7 @@ jExp takes care of precise timing of stimulus presentations and.
 **major**
 - fix bug that causes experiment canvas height larger than window height
 - i reduced size by 30px, but there must be a better way
+- remove listening property; instead: response listening is always conducted, but storing response data is optional
 
 1. data storage client side
   2. add save() method to experiment object. Arguments are stimulus properties (e.g. RT). Returns a object containing the saved properties. Must be convertable to Json

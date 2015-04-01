@@ -1,12 +1,11 @@
 
 // Stimulus: basic of all presentations on screen
-function Stimulus(id, duration, ISI, listening, listenTo, correctResponse) {
+function Stimulus(id, duration, ISI, listenTo, correctResponse) {
 	
 	this.id = id; 
 	this.duration = duration; // presentation time of the stimulus. Specify in ms.
 	this.ISI = ISI; // inter-stimulus-intervall = pause after stimulus before next stimulus is shown
 	
-	this.listening = listening; // should a reaction be recorded?
 	this.listenTo = listenTo; // should be an array containing the allowed keypresses
 	this.correctResponse = correctResponse;
 	
@@ -35,10 +34,10 @@ Stimulus.prototype.listen = function () {
 		that.event = e; // store key pressed as stimulus property
 		that.RT = RT;
 		recorded = true;
-		if (!that.correctResonse) { // no correct response was specified: this.correct = undefined
+		if (that.correctResponse === undefined) { // no correct response was specified: this.correct = undefined
 			that.correct = undefined;
 		}			
-		else if (e === that.correctResponse) {
+		if (that.event === that.correctResponse) {
 			that.correct = 1;
 		}
 		else {
@@ -49,7 +48,7 @@ Stimulus.prototype.listen = function () {
 	var recordNonresponse = function() {
 		that.RT = 0; // no reaction after duration + ISI
 		that.event = "nonresponse";
-		if (!that.correctResonse) { // no correct response was specified: this.correct = undefined
+		if (!that.correctResponse) { // no correct response was specified: this.correct = undefined
 			that.correct = undefined;
 		}		
 		else if (that.correctResponse === "nogo") {
@@ -59,7 +58,8 @@ Stimulus.prototype.listen = function () {
 			that.correct = 0;
 		}
 	};
-	$(document).off();
+	
+	$(document).off(); // remove any listeners that might still be listening
 	$(document).on("keypress click", function(e) {
 		
 		// get RT and event
@@ -98,12 +98,10 @@ Stimulus.prototype.present = function() {
 	// 1) show 
 	this.showStimulus();
 	// 2) listen to reaction
-	if (this.listening === true) {
-		this.listen();
-	}
-	// 3) remove after duration
+	this.listen();
+	// 3) remove stimulus after its specified duration
 	if (this.duration !== 0) {
-		this.experiment.countdown(this.duration); // remove stimulus after countdown
+		this.experiment.countdown(this.duration);
 	}
 };
 

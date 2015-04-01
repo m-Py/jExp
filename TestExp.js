@@ -8,38 +8,37 @@
 	
 	myExp = new Experiment("#stim");
 	
-	var cross = new Stimulus("cross", 250, 300, true);
+	var cross = new Stimulus("cross", 250, 300);
 	cross.addCross(30, 2);	
 	
-	var stim0 = new Stimulus("startscreen", 0, 0, true, [32]);
+	var stim0 = new Stimulus("startscreen", 0, 0, [32]);
 	stim0.addText("Press space to start", 100, rndCol());
 	
-	var stim1 = new Stimulus(leftID,1000, 500, true, allowedKeys, 115);
-	stim1.addText("left", 100, rndCol());
-	
+	var stim1 = new Stimulus(leftID,1000, 500, allowedKeys, 115);
+	stim1.addText("left", 100, rndCol());	
 
-	var stim1_1 = new Stimulus(nogoID, 1000, 500, true, allowedKeys, "nogo");
+	var stim1_1 = new Stimulus(nogoID, 1000, 500, allowedKeys, "nogo");
 	stim1_1.addText("DON'T", 100, rndCol());		
 	
-	var stim2 = new Stimulus(rightID, 1000, 500, true, allowedKeys, 108);	
+	var stim2 = new Stimulus(rightID, 1000, 500, allowedKeys, 108);	
 	stim2.addText("right", 100, rndCol());	 
 
-	var stim2_1 = new Stimulus(nogoID, 1000, 500, true, allowedKeys, "nogo");
+	var stim2_1 = new Stimulus(nogoID, 1000, 500, allowedKeys, "nogo");
 	stim2_1.addText("DON'T", 100, rndCol());	
 
-	var stim3 = new Stimulus(leftID, 1000, 500, true, allowedKeys, 115);
+	var stim3 = new Stimulus(leftID, 1000, 500, allowedKeys, 115);
 	stim3.addText("left", 100, rndCol());		
 
-	var stim4 = new Stimulus(rightID, 1000, 500, true, allowedKeys, 108);
+	var stim4 = new Stimulus(rightID, 1000, 500, allowedKeys, 108);
 	stim4.addText("right", 100, rndCol());			
 	
-	var stim5 = new Stimulus(nogoID, 1000, 500, true, allowedKeys, "nogo");
+	var stim5 = new Stimulus(nogoID, 1000, 500, allowedKeys, "nogo");
 	stim5.addText("DON'T", 100, rndCol());	
 	
-	var stim6 = new Stimulus("endScreen", 0, 0, true);
+	var stim6 = new Stimulus("endScreen", 0, 0);
 	stim6.addText("The experiment is over.", 100, rndCol());
 	
-	var breakStim = new Stimulus("pause", 0, 0, true);
+	var breakStim = new Stimulus("pause", 0, 0);
 	breakStim.addText("relax dude.", 100, rndCol());
 	
 	myExp.add(stim0);
