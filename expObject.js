@@ -37,9 +37,8 @@ Experiment.prototype.countdown = function(duration) {
 
 // create canvas in which the experiment is shown
 Experiment.prototype.createCanvas = function() { // Method: when experiment is initialized, create a canvas element in container element in browser		
-	console.log($(window).height());
 	$(this.container).append("<canvas id='myCanvas' width='" + ($(window).width()-30) + "'height= '" + ($(window).height()-30) + "'></canvas>");
-	console.log($(window).height());	
+
 	this.canvas = document.getElementById("myCanvas");
 	this.context = this.canvas.getContext("2d");
 };

@@ -35,7 +35,10 @@ Stimulus.prototype.listen = function () {
 		that.event = e; // store key pressed as stimulus property
 		that.RT = RT;
 		recorded = true;
-		if (e === that.correctResponse) {
+		if (!that.correctResonse) { // no correct response was specified: this.correct = undefined
+			that.correct = undefined;
+		}			
+		else if (e === that.correctResponse) {
 			that.correct = 1;
 		}
 		else {
@@ -44,22 +47,25 @@ Stimulus.prototype.listen = function () {
 	};
 	
 	var recordNonresponse = function() {
-		$(document).off();		
 		that.RT = 0; // no reaction after duration + ISI
 		that.event = "nonresponse";
-		if (that.correctResponse === "nogo") {
+		if (!that.correctResonse) { // no correct response was specified: this.correct = undefined
+			that.correct = undefined;
+		}		
+		else if (that.correctResponse === "nogo") {
 			that.correct = 1;
 		}
 		else {
 			that.correct = 0;
 		}
 	};
-	
+	$(document).off();
 	$(document).on("keypress click", function(e) {
 		
 		// get RT and event
 		RT = performance.now() - t0;
 		event = e.which;
+		console.log(event);
 		
 		// store reaction time and response
 		if (!that.listenTo) { // no allowed response was specified: just record any key press that comes
@@ -75,14 +81,14 @@ Stimulus.prototype.listen = function () {
 		
 	});
 	// set countdown for listening
-	if (this.duration !== 0) { 
+	if (that.duration !== 0) { 
 		var timeLeft = (that.duration+that.ISI)/10;
 		var countdown = setInterval(function() {
 			timeLeft--; // countdown
 			if (timeLeft <= 0) {
 				clearInterval(countdown);
 				if (!recorded) { // no response was given
-					recordNonresponse(); 
+					recordNonresponse();
 				} 
 			}
 		}, 10); // timing precision of 10ms
@@ -135,10 +141,9 @@ Stimulus.prototype.addCross = function(size, width) {
 };
 // use the prototype addCode function to execute code during runtime of the experiment
 Stimulus.prototype.addCode = function(code) {
-	var that = this;
 	var draw = function() { eval(code); };
-	that.features[that.featureNumber] = draw;
-	that.featureNumber = that.featureNumber + 1;	
+	this.features[this.featureNumber] = draw;
+	this.featureNumber = this.featureNumber + 1;	
 };
 
 
@@ -150,14 +155,7 @@ Stimulus.prototype.removeFeatures = function() { // add functionality to replace
 
 Stimulus.prototype.toString = function() {
 	
-	/*for ( var p in this ) {
-		if (this.hasOwnProperty(p)) {
-			console.log(p + ": " + this[p]);
-		}
-	}*/
-	
-	var that = this;
-	if (that.event) {
+	if (this.event) {
 		return("id: " + this.id + ",\n RT: " + this.RT + ",\n event: " + this.event + ",\n correct: " + this.correct);
 	}
 	else {
