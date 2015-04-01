@@ -5,6 +5,7 @@ function Stimulus(id, duration, ISI, listenTo, correctResponse) {
 	this.id = id; 
 	this.duration = duration; // presentation time of the stimulus. Specify in ms.
 	this.ISI = ISI; // inter-stimulus-intervall = pause after stimulus before next stimulus is shown
+	this.repetition = 0;
 	
 	this.listenTo = listenTo; // should be an array containing the allowed keypresses
 	this.correctResponse = correctResponse;
@@ -95,6 +96,7 @@ Stimulus.prototype.listen = function () {
 	}
 };
 Stimulus.prototype.present = function() {
+	this.repetition++; // store that this stimulus has been presented
 	// 1) show 
 	this.showStimulus();
 	// 2) listen to reaction
@@ -150,22 +152,21 @@ Stimulus.prototype.addLogger = function(toBeSavedStimuli) {
 	var that = this;
 	
 	var save = function() {
-		var saveData = ["ISI", "duration", "RT", "event", "correct"];
-		var data = {};
+		var saveData = ["id", "repetition", "RT", "event", "correct", "duration", "ISI"];
 		
 		for (var i = 0; i < saveMe.length; i++) {
+			var data = {};
 			for (key in saveMe[i]) {
 				if ( $.inArray(key, saveData) !== -1 ) { 
 					data[key] = saveMe[i][key];
 				}
 			}
+			console.log(data);
+			that.experiment.data.push(data);
 		}
-		that.experiment.data["log" + that.experiment.logged] = data;
-		that.experiment.logged++;		
-		return data;
 	};
 	this.features[this.featureNumber] = save;
-	this.featureNumber = this.featureNumber + 1;	
+	this.featureNumber = this.featureNumber + 1;
 };
 
 

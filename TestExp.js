@@ -33,9 +33,10 @@
 
 	// test addBlock functioning
 	myExp.add(start);
-	myExp.addBlock(1, startTrial, cross, stim1, cross, stim2, cross, stim3, cross, anyKey);
+	myExp.addBlock(3, startTrial, cross, stim1, cross, stim2, cross, stim3, cross, anyKey);
 	myExp.add(end);
-
+	
+	// JSON.stringify(myExp.data) can be used to store saved data as a json string :-)
 
 $(document).ready(function() {
 
