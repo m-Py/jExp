@@ -34,13 +34,14 @@ Stimulus.prototype.listen = function () {
 		that.event = e; // store key pressed as stimulus property
 		that.RT = RT;
 		recorded = true;
-		if (that.correctResponse === undefined) { // no correct response was specified: this.correct = undefined
+		if (!that.correctResponse) { // no correct response was specified: this.correct = undefined
 			that.correct = undefined;
 		}			
-		if (that.event === that.correctResponse) {
+		else if (that.event === that.correctResponse) {
 			that.correct = 1;
 		}
 		else {
+			console.log("why am i here?");
 			that.correct = 0;
 		}
 	};
