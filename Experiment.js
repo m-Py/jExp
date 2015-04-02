@@ -4,8 +4,8 @@ function Experiment(container) {
 	this.container = container || "body"; // add jQuery selector as container. Not id!
 	this.contains = 0; // Property: how many Stimuli are contained in the experiment. Gets increased by add()
 	this.expArr = []; // Array: contains all stimuli of the experiment; add and addBlock push Stimuli to this array. Experiment.start() calls the stimuli that are contained in this array
-	this.data = [];
 	this.UserDefinedVars = {};
+	this.stimShownNow = 0;
 };
 
 // add Stimulus to experiment
@@ -57,11 +57,6 @@ Experiment.prototype.start = function() {
 	startExp(this.expArr);
 };
 
-// method to log results of stimuli
-Experiment.prototype.saveResults = function() {
-	return(JSON.stringify(this.data));
-};
-
 // add function that takes a coordinate with 0, 0 = center and turns it into html canvas coordinates
 Experiment.prototype.getNewX = function(coordinate) {
 	return coordinate + this.canvas.width/2;
@@ -72,5 +67,12 @@ Experiment.prototype.getNewY = function(coordinate) {
 	return this.canvas.height/2 - coordinate;
 };
 
-
+// simple data storing function; uses Stimulus method slimObject
+Experiment.prototype.storeData = function() {
+	var data = [];
+	for (var t = 0; t < this.expArr.length; t++) {
+		data[t] = this.expArr[t].slimObject();
+	}
+	return data;
+};
 

@@ -59,42 +59,6 @@ Stimulus.prototype.addCode = function(code) {
 	that.features.push(draw);
 };
 
-// store passed Stimulus data in the Experiment.data object
-Stimulus.prototype.addLogger = function(toBeSavedStimuli) {
-	
-	saveMe = arguments;
-	var that = this;
-	
-	var save = function() {
-		setTimeout(function() { // makes sure that data storing is done properly! Even for the stimulus that was presented before the stimulus that contains the save function
-			
-			var container = {};
-			
-			var saveData = ["id", "repetition", "RT", "event", "correct"];
-						
-			for (var i = 0; i < saveMe.length; i++) {
-				var StimData = {};
-				for (key in saveMe[i]) {
-					if ( $.inArray(key, saveData) !== -1 ) { 
-						StimData[key] = saveMe[i][key];
-					}
-				}
-			container["Stim"+(i+1)] = StimData;
-			}
-			// log user defined experimental variables
-			var addVars = that.experiment.UserDefinedVars;
-			for (more in addVars) {
-				var expData = {};
-				expData[more] = addVars[more];
-			}
-			container["ExpData"] = expData;
-			that.experiment.data.push(container);
-		}, 50); // wait 50ms for execution
-	};
-	// add save function to stimulus so it gets executed
-	that.features.push(save);
-};
-
 // remove all features from a Stimulus.
 Stimulus.prototype.removeFeatures = function() { 
 	this.features = [];
@@ -110,3 +74,18 @@ Stimulus.prototype.addExpVar = function(VAR, value) {
 	that.features.push(draw);
 	return value;
 };
+
+
+// returns a slim Stimulus object, that does not contain functions, the pointer to the experiment and arrays as values
+Stimulus.prototype.slimObject = function() {
+	data = {};
+	for (key in this) {
+		if (this[key] !== undefined) {
+			if (this[key].constructor.name !== "Function" && this[key].constructor.name !== "Experiment" && this[key].constructor.name !== "Array") {
+			data[key] = this[key];
+			}
+		}
+	}
+	return data;
+};
+	

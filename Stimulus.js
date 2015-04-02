@@ -5,7 +5,6 @@ function Stimulus(id, duration, ISI, listenTo, correctResponse) {
 	this.id = id; // give your stimulus a name. Handy for data storage
 	this.duration = duration; // presentation time of the stimulus. Specify in ms.
 	this.ISI = ISI; // inter-stimulus-intervall = pause after stimulus before next stimulus is shown
-	this.repetition = 0; // how many times has the stimulus been presented? get increased when .present() is executed
 	
 	this.listenTo = listenTo; // should be an array containing the allowed keypresses
 	this.correctResponse = correctResponse;
@@ -42,7 +41,7 @@ Stimulus.prototype.listen = function () {
 		}
 		else {
 			that.correct = 0;
-		}
+		}		
 	};
 	
 	var recordNonresponse = function() {
@@ -95,7 +94,7 @@ Stimulus.prototype.listen = function () {
 	}
 };
 Stimulus.prototype.present = function() {
-	this.repetition++; // store that this stimulus has been presented
+	this.experiment.stimShownNow++;
 	// 1) show 
 	this.showStimulus();
 	// 2) listen to reaction

@@ -25,7 +25,7 @@ createBlock = function(blockRepetition) {
 		startBlock.addText("Click to start " + (t+1) + ". block", 80, rndCol(), 0, 0);
 		simon.add(startBlock);	
 		
-		for ( var i = 0; i < 10; i++) {
+		for ( var i = 0; i < 5; i++) {
 			var coin = rndInt(1,4);
 			if (coin === 1) {
 				var id = "react_left - position_left";
@@ -53,23 +53,18 @@ createBlock = function(blockRepetition) {
 			}				
 			
 			var cross = new Stimulus("cross", 250, 300);
-			cross.addCross(30, 2);			
+			cross.addCross(30, 2);
 				
 			tempStim = new Stimulus(id, 400, rndInt(700, 1100), [115, 108], correctKey);
 			tempStim.addText(text, 80, rndCol(), side, 0);
 			
-			var logger = new Stimulus("logger", 50, 50);
-			logger.addLogger(tempStim);
-			
-			simon.add(cross);
-			simon.add(tempStim);
-			simon.add(logger);
+			simon.addBlock(1, cross, tempStim);
 		}
 	}
 };
 
 
-createBlock(3);
+createBlock(1);
 
 
 var end = new Stimulus("endscreen", 0, 0);
