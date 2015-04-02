@@ -61,5 +61,13 @@ Experiment.prototype.saveResults = function() {
 	return(JSON.stringify(this.data));
 };
 
+// add function that takes a coordinate with 0, 0 = center and turns it into html canvas coordinates
+Experiment.prototype.getNewX = function(coordinate) {
+	return coordinate + this.canvas.width/2;
+};
 
+// add function that takes a coordinate with 0, 0 = center and turns it into html canvas coordinates
+Experiment.prototype.getNewY = function(coordinate) {
+	return this.canvas.height/2 - coordinate;
+};
 

@@ -9,7 +9,7 @@
 	cross.addCross(30, 2);	
 	
 	var start = new Stimulus("startscreen", 0, 0, [32]);
-	start.addText("Press space to start experiment", 50, rndCol());
+	start.addText("Press space to start experiment", 50, rndCol(), 0, 0);
 	
 	var startTrial = new Stimulus("trial_begin", 0, 0, [32]);
 	startTrial.addText("Press space to start trial", 50, rndCol());	
@@ -28,8 +28,7 @@
 	var end = new Stimulus("endScreen", 0, 0);
 	end.addText("The experiment is over.", 50, rndCol());
 	
-	var logger = new Stimulus("pause", 100, 20);   
-	logger.addText(" ss ", 100, rndCol()); 
+	var logger = new Stimulus("logging", 100, 20);
 	logger.addLogger(stim1, stim2, stim3); // logs data of the 3 stimuli to the Experiment.data object
 
 
