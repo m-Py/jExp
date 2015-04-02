@@ -26,14 +26,14 @@
 	var end = new Stimulus("endScreen", 0, 0);
 	end.addText("The experiment is over.", 50, rndCol());
 	
-	var anyKey = new Stimulus("react to all", 0, 0);
-	anyKey.addText("press any key", 100, rndCol());
-	anyKey.addLogger(stim1, stim2, stim3); // logs data of the 3 stimuli to the Experiment.data object
+	var logger = new Stimulus("pause", 0, 0);
+	logger.addText(" moep ?", 100, rndCol()); 
+	logger.addLogger(stim1, stim2, stim3); // logs data of the 3 stimuli to the Experiment.data object
 
 
 	// test addBlock functioning
 	myExp.add(start);
-	myExp.addBlock(3, startTrial, cross, stim1, cross, stim2, cross, stim3, anyKey); // 3 repetitions for this block
+	myExp.addBlock(3, startTrial, cross, stim1, cross, stim2, cross, stim3, logger); // 3 repetitions for this block
 	myExp.add(end);
 	
 $(document).ready(function() {

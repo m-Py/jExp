@@ -23,7 +23,7 @@ Stimulus.prototype.addText = function(text, size, color, x1, y1) { // name featu
 	var that = this;
 	that.text = text;
 	var draw = function () {
-		that.experiment.context.font = ""+size + "px Arial" || "30px Arial";
+		that.experiment.context.font = (""+size + "px Arial") || "30px Arial";
 		that.experiment.context.fillStyle = color || "black";
 		that.experiment.context.textAlign = "center";
 		that.experiment.context.fillText(that.text, that.experiment.canvas.width/2, (that.experiment.canvas.height/2)+(size/2.5)); // trying to vertically align text
@@ -58,23 +58,27 @@ Stimulus.prototype.addCode = function(code) {
 
 // store specified results in an object
 // arguments must be of type Stimulus
+// it is necessary to specify a countdown before the logging executes, so that everything is stored
 Stimulus.prototype.addLogger = function(toBeSavedStimuli) {
 	
 	saveMe = arguments;
 	var that = this;
 	
 	var save = function() {
-		var saveData = ["id", "repetition", "RT", "event", "correct"];
-		
-		for (var i = 0; i < saveMe.length; i++) {
-			var data = {};
-			for (key in saveMe[i]) {
-				if ( $.inArray(key, saveData) !== -1 ) { 
-					data[key] = saveMe[i][key];
+		setTimeout(function() { // makes sure that data storing is done properly! Even for the stimulus that was presented before the stimulus that contains the save function
+			var saveData = ["id", "repetition", "RT", "event", "correct"];
+			
+			for (var i = 0; i < saveMe.length; i++) {
+				var data = {};
+				for (key in saveMe[i]) {
+					if ( $.inArray(key, saveData) !== -1 ) { 
+						data[key] = saveMe[i][key];
+					}
 				}
+				console.log(data);
+				that.experiment.data.push(data);
 			}
-			that.experiment.data.push(data);
-		}
+		}, 50); // wait 50ms for execution	
 	};
 	that.features.push(save);
 };
