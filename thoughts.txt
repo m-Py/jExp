@@ -13,3 +13,6 @@
 - for this reason, an inter-stimulus-intervall of 20ms at least should be chosen for each stimulus that has a duration
 
 Precision in stimulus timing, stimulus positioning and response collection is key in creating experimental software. jExp tries to accomplish this precision using JavaScript, which is not always easy. For the timing of sequential presentation of stimuli, the setTimeout function is used. The setInterval() function is used to remove stimuli after their duration. For stimulus positioning the HTML canvas element is used. For response collection, I use the jQuery method on(). Response time is measured via performance.now().
+
+Data saving is done via adding a logger function to a stimulus. It works like this: Stimulus.addLogger(stim1, stim2, ...) This way, response data gets stored for the specified stimuli when the stimulus containg the logger gets called. 
+The logger automatically saves data from experimental variables. Experimental variables are added to the Experiment object, via Experiment.addExpVar(iWantToSaveThisVariable). These can be variables that count trial / experimental block, or anything. Variables that are added to the experiment object this way get logged whenever a stimulus cantaining a logger is called.

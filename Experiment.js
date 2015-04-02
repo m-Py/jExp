@@ -5,6 +5,7 @@ function Experiment(container) {
 	this.contains = 0; // Property: how many Stimuli are contained in the experiment. Gets increased by add()
 	this.expArr = []; // Array: contains all stimuli of the experiment; add and addBlock push Stimuli to this array. Experiment.start() calls the stimuli that are contained in this array
 	this.data = [];
+	this.UserDefinedVars = {};
 };
 
 // add Stimulus to experiment
@@ -71,3 +72,7 @@ Experiment.prototype.getNewY = function(coordinate) {
 	return this.canvas.height/2 - coordinate;
 };
 
+// simple utility function: add a variable to the Experiment object, can be a block counter e.g.
+Experiment.prototype.addExpVar = function(VAR) {
+	this.UserDefinedVars[VAR] = VAR;
+};

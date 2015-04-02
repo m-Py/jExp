@@ -68,6 +68,7 @@ Stimulus.prototype.addLogger = function(toBeSavedStimuli) {
 	var save = function() {
 		setTimeout(function() { // makes sure that data storing is done properly! Even for the stimulus that was presented before the stimulus that contains the save function
 			var saveData = ["id", "repetition", "RT", "event", "correct"];
+			var container = {};
 			
 			for (var i = 0; i < saveMe.length; i++) {
 				var data = {};
@@ -76,11 +77,21 @@ Stimulus.prototype.addLogger = function(toBeSavedStimuli) {
 						data[key] = saveMe[i][key];
 					}
 				}
-				console.log(data);
-				that.experiment.data.push(data);
+			container["StimulusData"] = data;
+			console.log(data);
 			}
+			// log user defined experimental variables
+			var addVars = that.experiment.UserDefinedVars;
+			for (more in addVars) {
+				var expData = {};
+				expData[more] = addVars[more];
+			}
+			container["ExpData"] = expData;
+			that.experiment.data.push(container);
+			//that.experiment.data.push(data);
 		}, 50); // wait 50ms for execution	
 	};
+	// add save function to stimulus so it gets executed
 	that.features.push(save);
 };
 
