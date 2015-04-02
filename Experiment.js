@@ -72,8 +72,5 @@ Experiment.prototype.getNewY = function(coordinate) {
 	return this.canvas.height/2 - coordinate;
 };
 
-// simple utility function: add a variable to the Experiment object, can be a block counter e.g.
-Stimulus.prototype.addExpVar = function(VAR) {
-	this.experiment.UserDefinedVars[VAR] = VAR;
-};
+
 

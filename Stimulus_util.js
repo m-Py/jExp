@@ -100,15 +100,13 @@ Stimulus.prototype.removeFeatures = function() {
 	this.features = [];
 };
 
-// simple utility function: add a variable to the Experiment object, can be a block counter e.g.
-Stimulus.prototype.addExpVar = function(VAR) {
-	this.experiment.UserDefinedVars[VAR] = VAR;
-};
-
-Stimulus.prototype.addVarChange = function(VAR, value) {
+// simple utility function: add a variable to the Experiment object, can be a block counter e.g. 
+// Can be used to 1) add or 2) change a variable
+Stimulus.prototype.addExpVar = function(VAR, value) {
 	var that = this;
 	var draw = function() {
 		that.experiment.UserDefinedVars[VAR] = value;
 	};
 	that.features.push(draw);
+	return value;
 };

@@ -3,9 +3,7 @@
 	
 	myExp = new Experiment("#stim"); // this is the only place where you find a DOM selector	
 	
-	// test adding variables to Experiment object; variables that are added this way get stored by the logger
-	var moep = "moep";
-	myExp.addExpVar(moep);	
+
 	
 	var allowedKeys = [115, 108]; // keys: ['s', 'l']
 		
@@ -17,6 +15,8 @@
 	
 	var start = new Stimulus("startscreen", 0, 0, [32]);
 	start.addText("Press space to start experiment", 50, rndCol(), 0, 0);
+	// test adding variables to Experiment object; variables that are added this way get stored by the logger
+	start.addExpVar("moep", "moep");
 	
 	var startTrial = new Stimulus("trial_begin", 0, 0, [32]);
 	startTrial.addText("Press space to start trial", 50, rndCol());	
@@ -37,7 +37,7 @@
 	
 	var logger = new Stimulus("logging", 100, 20);
 	logger.addLogger(stim1, stim2, stim3); // logs data of the 3 stimuli to the Experiment.data object
-	logger.addVarChange("moep", "more moep"); // changes the experimental variable moep
+	logger.addExpVar("moep", "more moep"); // changes the experimental variable moep
 
 
 	// test addBlock functioning
