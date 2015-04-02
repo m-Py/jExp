@@ -73,6 +73,7 @@ Experiment.prototype.getNewY = function(coordinate) {
 };
 
 // simple utility function: add a variable to the Experiment object, can be a block counter e.g.
-Experiment.prototype.addExpVar = function(VAR) {
-	this.UserDefinedVars[VAR] = VAR;
+Stimulus.prototype.addExpVar = function(VAR) {
+	this.experiment.UserDefinedVars[VAR] = VAR;
 };
+

@@ -100,13 +100,15 @@ Stimulus.prototype.removeFeatures = function() {
 	this.features = [];
 };
 
-// deprecated toString method. To show data, rather use Experiment.saveResults and log it
-Stimulus.prototype.toString = function() {
-	if (this.event) {
-		return("id: " + this.id + ",\n RT: " + this.RT + ",\n event: " + this.event + ",\n correct: " + this.correct);
-	}
-	else {
-		return("id: " + this.id);
-	}
+// simple utility function: add a variable to the Experiment object, can be a block counter e.g.
+Stimulus.prototype.addExpVar = function(VAR) {
+	this.experiment.UserDefinedVars[VAR] = VAR;
 };
 
+Stimulus.prototype.addVarChange = function(VAR, value) {
+	var that = this;
+	var draw = function() {
+		that.experiment.UserDefinedVars[VAR] = value;
+	};
+	that.features.push(draw);
+};
