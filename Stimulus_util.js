@@ -80,7 +80,6 @@ Stimulus.prototype.addLogger = function(toBeSavedStimuli) {
 					}
 				}
 			container["Stim"+(i+1)] = StimData;
-			console.log(container);
 			}
 			// log user defined experimental variables
 			var addVars = that.experiment.UserDefinedVars;
