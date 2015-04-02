@@ -7,6 +7,8 @@
 		
 	var cross = new Stimulus("cross", 250, 300);
 	cross.addCross(30, 2);	
+	cross.addText("moep", 50, rndCol(), 0, 100);
+	cross.addText("Schaf", 50, rndCol(), 0, -100);
 	
 	var start = new Stimulus("startscreen", 0, 0, [32]);
 	start.addText("Press space to start experiment", 50, rndCol(), 0, 0);

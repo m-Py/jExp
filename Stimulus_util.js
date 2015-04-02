@@ -22,17 +22,13 @@
 // add a text that is displayed on the screen
 Stimulus.prototype.addText = function(text, size, color, x, y) { // name feature type and coordinates, radius, size etc. Overloading is necessary here; see how to best implement it
 	var that = this;
-	that.text = text;
-	
-
-	
 	var draw = function () {
 		var x_Cor = that.experiment.getNewX(x) || that.experiment.canvas.width/2;
 		var y_Cor = that.experiment.getNewY(y) || that.experiment.canvas.height/2;			
 		that.experiment.context.font = (""+size + "px Arial") || "30px Arial";
 		that.experiment.context.fillStyle = color || "black";
 		that.experiment.context.textAlign = "center";
-		that.experiment.context.fillText(that.text, x_Cor, (y_Cor+size/2.5) ); // trying to vertically align text
+		that.experiment.context.fillText(text, x_Cor, (y_Cor+size/2.5) ); // trying to vertically align text
 	};
 	
 	that.features.push(draw);
