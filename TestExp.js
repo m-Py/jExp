@@ -40,6 +40,10 @@
 	myExp.addBlock(3, startTrial, cross, stim1, cross, stim2, cross, stim3, logger); // 3 repetitions for this block
 	myExp.add(end);
 	
+	// test adding variables to Experiment object; variables that are added this way get stored by the logger
+	var moep = "moep";
+	myExp.addExpVar(moep);
+	
 $(document).ready(function() {
 
 	myExp.start();
