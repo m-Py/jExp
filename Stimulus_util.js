@@ -1,15 +1,17 @@
-/* These are methods for the Stimulus object that define its functioning.
-   By itself, a stimulus does not do anything. This file contains methods 
+/* These are methods of the Stimulus object that define its functioning.
+   When instantiated, a Stimulus will only delay an experiment for the duration 
+   of duration + ISI, but will not do anything else. This file contains methods 
    that define the appearance of a stimulus, or add experimental utility.
    * For example the addCode() method can be used to execute JavaScript Code
    at a specific time during the experiment.
-   * Feature adding methods start with add and should contain be self describing.
-   * add methods must contain a function containing code to be executed when the 
+   * The addText() method will add Text to be shown to the Stimulus
+   * Feature adding methods should have names like addAppearance or addUtility. 
+   * They must contain a function containing code to be executed when the 
    stimulus is presented. This function must get pushed to the features array property
    of the Stimulus.
 */
 
-// add text
+// add a text that is displayed on the screen
 Stimulus.prototype.addText = function(text, size, color, x1, y1) { // name feature type and coordinates, radius, size etc. Overloading is necessary here; see how to best implement it
 	var that = this;
 	that.text = text;
@@ -21,7 +23,7 @@ Stimulus.prototype.addText = function(text, size, color, x1, y1) { // name featu
 	};
 	that.features.push(draw);
 };
-// add fixation cross
+// add a fixation cross to the center of the experimental canvas
 Stimulus.prototype.addCross = function(size, width) {
 	var that = this;
 	var draw = function() {
@@ -37,7 +39,7 @@ Stimulus.prototype.addCross = function(size, width) {
 	};
 	that.features.push(draw);	
 };
-// use the prototype addCode function to execute code during runtime of the experiment
+// add code that is executed when the stimulus is called
 Stimulus.prototype.addCode = function(code) {
 	var draw = function() { 
 		eval(code); 

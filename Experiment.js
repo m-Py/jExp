@@ -1,5 +1,4 @@
 // Store the experiment in a JavaScript object; experiment gets started by method start, which calls startExp()
-// to do: make html canvas the basis of all stimulus presentation. Experiment object will initialize a canvas on 
 
 function Experiment(container) {
 	this.container = container || "body"; // add jQuery selector as container. Not id!

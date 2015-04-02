@@ -18,7 +18,6 @@ function Stimulus(id, duration, ISI, listenTo, correctResponse) {
 	this.features = []; // features of the stimulus that will be called by showStimulus()
 	this.experiment; // points to the experiment, which calls the Stimulus. This property is added to the stimulus, when it is added to an Experiment via .add() or .addBlock()
 }
-
 Stimulus.prototype.showStimulus = function() {
 	for (var i = 0; i < this.features.length; i++) {
 		this.features[i](); // show all Stimulus features
