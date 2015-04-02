@@ -1,7 +1,7 @@
 
 	// Create a dummy experiment
 	
-	myExp = new Experiment("#stim");	
+	myExp = new Experiment("#stim"); // this is the only place where you find a DOM selector	
 	
 	var allowedKeys = [115, 108]; // keys: ['s', 'l']
 		
@@ -33,7 +33,7 @@
 
 	// test addBlock functioning
 	myExp.add(start);
-	myExp.addBlock(3, startTrial, cross, stim1, cross, stim2, cross, stim3, anyKey);
+	myExp.addBlock(3, startTrial, cross, stim1, cross, stim2, cross, stim3, anyKey); // 3 repetitions for this block
 	myExp.add(end);
 	
 $(document).ready(function() {

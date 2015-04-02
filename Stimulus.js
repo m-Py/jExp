@@ -2,21 +2,22 @@
 // Stimulus: basic of all presentations on screen
 function Stimulus(id, duration, ISI, listenTo, correctResponse) {
 	
-	this.id = id; 
+	this.id = id; // give your stimulus a name. Handy for data storage
 	this.duration = duration; // presentation time of the stimulus. Specify in ms.
 	this.ISI = ISI; // inter-stimulus-intervall = pause after stimulus before next stimulus is shown
-	this.repetition = 0;
+	this.repetition = 0; // how many times has the stimulus been presented? get increased when .present() is executed
 	
 	this.listenTo = listenTo; // should be an array containing the allowed keypresses
 	this.correctResponse = correctResponse;
 	
-	this.RT; // will be written to if listen method is executed
-	this.correct; // was given response correct
-	this.event;
+	
+	this.RT; // written to by listen(), which is called by present.
+	this.correct; // written to by listen(), which is called by present.
+	this.event; //  written to by listen(), which is called by present.
 	
 	this.featureNumber = 0;
 	this.features = []; // features of the stimulus that will be called by showStimulus()
-	this.experiment; // property gets added when stimulus is added to experiment
+	this.experiment; // points to the experiment, which calls the Stimulus. This property is added to the stimulus, when it is added to an Experiment via .add() or .addBlock()
 }
 
 Stimulus.prototype.showStimulus = function() {
