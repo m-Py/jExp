@@ -96,5 +96,5 @@ var rndCol = function() {
 	
 // create a random integer, includes passed min and max value
 var rndInt = function(min, max) {
-	return(Math.floor(Math.random()*(max-min))+min);
+	return(Math.floor(Math.random()*(max-min+1))+min);
 };
