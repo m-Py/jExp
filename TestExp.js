@@ -14,6 +14,8 @@
 	var startTrial = new Stimulus("trial_begin", 0, 0, [32]);
 	startTrial.addText("Press space to start trial", 50, rndCol());	
 	
+	// the countdown function which removes the stimulus after "duration" has a timing precision of 10ms
+	// so you must always specify an ISI (20ms is reliable) to make sure that the sequential presentation of stimuli runs smoothly
 	var stim1 = new Stimulus("left" ,1000, 500, allowedKeys, 115);
 	stim1.addText("left", 100, rndCol());	
 	
@@ -26,8 +28,8 @@
 	var end = new Stimulus("endScreen", 0, 0);
 	end.addText("The experiment is over.", 50, rndCol());
 	
-	var logger = new Stimulus("pause", 0, 0);
-	logger.addText(" moep ?", 100, rndCol()); 
+	var logger = new Stimulus("pause", 100, 20);   
+	logger.addText(" ss ", 100, rndCol()); 
 	logger.addLogger(stim1, stim2, stim3); // logs data of the 3 stimuli to the Experiment.data object
 
 

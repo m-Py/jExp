@@ -56,9 +56,7 @@ Stimulus.prototype.addCode = function(code) {
 	that.features.push(draw);
 };
 
-// store specified results in an object
-// arguments must be of type Stimulus
-// it is necessary to specify a countdown before the logging executes, so that everything is stored
+// store passed Stimulus data in the Experiment.data object
 Stimulus.prototype.addLogger = function(toBeSavedStimuli) {
 	
 	saveMe = arguments;

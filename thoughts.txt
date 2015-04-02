@@ -1,0 +1,15 @@
+
+
+- I decided to make the HTML canvas element the basis for stimulus presentation. This way it is possible to create stimuli in the way that you would create stimuli in other experimental design software (e.g. OpenSesame)
+- You do not need to worry about DOM manipulation when you try to position your stimuli, which is a rather unprecise and annoying thing to do. Using the canvas, it is possible to specify the coordinates, where your stimulus is to be presented. In my experience, you need to use a lot of CSS tricks to get elements in your browser, where you want them to be. These tricks are usually not "logical" or intuitive. jExp ignores CSS completely and solely focusses on JavaScript.
+
+- The canvas is loaded only once in the beginning of the experiment; it belongs to the Experiment object, rather than belonging to each Stimulus object.
+- After a stimulus has been presented, the canvas is cleared of all elements; the original canvas element never gets removed during the experiment.
+- if there is an overlap of canvas clearance and new stimulus drawing, the new stimulus might not be presented
+- this problem would probably not exist if a new canvas element was drawn for each stimulus
+- but performance is better if the canvas is only created once
+
+- timing precision of the countdown that removes the stimulus is at 10ms. So overlaps of stimulus erasal and new stimulus drawing can occur
+- for this reason, an inter-stimulus-intervall of 20ms at least should be chosen for each stimulus that has a duration
+
+Precision in stimulus timing, stimulus positioning and response collection is key in creating experimental software. jExp tries to accomplish this precision using JavaScript, which is not always easy. For the timing of sequential presentation of stimuli, the setTimeout function is used. The setInterval() function is used to remove stimuli after their duration. For stimulus positioning the HTML canvas element is used. For response collection, I use the jQuery method on(). Response time is measured via performance.now().
