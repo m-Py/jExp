@@ -88,8 +88,9 @@ Stimulus.prototype.listen = function () {
 				clearInterval(countdown);
 				if (!recorded) { // no response was given
 					recordNonresponse();
-				} 
+				}
 			}
+			
 		}, 10); // timing precision of 10ms
 	}
 };
