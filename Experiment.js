@@ -5,7 +5,7 @@ function Experiment(container) {
 	this.contains = 0; // Property: how many Stimuli are contained in the experiment. Gets increased by add()
 	this.expArr = []; // Array: contains all stimuli of the experiment; add and addBlock push Stimuli to this array. Experiment.start() calls the stimuli that are contained in this array
 	this.UserDefinedVars = {};
-	this.stimShownNow = 0;
+	this.currentStim = 0;
 };
 
 // add Stimulus to experiment
@@ -68,11 +68,10 @@ Experiment.prototype.getNewY = function(coordinate) {
 };
 
 // simple data storing function; uses Stimulus method slimObject
-Experiment.prototype.storeData = function() {
+Experiment.prototype.storeData = function(IDs) {
 	var data = [];
 	for (var t = 0; t < this.expArr.length; t++) {
 		data[t] = this.expArr[t].slimObject();
-	}
-	return data;
+	return data;	
 };
 

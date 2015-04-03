@@ -9,7 +9,9 @@
 ### TO DO
 
 1. rework logger functioning; does not work the expected way in simon experiment
+  1. replaced logger method by Experiment.storeData method
 2. create simple sample experiment that demostrates functionality (Simon effect experiment)
+  1. CHECK
 3. implement more stimuli features in new Stimulus implementation (rectangle, triangle, ...)  
 4. improve data storage functionality (client side first)
   1. maybe try to save JSON file locally via Chrome file system?

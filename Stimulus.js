@@ -94,7 +94,7 @@ Stimulus.prototype.listen = function () {
 	}
 };
 Stimulus.prototype.present = function() {
-	this.experiment.stimShownNow++;
+	this.experiment.currentStim++;
 	// 1) show 
 	this.showStimulus();
 	// 2) listen to reaction

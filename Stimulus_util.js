@@ -75,7 +75,6 @@ Stimulus.prototype.addExpVar = function(VAR, value) {
 	return value;
 };
 
-
 // returns a slim Stimulus object, that does not contain functions, the pointer to the experiment and arrays as values
 Stimulus.prototype.slimObject = function() {
 	data = {};
@@ -88,4 +87,10 @@ Stimulus.prototype.slimObject = function() {
 	}
 	return data;
 };
+
+// utility function that compares the ID of a stimulus to a passed ID
+Stimulus.prototype.checkID = function(ID) {
+	return (this.id === ID);
+};
+	
 	
