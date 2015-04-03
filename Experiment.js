@@ -72,6 +72,8 @@ Experiment.prototype.storeData = function(IDs) {
 	var data = [];
 	for (var t = 0; t < this.expArr.length; t++) {
 		data[t] = this.expArr[t].slimObject();
-	return data;	
+	}
+	data = JSON.stringify(data)
+	return data;
 };
 
