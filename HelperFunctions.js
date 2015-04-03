@@ -100,8 +100,9 @@ var rndInt = function(min, max) {
 };
 
 
-// fucntion that I can use to download the experimental data locally
+// 'hack' to save download the experimental data locally by downloading it
 // so seems to work on Firefox, but not on Chrome
+// !!! I did not write this function, got it from: http://stackoverflow.com/questions/21012580/is-it-possible-to-write-data-to-file-using-only-javascript
 var download = function(strData, strFileName, strMimeType) {
     var D = document,
         A = arguments,
