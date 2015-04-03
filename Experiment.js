@@ -68,7 +68,7 @@ Experiment.prototype.getNewY = function(coordinate) {
 };
 
 // simple data storing function; uses Stimulus method slimObject
-Experiment.prototype.storeData = function(IDs) {
+Experiment.prototype.storeData = function() {
 	var data = [];
 	for (var t = 0; t < this.expArr.length; t++) {
 		data[t] = this.expArr[t].slimObject();
