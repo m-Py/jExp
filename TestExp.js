@@ -5,7 +5,7 @@
 	
 
 	
-	var allowedKeys = [115, 108]; // keys: ['s', 'l']
+	var allowedKeys = [115, 107]; // keys: ['s', 'k']
 		
 	var cross = new Stimulus("cross", 250, 300);
 	cross.addCross(30, 2);	
@@ -26,7 +26,7 @@
 	var stim1 = new Stimulus("left" ,1000, 500, true, allowedKeys, 115);
 	stim1.addText("left", 100, rndCol());	
 	
-	var stim2 = new Stimulus("right", 1000, 500, true, allowedKeys, 108);	
+	var stim2 = new Stimulus("right", 1000, 500, true, allowedKeys, 107);	
 	stim2.addText("right", 100, rndCol());	 	
 
 	var stim3 = new Stimulus("nogo", 1000, 500, true, allowedKeys, 0);
@@ -42,7 +42,7 @@
 	myExp.add(end);
 
 	// test error throwing
-	muh = new Stimulus("83", 99, 200, true);
+	muh = new Stimulus("83", 99, 200, true, [2], 9);
 	
 $(document).ready(function() {
 

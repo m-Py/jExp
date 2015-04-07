@@ -33,9 +33,15 @@ function Stimulus(id, duration, ISI, saveData, listenTo, correctResponse) {
 	
 	if (listenTo !== undefined) {
 		if (listenTo.constructor.name !== "Array") {
-			throw "error: listenTo parameter of created Stimulus object must be Array or left out";
+			throw "error: listenTo parameter of created Stimulus object must either be 'Array' or left out";
 		}
-	}		
+	}
+	
+	if (correctResponse !== undefined) {
+		if (typeof correctResponse !== "number") {
+			throw "error: correctResponse parameter of created Stimulus object must either be 'number' or left out";
+		}
+	}				
 	
 	
 	// instantiate Stimulus object properties
@@ -93,7 +99,6 @@ Stimulus.prototype.listen = function () {
 			that.correct = undefined;
 		}		
 		else if (that.event === that.correctResponse) {
-								console.log("moep");
 			that.correct = 1;
 		}
 		else {
