@@ -5,21 +5,21 @@ function Stimulus(id, duration, ISI, saveData, listenTo, correctResponse) {
 	
 	// throw some errors that can occur when a Stimulus is instantiated
 	if (id === undefined) {
-		throw "error: created object of type Stimulus must have property id";
+		throw "error: created object of type Stimulus must have 'id' property";
 	}
 	else if (typeof id  !== "string" ) {
 		throw "error: Stimulus 'id' must be a string";
 	}
 	
 	if (duration === undefined) {
-		throw "error: created object of type Stimulus must have property 'duration'";
+		throw "error: created object of type Stimulus must have 'duration' property ";
 	}
 	else if (typeof duration  !== "number" ) {
 		throw "error: property 'duration' of created Stimulus must be a number";
 	}	
 	
 	if (ISI === undefined) {
-		throw "error: created object of type Stimulus must have property 'ISI'";
+		throw "error: created object of type Stimulus must have 'ISI' property ";
 	}
 	else if (typeof ISI  !== "number" ) {
 		throw "error: property 'ISI' of created Stimulus must be a number";
