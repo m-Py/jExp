@@ -41,7 +41,7 @@ var getExpTime = function(partArr) {
 	for (var t = 0; t < partArr.length; t++) {
 		currentDelay = currentDelay + partArr[t].duration + partArr[t].ISI;
 	}		
-	return currentDelay
+	return currentDelay;
 };			
 
 
@@ -71,22 +71,22 @@ var startExp = function(arr) {
 							$(document).off();
 							currentlyShownStimulus.experiment.clear();
 							runStimuli(arr[counter]);
-							startTimer(arr, counter+1); 
+							startTimer(arr, counter+1);
 						}
 					}
 				}
-				else {// allowed keys are not specified 
+				else { // allowed keys are not specified 
 					$(document).off();
 					currentlyShownStimulus.experiment.clear();
 					runStimuli(arr[counter]);
 					startTimer(arr, counter+1);
 				}
-			});
-						
+			});			
+			
+			// add code for the implementation of alternative proceeding events
 			
 		}
 	};
-	
 	startTrial(Stimuli, 0); // start experiment with first nested array that was created with the partExp function
 };
 
