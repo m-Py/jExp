@@ -1,11 +1,12 @@
 
 // Stimulus: basic of all presentations on screen
-function Stimulus(id, duration, ISI, listenTo, correctResponse) {
+function Stimulus(id, duration, ISI, saveData, listenTo, correctResponse) {
 	
 	this.id = id; // give your stimulus a name. Handy for data storage
 	this.duration = duration; // presentation time of the stimulus. Specify in ms.
 	this.ISI = ISI; // inter-stimulus-intervall = pause after stimulus before next stimulus is shown
 	
+	this.saveData = saveData;
 	this.listenTo = listenTo; // should be an array containing the allowed keypresses
 	this.correctResponse = correctResponse;
 	
@@ -41,12 +42,13 @@ Stimulus.prototype.listen = function () {
 		}
 		else {
 			that.correct = 0;
-		}		
+		}
+		
 	};
 	
 	var recordNonresponse = function() {
 		that.RT = 0; // no reaction after duration + ISI
-		that.event = "nonresponse";
+		that.event = 0;
 		if (!that.correctResponse) { // no correct response was specified: this.correct = undefined
 			that.correct = undefined;
 		}		
@@ -56,6 +58,7 @@ Stimulus.prototype.listen = function () {
 		else {
 			that.correct = 0;
 		}
+
 	};
 	
 	$(document).off(); // 
@@ -89,6 +92,18 @@ Stimulus.prototype.listen = function () {
 				if (!recorded) { // no response was given
 					recordNonresponse();
 				}
+				
+				/* example how to send data send to server; here an example JBOSS Server
+				$.ajax({
+					  url: "/JexpWebApp/resources/jexpService",
+					  type: "POST",
+					  data: JSON.stringify({"correct":that.correct, "duration":that.RT, "event": that.event, "stimName": that.id}),
+					  contentType: "application/json; charset=utf-8",
+					  dataType: "json",
+					}).done(function(data) {
+						console.log("jo " + data);
+					}); */
+				
 			}
 			
 		}, 10); // timing precision of 10ms
@@ -99,7 +114,9 @@ Stimulus.prototype.present = function() {
 	// 1) show 
 	this.showStimulus();
 	// 2) listen to reaction
-	this.listen();
+	if (this.saveData === true) {
+		this.listen();
+	}
 	// 3) remove stimulus after its specified duration
 	if (this.duration !== 0) {
 		this.experiment.countdown(this.duration);
