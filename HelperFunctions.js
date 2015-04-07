@@ -45,27 +45,27 @@ var getExpTime = function(partArr) {
 };			
 
 
-// TO RUN YOUR EXPERIMENT, CALL THIS FUNCTION AND PASS THE ARRAY THATS CONTAINS ALL STIMULI
 // startExp() calls the functions partExp(), runStimuli() and getExpTime() to run the complete experiment.
+// gets called by the Experiment method .start()
 var startExp = function(arr) { 
 	// $("*").css("cursor", "none"); // let cursor disappear when experiment starts
 	var Stimuli = partExp(arr);
 	
-	// startOnClick and startTimer recursively call each other to ensure correct timing of stimulus presentation
+	// startTrial and startTimer recursively call each other to ensure correct timing of stimulus presentation
 	var startTimer = function(arr, counter) {
 		setTimeout(function() { startTrial(arr, counter); }, getExpTime(arr[counter-1])); 
 	};
 	
-	var startTrial= function(arr, counter) {
-		if (counter === 0) { // no click needed to start experiment
+	var startTrial= function(arr, counter) { // part arr is passed; last stimulus of this array is always a 0-duration stimulus
+		if (counter === 0) {
 			runStimuli(arr[counter]);
 			startTimer(arr, counter+1); 
 		}
 		else if (counter < arr.length) { // stopping condition for recursion!
-			// proceed experiment after a zero-duration stimulus has been shown by pressing a key
 			var currentlyShownStimulus = arr[counter-1][arr[counter-1].length-1];
+			// how does the experiment proceed when a 0-duration stimulus is shown:
 			$(document).on("keypress click", function(e) {
-				if (currentlyShownStimulus.listenTo) {
+				if (currentlyShownStimulus.listenTo) { // allowed keys are specified
 					for (var i = 0; i < currentlyShownStimulus.listenTo.length; i++) {
 						if (e.which === currentlyShownStimulus.listenTo[i]) { // proceed if allowed key was pressed
 							$(document).off();
@@ -75,13 +75,15 @@ var startExp = function(arr) {
 						}
 					}
 				}
-				else {
+				else {// allowed keys are not specified 
 					$(document).off();
 					currentlyShownStimulus.experiment.clear();
 					runStimuli(arr[counter]);
 					startTimer(arr, counter+1);
 				}
 			});
+						
+			
 		}
 	};
 	
@@ -100,9 +102,13 @@ var rndInt = function(min, max) {
 };
 
 
-// 'hack' to save download the experimental data locally by downloading it
-// UPDATE: apparently works on Chrome and Firefox!
-// !!! I did not write this function, got it from: http://stackoverflow.com/questions/21012580/is-it-possible-to-write-data-to-file-using-only-javascript
+
+/* 'hack' to save download the experimental data locally by downloading it
+ * 
+ *  I did not write this function, got it from: http://stackoverflow.com/questions/21012580/is-it-possible-to-write-data-to-file-using-only-javascript
+ * 
+ */
+ 
 var download = function(strData, strFileName, strMimeType) {
     var D = document,
         A = arguments,
@@ -114,14 +120,11 @@ var download = function(strData, strFileName, strMimeType) {
     //build download link:
     a.href = "data:" + strMimeType + "charset=utf-8," + escape(strData);
 
-
     if (window.MSBlobBuilder) { // IE10
         var bb = new MSBlobBuilder();
         bb.append(strData);
         return navigator.msSaveBlob(bb, strFileName);
     } /* end if(window.MSBlobBuilder) */
-
-
 
     if ('download' in a) { //FF20, CH19
         a.setAttribute("download", n);
@@ -135,8 +138,6 @@ var download = function(strData, strFileName, strMimeType) {
         }, 66);
         return true;
     }; /* end if('download' in a) */
-
-
 
     //do iframe dataURL download: (older W3)
     var f = D.createElement("iframe");

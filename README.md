@@ -8,10 +8,11 @@
 
 ### TO DO
 
-1. remove featureNumber property of Stimulus object and use Array.push() instead of Array[featureNumber] 
-2. add continueExp() function that is called when a 0-duration stimulus is shown
+1. add continueExp() function that is called when a 0-duration stimulus is shown
   1. this can then be bound on any user defined event; instead of only listening to key and mouse presses
   2. this allows a wider range of possible tasks
+  3. implement MC and DOMC items as stimuli into jExp 
+  4. implement current experiment completely in jExp
 3. implement more stimuli features in new Stimulus implementation (rectangle, triangle, ...)  
 4. implement functions to manipulate experimental flow?
   1. it already works quite well with only JavaScript loops (see Simon experiment)
