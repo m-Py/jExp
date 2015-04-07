@@ -2,6 +2,43 @@
 // Stimulus: basic of all presentations on screen
 function Stimulus(id, duration, ISI, saveData, listenTo, correctResponse) {
 	
+	
+	// throw some errors that can occur when a Stimulus is instantiated
+	if (id === undefined) {
+		throw "error: created object of type Stimulus must have property id";
+	}
+	else if (typeof id  !== "string" ) {
+		throw "error: Stimulus 'id' must be a string";
+	}
+	
+	if (duration === undefined) {
+		throw "error: created object of type Stimulus must have property 'duration'";
+	}
+	else if (typeof duration  !== "number" ) {
+		throw "error: property 'duration' of created Stimulus must be a number";
+	}	
+	
+	if (ISI === undefined) {
+		throw "error: created object of type Stimulus must have property 'ISI'";
+	}
+	else if (typeof ISI  !== "number" ) {
+		throw "error: property 'ISI' of created Stimulus must be a number";
+	}	
+	
+	if (saveData !== undefined) {
+		if (saveData.constructor.name !== "Boolean") {
+			throw "error: saveData parameter of created Stimulus object must be Boolean or left out";
+		}
+	}		
+	
+	if (listenTo !== undefined) {
+		if (listenTo.constructor.name !== "Array") {
+			throw "error: listenTo parameter of created Stimulus object must be Array or left out";
+		}
+	}		
+	
+	
+	// instantiate Stimulus object properties
 	this.id = id; // give your stimulus a name. Handy for data storage
 	this.duration = duration; // presentation time of the stimulus. Specify in ms.
 	this.ISI = ISI; // inter-stimulus-intervall = pause after stimulus before next stimulus is shown
@@ -17,6 +54,7 @@ function Stimulus(id, duration, ISI, saveData, listenTo, correctResponse) {
 	
 	this.features = []; // features of the stimulus that will be called by showStimulus()
 	this.experiment; // points to the experiment, which calls the Stimulus. This property is added to the stimulus, when it is added to an Experiment via .add() or .addBlock()
+	
 }
 Stimulus.prototype.showStimulus = function() {
 	for (var i = 0; i < this.features.length; i++) {
@@ -34,7 +72,7 @@ Stimulus.prototype.listen = function () {
 		that.event = e; // store key pressed as stimulus property
 		that.RT = RT;
 		recorded = true;
-		if (!that.correctResponse) { // no correct response was specified: this.correct = undefined
+		if (that.correctResponse === undefined) { // no correct response was specified: this.correct = undefined
 			that.correct = undefined;
 		}			
 		else if (that.event === that.correctResponse) {
@@ -47,18 +85,20 @@ Stimulus.prototype.listen = function () {
 	};
 	
 	var recordNonresponse = function() {
+
 		that.RT = 0; // no reaction after duration + ISI
 		that.event = 0;
-		if (!that.correctResponse) { // no correct response was specified: this.correct = undefined
+		if (that.correctResponse === undefined) { // no correct response was specified: this.correct = undefined
+
 			that.correct = undefined;
 		}		
-		else if (that.correctResponse === "nogo") {
+		else if (that.event === that.correctResponse) {
+								console.log("moep");
 			that.correct = 1;
 		}
 		else {
 			that.correct = 0;
 		}
-
 	};
 	
 	$(document).off(); // 
