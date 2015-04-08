@@ -148,3 +148,32 @@ var download = function(strData, strFileName, strMimeType) {
     }, 333);
     return true;
 };
+
+
+var rndShuffleArray = function(array) {
+	
+	// randomly shuffle the numbers 0 to array.length-1 
+	// these numbers are the indeces
+	var random_sequence = [];
+	for (var i = 0; i < array.length; i++) {
+		if (random_sequence.length === 0) {
+			var rnd = Math.floor(Math.random()*array.length);
+			random_sequence.push(rnd);
+		}
+		else if (random_sequence.length > 0) {
+			var rnd = Math.floor(Math.random()*array.length);
+			while (random_sequence.indexOf(rnd) != -1) { 
+				var rnd = Math.floor(Math.random()*array.length);
+			}
+			random_sequence.push(rnd);
+		}
+	}
+	
+	// create new array, in which the randomized indeces from random_sequence are used
+	var shuffledArr = [];
+	for (var t = 0; t < array.length; t++) {
+		shuffledArr[t] = array[random_sequence[t]];
+	}
+		
+	return shuffledArr;
+};

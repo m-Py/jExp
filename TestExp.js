@@ -45,7 +45,7 @@
 	muh = new Stimulus("83", 99, 200, true, [2], 9);
 	
 $(document).ready(function() {
-
+	console.log(rndShuffleArray(["1", 2, 3, [3], "FOOOO", "lll", 1, 2, 3, {}]));
 	myExp.start();
 
 });
