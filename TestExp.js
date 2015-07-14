@@ -26,6 +26,9 @@
 	var stim1 = new Stimulus("left" ,1000, 500, true, allowedKeys, 115);
 	stim1.addText("left", 100, rndCol());	
 	
+	var stim11 = new Stimulus("image", 0, 50, false, [32]);
+	stim11.addImg("dragon.png")
+	
 	var stim2 = new Stimulus("right", 1000, 500, true, allowedKeys, 107);	
 	stim2.addText("right", 100, rndCol());	 	
 
@@ -38,14 +41,11 @@
 
 	// test addBlock functioning
 	myExp.add(start);
-	myExp.addBlock(1, startTrial, cross, stim1, cross, stim2, cross, stim3); // 3 repetitions for this block
+	myExp.addBlock(1, startTrial, cross, stim1, cross, stim11, cross, stim2, cross, stim3);
 	myExp.add(end);
 
-	// test error throwing
-	muh = new Stimulus("83", 99, 200, true, [2], 9);
 	
 $(document).ready(function() {
 	console.log(rndShuffleArray(["1", 2, 3, [3], "FOOOO", "lll", 1, 2, 3, {}]));
 	myExp.start();
-
 });
