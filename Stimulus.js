@@ -2,7 +2,6 @@
 // Stimulus: basic of all presentations on screen
 function Stimulus(id, duration, saveData, listenTo, correctResponse) {
 	
-	
 	// throw some errors that can occur when a Stimulus is instantiated
 	if (id === undefined) {
 		throw "error: created object of type Stimulus must have 'id' property";
@@ -36,13 +35,13 @@ function Stimulus(id, duration, saveData, listenTo, correctResponse) {
 		}
 	}				
 	
-	
+
 	// instantiate Stimulus object properties
 	this.id = id; // give your stimulus a name. Handy for data storage
 	this.duration = duration; // presentation time of the stimulus. Specify in ms.
 	
 	this.saveData = saveData;
-	this.listenTo = listenTo; // should be an array containing the allowed keypresses
+	this.listenTo = listenTo || []; // should be an array containing the allowed keypresses
 	this.correctResponse = correctResponse;
 	
 	this.RT; // written to by listen(), which is called by present.
@@ -50,7 +49,7 @@ function Stimulus(id, duration, saveData, listenTo, correctResponse) {
 	this.event; //  written to by listen(), which is called by present.
 	
 	this.features = []; // features of the stimulus that will be called by showStimulus()
-	this.experiment; // points to the experiment, which calls the Stimulus. This property is added to the stimulus, when it is added to an Experiment via .add() or .addBlock()
+	this.experiment; // points to the experiment, which calls the Stimulus. This property is added to the stimulus, when it is added to an Experiment via .add()
 	
 }
 Stimulus.prototype.showStimulus = function() {
@@ -104,7 +103,6 @@ Stimulus.prototype.listen = function () {
 		// get RT and event
 		RT = performance.now() - t0;
 		event = e.which;
-		console.log(event);
 		
 		// store reaction time and response
 		if (!that.listenTo) { // no allowed response was specified: just record any key press that comes
@@ -147,19 +145,21 @@ Stimulus.prototype.listen = function () {
 	}
 };
 
+// present() is called for each experiment Stimulus in succession
+// shows stimulus, records response, removes it after `duration` and calls the next Stimulus
 Stimulus.prototype.present = function() {
-	this.experiment.currentStim++;
-	// 1) show 
+	this.experiment.currentStim++; // use this as index for next stimulus presentation
+	// 1) show the stimulus
 	this.showStimulus();
 	// 2) listen to reaction
 	if (this.saveData === true) {
 		this.listen();
 	}
-	// 3) remove stimulus after its specified duration
+	// 3a) remove stimulus after its specified duration
 	if (this.duration !== 0) {
 		this.waitCountdown(this.duration);
 	}
-	// or in case of 0-duration stimulus: end after event has occured
+	// 3b) OR: remove after event has occured
 	else {
 		this.waitEvent();
 	}
@@ -184,7 +184,7 @@ Stimulus.prototype.waitCountdown = function(duration) {
 Stimulus.prototype.waitEvent = function() {
 	that = this;
 	$(document).on("keypress click", function(e) {
-		if (that.listenTo) { // allowed keys are specified
+		if (that.listenTo[0] !== undefined) { // allowed keys are specified
 			// check if pressed key was allowed
 			for (var i = 0; i < that.listenTo.length; i++) {
 				if (e.which === that.listenTo[i]) {
@@ -200,11 +200,11 @@ Stimulus.prototype.waitEvent = function() {
 	});
 };
 
-// function: show next stimulus until all are done
+// function: show next stimulus of experiment
 Stimulus.prototype.showNext = function() {
 	this.experiment.clear();
 	// only show next if there is a next stimulus
-	if (this.experiment.currentStim < this.experiment.expArr.length) {
-		this.experiment.expArr[this.experiment.currentStim].present();
+	if (this.experiment.currentStim < this.experiment.stimuli.length) {
+		this.experiment.stimuli[this.experiment.currentStim].present();
 	}
 };

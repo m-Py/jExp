@@ -2,9 +2,7 @@
 
 function Experiment(container) {
 	this.container = container || "body"; // add jQuery selector as container. Not id!
-	this.contains = 0; // Property: how many Stimuli are contained in the experiment. Gets increased by add()
-	this.expArr = []; // Array: contains all stimuli of the experiment; add and addBlock push Stimuli to this array. Experiment.start() calls the stimuli that are contained in this array
-	this.UserDefinedVars = {};
+	this.stimuli = []; // Array: contains all stimuli of the experiment; add and addBlock push Stimuli to this array. Experiment.start() calls the stimuli that are contained in this array
 	this.currentStim = 0;
 };
 
@@ -18,18 +16,16 @@ Experiment.prototype.createCanvas = function() { // Method: when experiment is i
 // start the experiment
 Experiment.prototype.start = function() {
 	this.createCanvas();
-	this.expArr[0].present();
+	this.stimuli[0].present();
 };
 
 // add Stimulus to experiment
 Experiment.prototype.add = function(stim) {
-	var that = this;
-	stim.experiment = that; // adds experiment as property to the stimulus
-	that.expArr.push(stim);
-	that.contains = that.contains + 1;
+	stim.experiment = this; // adds experiment as property to the stimulus
+	this.stimuli.push(stim);
 };
 
-// clear stimulus
+// clear experimental canvas
 Experiment.prototype.clear = function() {
 	this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 }
@@ -47,8 +43,8 @@ Experiment.prototype.getNewY = function(coordinate) {
 // simple data storing function; uses Stimulus method slimObject
 Experiment.prototype.storeData = function() {
 	var data = [];
-	for (var t = 0; t < this.expArr.length; t++) {
-		data[t] = this.expArr[t].slimObject();
+	for (var t = 0; t < this.stimuli.length; t++) {
+		data[t] = this.stimuli[t].slimObject();
 	}
 	data = JSON.stringify(data)
 	return data;

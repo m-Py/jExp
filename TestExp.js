@@ -40,6 +40,7 @@
 	myExp.add(startTrial);
 	myExp.add(cross);
 	myExp.add(nothing);
+	myExp.add(cross);	
 	myExp.add(stim1);
 	myExp.add(nothing);	
 	myExp.add(cross);
