@@ -1,6 +1,6 @@
 
 // Stimulus: basic of all presentations on screen
-function Stimulus(id, duration, ISI, saveData, listenTo, correctResponse) {
+function Stimulus(id, duration, saveData, listenTo, correctResponse) {
 	
 	
 	// throw some errors that can occur when a Stimulus is instantiated
@@ -16,13 +16,6 @@ function Stimulus(id, duration, ISI, saveData, listenTo, correctResponse) {
 	}
 	else if (typeof duration  !== "number" ) {
 		throw "error: property 'duration' of created Stimulus must be a number";
-	}	
-	
-	if (ISI === undefined) {
-		throw "error: created object of type Stimulus must have 'ISI' property ";
-	}
-	else if (typeof ISI  !== "number" ) {
-		throw "error: property 'ISI' of created Stimulus must be a number";
 	}	
 	
 	if (saveData !== undefined) {
@@ -47,12 +40,10 @@ function Stimulus(id, duration, ISI, saveData, listenTo, correctResponse) {
 	// instantiate Stimulus object properties
 	this.id = id; // give your stimulus a name. Handy for data storage
 	this.duration = duration; // presentation time of the stimulus. Specify in ms.
-	this.ISI = ISI; // inter-stimulus-intervall = pause after stimulus before next stimulus is shown
 	
 	this.saveData = saveData;
 	this.listenTo = listenTo; // should be an array containing the allowed keypresses
 	this.correctResponse = correctResponse;
-	
 	
 	this.RT; // written to by listen(), which is called by present.
 	this.correct; // written to by listen(), which is called by present.
@@ -166,34 +157,30 @@ Stimulus.prototype.present = function() {
 	}
 	// 3) remove stimulus after its specified duration
 	if (this.duration !== 0) {
-		this.countdown(this.duration);
+		this.waitCountdown(this.duration);
 	}
 	// or in case of 0-duration stimulus: end after event has occured
 	else {
-		this.end();
+		this.waitEvent();
 	}
 };
 
 
 // countdown and end are functions that are only called by present();
 // method to remove stimulus after Stimulus.duration 
-Stimulus.prototype.countdown = function(duration) {
+Stimulus.prototype.waitCountdown = function(duration) {
 	var that = this;	
 	var timeLeft = duration/10;
 	var countdown = setInterval(function() {
 		timeLeft--; // countdown
 		if (timeLeft <= 0) {
 			clearInterval(countdown);
-			// remove current stimulus
-			that.experiment.clear();
-			// present next stimulus
-			that.experiment.expArr[that.experiment.currentStim].present(); 
+			that.showNext();
 		}
 	}, 10); // timing precision of 10ms
 };
 
-
-Stimulus.prototype.end = function() {
+Stimulus.prototype.waitEvent = function() {
 	that = this;
 	$(document).on("keypress click", function(e) {
 		if (that.listenTo) { // allowed keys are specified
@@ -201,15 +188,22 @@ Stimulus.prototype.end = function() {
 			for (var i = 0; i < that.listenTo.length; i++) {
 				if (e.which === that.listenTo[i]) {
 					$(document).off();
-					that.experiment.clear();
-					that.experiment.expArr[that.experiment.currentStim].present();
+					that.showNext();
 				}
 			}
 		}
 		else {
 			$(document).off();
-			that.experiment.clear();
-			that.experiment.expArr[that.experiment.currentStim].present();
+			that.showNext();
 		}
 	});
+};
+
+// function: show next stimulus until all are done
+Stimulus.prototype.showNext = function() {
+	this.experiment.clear();
+	// only show next if there is a next stimulus
+	if (this.experiment.currentStim < this.experiment.expArr.length) {
+		this.experiment.expArr[this.experiment.currentStim].present();
+	}
 };

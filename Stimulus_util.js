@@ -1,7 +1,7 @@
 /* 
    This file contains methods of the Stimulus object that define its functioning.
    When instantiated, a Stimulus will only delay an experiment for the duration 
-   of its duration + ISI, but will not do anything else. For the stimulus to function
+   of its duration, but will not do anything else. For the stimulus to function
    in the wanted way, features need to be added by calling the methods in this file. 
    Feature adding methods define the appearance of a stimulus, or add experimental utility.
    
