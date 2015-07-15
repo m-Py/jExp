@@ -1,5 +1,5 @@
 
-	// Create a dummy experiment
+	// My 'Spielwiese' here I try out experiments
 	
 	myExp = new Experiment("#stim"); // this is the only place where you find a DOM selector	
 	
@@ -13,8 +13,6 @@
 	
 	var start = new Stimulus("startscreen", 0, false, [32]);
 	start.addText("Press space to start experiment", 50, rndCol(), 0, 0);
-	// test adding variables to Experiment object; variables that are added this way get stored by the logger
-	start.addExpVar("moep", "moep");
 
 	var startTrial = new Stimulus("trial_begin", 0, false, [32]);
 	startTrial.addText("Press space to start trial", 50, rndCol());
@@ -34,20 +32,29 @@
 	end.addText("The experiment is over.", 50, rndCol());
 	
 	// if you want a blank screen, just create a stimulus without adding features to it!
-	var nothing = new Stimulus("nothing", 1000);
+	var nothing = new Stimulus("nothing", 1000, false);
+	
+	// test out addFeature method: adds any to be evaluated function to the Stimulus
+	var testAddFeature = new Stimulus("testtest", 1000, false);
+	
+	var tratra = function() { 
+		console.log("FUCKGUCKGUCK"); 
+	};
+	
+	testAddFeature.addFeature(tratra); // this works
 	
 	myExp.add(start);
 	myExp.add(startTrial);
 	myExp.add(cross);
 	myExp.add(nothing);
-	myExp.add(cross);	
 	myExp.add(stim1);
 	myExp.add(nothing);	
 	myExp.add(cross);
-	myExp.add(nothing);	
-	myExp.add(stim2);
+	myExp.add(stim2);	
 	myExp.add(nothing);	
 	myExp.add(stim3);
+	myExp.add(nothing);	
+    myExp.add(testAddFeature);
 	myExp.add(nothing);	
 	myExp.add(end);
 

@@ -1,8 +1,8 @@
 
-/* create first "serious" experiment
- * A Simon effect experiment:
- * react on the word (left / right) with a press on the left (key 's') or on the right (key 'l')
- * words can be presented on the right or on the left --> ignore stimulus location, react on word
+/* Create a first "serious" demonstration experiment:
+ *   Simon effect experiment:
+ *   React on the word (left / right) with a press on the left (key 's') or on the right (key 'l')
+ *   words can be presented on the right or on the left --> ignore stimulus location, react on word
  */
 
 // create experiment
@@ -22,7 +22,7 @@ instrCol = rndCol();
 
 // create Stimulus - startscreen
 var startScreen = new Stimulus("startscreen", 0, false, [32]);
-startScreen.addText("Welcome to the experiment", 60, instrCol, 0,160);
+startScreen.addText("Welcome to the experiment", 60, instrCol, 0, 160);
 startScreen.addText("React to the word that is presented on the screen", 40, instrCol, 0, 70);
 startScreen.addText("- Press 's' if you see 'left' -", 40, instrCol, 0, 0);
 startScreen.addText("- Press 'k' if you see 'right' -", 40, instrCol, 0, -45);
@@ -40,6 +40,17 @@ createBlock = function(blockRepetition) {
 		var startBlock = new Stimulus("startblock", 0, false);
 		startBlock.addText("Click to start " + (t+1) + ". block", 80, rndCol(), 0, 0);
 		simon.add(startBlock);	
+		
+		// test a countdown
+		var cd_1 = new Stimulus("cd_1", 1000, false);
+		var cd_2 = new Stimulus("cd_2", 1000, false);
+		var cd_3 = new Stimulus("cd_3", 1000, false);
+		cd_1.addText("3", 40, instrCol, 0, 0);
+		cd_2.addText("2", 40, instrCol, 0, 0);
+		cd_3.addText("1", 40, instrCol, 0, 0);
+		simon.add(cd_1);
+		simon.add(cd_2);
+		simon.add(cd_3);		
 		
 		// add trials to each block
 		for ( var i = 0; i < trials; i++) {
@@ -75,8 +86,8 @@ createBlock = function(blockRepetition) {
 				var congruency = "incongruent";
 			}				
 			
-			var pausing1 = new Stimulus("pause", rndInt(150, 950), false);
-			var pausing2 = new Stimulus("pause", rndInt(150, 950), false);
+			var pausing1 = new Stimulus("pause", rndInt(350, 950), false);
+			var pausing2 = new Stimulus("pause", rndInt(350, 950), false);
 			
 			var tempStim = new Stimulus(id, 400, true, [115, 107], correctKey);
 			tempStim.addText(text, 80, rndCol(), side, 0);

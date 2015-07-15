@@ -17,6 +17,11 @@
    
 */
 
+// generic addFeature function. Takes a function as argument, which is evaluated as soon as the Stimulus is called
+Stimulus.prototype.addFeature = function(somecode) {
+	this.features.push(somecode);
+};
+
 // add a text that is displayed on the screen
 Stimulus.prototype.addText = function(text, size, color, x, y) { // name feature type and coordinates, radius, size etc. Overloading is necessary here; see how to best implement it
 	var that = this;
