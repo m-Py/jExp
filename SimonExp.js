@@ -9,9 +9,9 @@
 var simon = new Experiment("#stim");
 
 // how many experimental blocks?
-var blocks = 5;
+var blocks = 1;
 // how many trials per block?
-var trials = 10;
+var trials = 6;
 
 
 // create Stimuli - fixation cross
@@ -102,7 +102,7 @@ simon.add(end);
 
 $(document).ready(function() {
 
-	simon.start();
+	simon.altExpStart();
 
 });
 

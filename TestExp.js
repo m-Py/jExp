@@ -3,8 +3,6 @@
 	
 	myExp = new Experiment("#stim"); // this is the only place where you find a DOM selector	
 	
-
-	
 	var allowedKeys = [115, 107]; // keys: ['s', 'k']
 		
 	var cross = new Stimulus("cross", 250, 300);
@@ -17,9 +15,9 @@
 	start.addText("Press space to start experiment", 50, rndCol(), 0, 0);
 	// test adding variables to Experiment object; variables that are added this way get stored by the logger
 	start.addExpVar("moep", "moep");
-	
+
 	var startTrial = new Stimulus("trial_begin", 0, 0, false, [32]);
-	startTrial.addText("Press space to start trial", 50, rndCol());	
+	startTrial.addText("Press space to start trial", 50, rndCol());
 	
 	// the countdown function which removes the stimulus after "duration" has a timing precision of 10ms
 	// so you must always specify an ISI (20ms is reliable) to make sure that the sequential presentation of stimuli runs smoothly
@@ -37,12 +35,17 @@
 
 
 	// test addBlock functioning
+	
 	myExp.add(start);
-	myExp.addBlock(1, startTrial, cross, stim1, cross, stim2, cross, stim3);
+	myExp.add(startTrial);
+	myExp.add(cross);
+	myExp.add(stim1);
+	myExp.add(cross);
+	myExp.add(stim2);
+	myExp.add(stim3);
 	myExp.add(end);
 
 	
 $(document).ready(function() {
-	console.log(rndShuffleArray(["1", 2, 3, [3], "FOOOO", "lll", 1, 2, 3, {}]));
 	myExp.start();
 });

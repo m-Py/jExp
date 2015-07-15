@@ -67,6 +67,7 @@ Stimulus.prototype.showStimulus = function() {
 		this.features[i](); // show all Stimulus features
 	}
 };
+// store reactions and reaction time
 Stimulus.prototype.listen = function () {
 	var that = this; // save reaction time value into RT property of each object
 	var RT = 0;
@@ -154,6 +155,7 @@ Stimulus.prototype.listen = function () {
 		}, 10); // timing precision of 10ms
 	}
 };
+
 Stimulus.prototype.present = function() {
 	this.experiment.currentStim++;
 	// 1) show 
@@ -164,6 +166,50 @@ Stimulus.prototype.present = function() {
 	}
 	// 3) remove stimulus after its specified duration
 	if (this.duration !== 0) {
-		this.experiment.countdown(this.duration);
+		this.countdown(this.duration);
 	}
+	// or in case of 0-duration stimulus: end after event has occured
+	else {
+		this.end();
+	}
+};
+
+
+// countdown and end are functions that are only called by present();
+// method to remove stimulus after Stimulus.duration 
+Stimulus.prototype.countdown = function(duration) {
+	var that = this;	
+	var timeLeft = duration/10;
+	var countdown = setInterval(function() {
+		timeLeft--; // countdown
+		if (timeLeft <= 0) {
+			clearInterval(countdown);
+			// remove current stimulus
+			that.experiment.clear();
+			// present next stimulus
+			that.experiment.expArr[that.experiment.currentStim].present(); 
+		}
+	}, 10); // timing precision of 10ms
+};
+
+
+Stimulus.prototype.end = function() {
+	that = this;
+	$(document).on("keypress click", function(e) {
+		if (that.listenTo) { // allowed keys are specified
+			// check if pressed key was allowed
+			for (var i = 0; i < that.listenTo.length; i++) {
+				if (e.which === that.listenTo[i]) {
+					$(document).off();
+					that.experiment.clear();
+					that.experiment.expArr[that.experiment.currentStim].present();
+				}
+			}
+		}
+		else {
+			$(document).off();
+			that.experiment.clear();
+			that.experiment.expArr[that.experiment.currentStim].present();
+		}
+	});
 };
