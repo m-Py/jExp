@@ -32,17 +32,22 @@
 	
 	var end = new Stimulus("endScreen", 0);
 	end.addText("The experiment is over.", 50, rndCol());
-
-
-	// test addBlock functioning
+	
+	// if you want a blank screen, just create a stimulus without adding features to it!
+	var nothing = new Stimulus("nothing", 1000);
 	
 	myExp.add(start);
 	myExp.add(startTrial);
 	myExp.add(cross);
+	myExp.add(nothing);
 	myExp.add(stim1);
+	myExp.add(nothing);	
 	myExp.add(cross);
+	myExp.add(nothing);	
 	myExp.add(stim2);
+	myExp.add(nothing);	
 	myExp.add(stim3);
+	myExp.add(nothing);	
 	myExp.add(end);
 
 	

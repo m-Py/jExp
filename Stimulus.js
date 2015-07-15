@@ -179,7 +179,8 @@ Stimulus.prototype.waitCountdown = function(duration) {
 		}
 	}, 10); // timing precision of 10ms
 };
-
+// wait for a specified event till next stimulus is shown
+// TO DO: implement more possibilies than just keypress and mouse click
 Stimulus.prototype.waitEvent = function() {
 	that = this;
 	$(document).on("keypress click", function(e) {
