@@ -1,5 +1,5 @@
 
-/* Create a first "serious" demonstration experiment:
+/* Sample experiment
  *   Simon effect experiment:
  *   React on the word (left / right) with a press on the left (key 's') or on the right (key 'l')
  *   words can be presented on the right or on the left --> ignore stimulus location, react on word
@@ -50,10 +50,10 @@ createBlock = function(blockRepetition) {
 		cd_3.addText("1", 40, instrCol, 0, 0);
 		simon.add(cd_1);
 		simon.add(cd_2);
-		simon.add(cd_3);		
+		simon.add(cd_3);
 		
 		// add trials to each block
-		for ( var i = 0; i < trials; i++) {
+		for (var i = 0; i < trials; i++) {
 			
 			// randomly determine the trial type
 			var coin = rndInt(1,4);
@@ -87,20 +87,18 @@ createBlock = function(blockRepetition) {
 			}				
 			
 			var pausing1 = new Stimulus("pause", rndInt(350, 950), false);
-			var pausing2 = new Stimulus("pause", rndInt(350, 950), false);
-			
 			var tempStim = new Stimulus(id, 400, true, [115, 107], correctKey);
 			tempStim.addText(text, 80, rndCol(), side, 0);
 			// add some properties to the stimulus that we want so save!
 			tempStim.block = t+1; // easy way to save in which block a stimulus has been presented
-			tempStim.trial = i+1; // easy way to save the trial number of a stimulus if needed
+			tempStim.trial = i+1; // easy way to save the trial number of a stimulus
 			tempStim.congruency = congruency; // congruency condition
-			
-			// add fixation cross and word stimulus to the experiment
+			var pausing2 = new Stimulus("pause", rndInt(350, 950), true, [115, 107], correctKey);
+			// add trial stimuli
 			simon.add(cross);
 			simon.add(pausing1)
 			simon.add(tempStim);
-			simon.add(pausing2)			
+			simon.add(pausing2);
 		}
 	}
 };

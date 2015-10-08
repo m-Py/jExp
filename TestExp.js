@@ -37,8 +37,9 @@
 	// test out addFeature method: adds any to be evaluated function to the Stimulus
 	var testAddFeature = new Stimulus("testtest", 1000, false);
 	
-	var tratra = function() { 
+	var tratra = function() {
 		console.log("FUCKGUCKGUCK"); 
+      console.log(myExp.canvas);
 	};
 	
 	testAddFeature.addFeature(tratra); // this works
@@ -54,7 +55,7 @@
 	myExp.add(nothing);	
 	myExp.add(stim3);
 	myExp.add(nothing);	
-    myExp.add(testAddFeature);
+   myExp.add(testAddFeature);
 	myExp.add(nothing);	
 	myExp.add(end);
 

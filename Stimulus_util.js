@@ -1,14 +1,13 @@
 /* 
-   This file contains methods of the Stimulus object that define its functioning.
+   This file contains Stimulus methods that define its functioning.
    When instantiated, a Stimulus will only delay an experiment for the duration 
    of its duration, but will not do anything else. For the stimulus to function
    in the wanted way, features need to be added by calling the methods in this file. 
    Feature adding methods define the appearance of a stimulus, or add experimental utility.
    
    * Examples:
+   * addFeature() takes a function as argument and executes it when the Stimulus is called
    * The addText() method will add text to the Stimulus to be shown on screen
-   * The addCode() method can be used to execute JavaScript Code
-   at a specific time during the experiment.
 
    * Feature adding methods should have names like addAppearance or addUtility. 
    * They must contain a function containing code to be executed when the 
@@ -18,6 +17,7 @@
 */
 
 // generic addFeature function. Takes a function as argument, which is evaluated as soon as the Stimulus is called
+// how to access Experiment and Stimulus prototype from within `somecode` though...
 Stimulus.prototype.addFeature = function(somecode) {
 	this.features.push(somecode);
 };
@@ -54,32 +54,15 @@ Stimulus.prototype.addCross = function(size, width) {
 	that.features.push(draw);	
 };
 
-// add JavaScript code that is executed when the stimulus is called
-Stimulus.prototype.addCode = function(code) {
-	var draw = function() { 
-		eval(code); 
-	};
-	that.features.push(draw);
-};
-
-
-
 // returns a slim Stimulus object, that does not contain functions, the pointer to the experiment and arrays as values
 Stimulus.prototype.slimObject = function() {
 	data = {};
 	for (key in this) {
 		if (this[key] !== undefined) {
 			if (this[key].constructor.name !== "Function" && this[key].constructor.name !== "Experiment" && this[key].constructor.name !== "Array") {
-			data[key] = this[key];
+				data[key] = this[key];
 			}
 		}
 	}
 	return data;
 };
-
-// utility function that compares the ID of a stimulus to a passed ID
-Stimulus.prototype.checkID = function(ID) {
-	return (this.id === ID);
-};
-	
-	

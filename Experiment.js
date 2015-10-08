@@ -2,14 +2,19 @@
 function Experiment(container) {
 	this.container = container || "body"; // add jQuery selector as container. Not id!
 	this.stimuli = []; // Array: contains all stimuli of the experiment; add and addBlock push Stimuli to this array. Experiment.start() calls the stimuli that are contained in this array
-	this.currentStim = 0; // keeps track of presented stimuli
+	this.nextStim = 0; // keeps track of presented stimuli
 };
 
 // Create canvas on which the experiment is shown
 Experiment.prototype.createCanvas = function() { // Method: when experiment is initialized, create a canvas element in container element in browser		
-	$(this.container).append("<canvas id='myCanvas' width='" + ($(window).width()-30) + "'height= '" + ($(window).height()-30) + "'></canvas>");
+   $(this.container).append("<canvas id='myCanvas' width='" + ($(window).width()-30) + "'height= '" + ($(window).height()-30) + "'></canvas>");
 	this.canvas = document.getElementById("myCanvas");
 	this.context = this.canvas.getContext("2d");
+};
+// remove canvas - can be used in experiments where some stimuli are not to be presented on the canvas
+// if a stimulus call is accompanied by removing the experimental canvas, the canvas should be restored if it is needed again later
+Experiment.prototype.removeCanvas = function() {
+   $("#myCanvas").remove();
 };
 
 // Start the experiment
