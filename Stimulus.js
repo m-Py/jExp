@@ -22,7 +22,7 @@ function Stimulus(id, duration, saveData, listenTo, correctResponse) {
 		if (saveData.constructor.name !== "Boolean") {
 			throw "error: saveData parameter of created Stimulus object must be Boolean or left out";
 		}
-	}		
+	}
 	
 	if (listenTo !== undefined) {
 		if (listenTo.constructor.name !== "Array") {
@@ -37,11 +37,11 @@ function Stimulus(id, duration, saveData, listenTo, correctResponse) {
 	}				
 	*/
 
-	this.id = id; // each instantiated Stimulus needs an id
-	this.duration = duration; // presentation time of the stimulus. Specify in ms.
+	this.id = id;              // each instantiated Stimulus needs an id
+	this.duration = duration;  // presentation time of the stimulus. Specify in ms.
 	
-	this.saveData = saveData;       // logical - should response be stored?
-	this.listenTo = listenTo || []; // array containing the allowed keypresses
+	this.saveData = saveData;               // logical - should response be stored?
+	this.listenTo = listenTo || [];         // array containing the allowed keypresses
 	this.correctResponse = correctResponse; // which is the correct response?
 	
 	this.RT; // written to by listen() if saveData === true; response time

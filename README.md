@@ -17,14 +17,11 @@ Currently jExp currently does not offer any experimental flow control functional
 
 
 ### to be worked on
-1. Rework event handling and data storage as it has to be done differently with the new experimental timing
-  + event handling still relies on ISI stimulus property, which does not exist anymore
-  + How to realize event handling now that I no longer have ISI?
-2. Make Stimulus.waitEvent() more flexible
+1. Make Stimulus.waitEvent() more flexible
   + add callbacks that can react on any user-defined events!
-3. Add possibility to insert images!
-4. how to best implement addFeature()
-5. Set up Wiki and a tutorial
+2. Add possibility to insert images
+3. how to best implement addFeature()
+4. Set up Wiki and a tutorial
   
 ### minor
 

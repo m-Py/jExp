@@ -20,7 +20,7 @@ Experiment.prototype.removeCanvas = function() {
 // Start the experiment
 Experiment.prototype.start = function() {
 	this.createCanvas();
-	this.stimuli[0].present();
+	this.stimuli[this.nextStim].present();
 };
 
 // Add Stimulus to experiment

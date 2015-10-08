@@ -1,5 +1,5 @@
 
-	// My 'Spielwiese' here I try out experiments
+	// My 'Spielwiese' here I try out features
 	
 	myExp = new Experiment("#stim"); // this is the only place where you find a DOM selector	
 	
@@ -23,7 +23,7 @@
 	stim1.addText("left", 100, rndCol());	
 	
 	var stim2 = new Stimulus("right", 1000, true, allowedKeys, 107);	
-	stim2.addText("right", 100, rndCol());	 	
+	stim2.addText("right", 100, rndCol());
 
 	var stim3 = new Stimulus("nogo", 1000, true, allowedKeys, 0);
 	stim3.addText("DON'T", 100, rndCol());
