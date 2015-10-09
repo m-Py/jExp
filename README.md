@@ -17,6 +17,7 @@ Currently jExp currently does not offer any experimental flow control functional
 
 
 ### to be worked on
+1. pack everything into a proper namespace and reduce possible name space conflicts (see http://learn.jquery.com/using-jquery-core/avoid-conflicts-other-libraries/)
 1. Make Stimulus.waitEvent() more flexible
   + add callbacks that can react on any user-defined events!
 2. Add possibility to insert images
