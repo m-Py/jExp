@@ -25,6 +25,8 @@ Currently jExp currently does not offer any experimental flow control functional
 5. Set up Wiki and a tutorial
 6. (see 2) implement possibility to use canvas OR html presentation, with canvas being default
   + make this a Stimulus property; presentationType = "canvas" (default) or "html"
+7. add accessible API, which can be used to append functions to stimuli; these functions MUST habe access to Experiment and Stimulus properties!
+8. what are jExp differences to jsPsych?
   
 ### minor
 
