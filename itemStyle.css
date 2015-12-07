@@ -1,0 +1,101 @@
+
+
+#bigwrap {
+   text-align: center;
+   margin-left: auto;
+   margin-right: auto;
+   margin-bottom: 30px;
+   margin-top:15px;
+}
+
+
+#mcwrap {
+   width:75%;
+   margin-left: auto;
+   margin-right: auto;
+   margin-bottom: 15px;
+}
+
+
+#optionDOMC {
+   font-size:120%;
+   margin-bottom: 20px;
+   margin-left: 12.5%;
+   margin-right:12.5%;
+}
+
+#wrap {
+   display: table;
+   margin: auto;
+   margin-top: 15px;
+}
+
+#true, #false {
+padding: 1em;
+background-color: #ABCDEF;
+opacity: 0.5;
+margin: 2em;
+width: 200px;
+display: table-cell;
+vertical-align: middle;
+float: none;	
+font-size:110%;
+}
+
+#fill, #fill2 {
+   margin: 0px 20px;
+}
+
+
+
+#continue {
+   border: solid 1px #aaa;
+   font-size: 120%;
+   width: 5em;
+   background:#fcfcfc;
+   padding:0.4em;
+   border-radius:5px;
+   cursor:pointer;
+   display:none;
+   margin: auto;
+   text-align: center;
+}
+
+#continue:hover, #goToQuestion:hover {
+   background-color:#aaa;
+}
+
+.together {
+   display: table;
+   width: 100%;
+   padding: 5px;
+}
+
+.mc_option {
+   display: table-cell;
+   width: 80%;
+   text-align: left;  
+   cursor:pointer;
+   font-size:120%;
+}
+
+.radioButt {
+   display: table-cell;
+   width: 20%;
+   float: right;
+   cursor:pointer;
+}
+
+#bigwrap h3 {
+   font-size: 140%;
+}
+
+#result {
+   margin-bottom: 15px;
+}
+
+.question {
+   margin-left: 12.5%;
+   margin-right:12.5%;
+   padding: 1em 0em;
+}

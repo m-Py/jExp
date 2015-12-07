@@ -17,11 +17,15 @@ Currently jExp currently does not offer any experimental flow control functional
 
 
 ### to be worked on
+
+0. implement html features and refine integration with canvas
+  + first: finalize DOMC and MC items (especially data storage! it is still like in Unipark)
+  + modularize data storage, presentation, and integration with the jExp environment!
 1. pack everything into a proper namespace and reduce possible name space conflicts (see http://learn.jquery.com/using-jquery-core/avoid-conflicts-other-libraries/)
 2. Make Stimulus.waitEvent() more flexible
   + add callbacks that can react on any user-defined events!
-3. Add possibility to insert images
-4. how to best implement addFeature()
+  + solution: call showNext directly from within Stimulus method! (set duration to negative number; awkward, but I can implement a nicer function argument for this)
+3. Add possibility to insert images (might only work in 'html' mode
 5. Set up Wiki and a tutorial
 6. (see 2) implement possibility to use canvas OR html presentation, with canvas being default
   + make this a Stimulus property; presentationType = "canvas" (default) or "html"

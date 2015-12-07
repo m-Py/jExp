@@ -1,7 +1,7 @@
 
 // Stimulus: basic experimental unit
 // Stimulus constructor
-function Stimulus(id, duration, saveData, listenTo, correctResponse) {
+function Stimulus(id, type, duration, saveData, listenTo, correctResponse) {
 	
 	/* throw some errors that can occur when a Stimulus is instantiated
 	if (id === undefined) {
@@ -38,9 +38,10 @@ function Stimulus(id, duration, saveData, listenTo, correctResponse) {
 	*/
 
 	this.id = id;              // each instantiated Stimulus needs an id
+	this.type = type || 'canvas'; // must be: 'html' or 'canvas', defaults to canvas
 	this.duration = duration;  // presentation time of the stimulus. Specify in ms.
 	
-	this.saveData = saveData;               // logical - should response be stored?
+	this.saveData = saveData || false;      // logical - should response be stored?
 	this.listenTo = listenTo || [];         // array containing the allowed keypresses
 	this.correctResponse = correctResponse; // which is the correct response?
 	
@@ -50,7 +51,7 @@ function Stimulus(id, duration, saveData, listenTo, correctResponse) {
 	
 	this.features = []; // array containing functions that are called when the stimulus is called
 	this.experiment; // points to the Experiment object which calls all Stimuli in a sequential fashion. This property is added to the stimulus, when it is added to an Experiment via .add()
-	
+
 }
 // Call all functions that are contained in the Stimulus.features array - this is how the functionality of the Stimulus is realized
 Stimulus.prototype.showStimulus = function() {
@@ -108,13 +109,14 @@ Stimulus.prototype.present = function() {
 		this.listen();
 	}
 	// 3a) remove stimulus after its specified duration
-	if (this.duration !== 0) {
+	if (this.duration >= 0) {
 		this.waitCountdown(this.duration);
 	}
 	// 3b) OR: remove after event has occured
-	else {
+	else if (this.duration === 0) {
 		this.waitEvent();
 	}
+   // this leaves the possibility for negative numbers if showNext is to be called directly
 };
 // waitCountdown: remove Stimulus after Stimulus.duration 
 Stimulus.prototype.waitCountdown = function(duration) {
@@ -150,8 +152,11 @@ Stimulus.prototype.waitEvent = function() {
 };
 // function: show next stimulus of experiment
 Stimulus.prototype.showNext = function() {
-	this.experiment.clear();
-	// only show next if there is a next stimulus
+   // clear canvas if there is one
+	if (this.experiment.CANVAS_AVAILABLE === true) {
+      this.experiment.clear();
+   }
+	// show next stimulus; only show next if there is a next stimulus
 	if (this.experiment.nextStim < this.experiment.stimuli.length) {
 		this.experiment.stimuli[this.experiment.nextStim].present();
 	}
