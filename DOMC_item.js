@@ -1,14 +1,23 @@
 // stimulus property that presents a DOMC item
 // to do: data storage
-Stimulus.prototype.addDOMC  = function(question, options, container, save_variables) {
-
+// change the way option counter i is handled
+// change endAfterSolution implementation (esp: false click function, it's horrible right now)
+Stimulus.prototype.addDOMC  = function(question, options, container, save_variables, endAfterSolution) {
+   
+   var endAfterSolution = (endAfterSolution !== false); // abort item presentation after the solution has been shown?
 	var that = this;
 
 	var DOMC_Item = function() {
-
+   
       if (that.experiment.CANVAS_AVAILABLE === true) {
          that.experiment.removeCanvas(); // is html stimulus, canvas must be removed
       }
+      
+      var startItem = function() {
+         // present question and first option
+         $("#question").html("<h3>" + question + "</h3>");
+         $("#optionDOMC").html(present_sequence[i]);      
+      };
       
 	   var next_option = function(option) {
 	      $("#optionDOMC").html(option).show();
@@ -17,12 +26,9 @@ Stimulus.prototype.addDOMC  = function(question, options, container, save_variab
 	   };
 	
 	   var next_question = function() {
-	      $("#true").remove();
-	      $("#false").remove();
-	      $("#question").remove();
-	      $("#optionDOMC").remove();
-	      that.showNext(); // directly adresses the showNext function; this function has an explicit event that triggers the next stimulus!
-	    };
+	      $("#bigwrap").remove()
+         that.showNext(); // directly adresses the showNext function; this function has an explicit event that triggers the next stimulus!
+      };
 	
 	
 	   var saveData = function(correctness, optionAccepted) {
@@ -82,25 +88,38 @@ Stimulus.prototype.addDOMC  = function(question, options, container, save_variab
 	            var correct = 0;
 	         }
 	         // save data - option presentation stops
-	         saveData(correct, true);
-	         setTimeout(next_question, 500);
+            saveData(correct, true);
+            setTimeout(next_question, 500);
 	      }
 	   });
-	
+      
+      // rework this function!
 	   $("#false").click(function() {
 	      if (clickable === 1) {
 	         clickable = 0;
 	         if (present_sequence[i] === options[0]) { // option is solution - presentation stops
 	            $("#optionDOMC").html("<span style='color:transparent'>------</span>");
-	            var correct = 0;
-	            saveData(correct, false);
-	            setTimeout(next_question, 500);
+               if (endAfterSolution === true) {
+                  $("#optionDOMC").html("<span style='color:transparent'>------</span>");
+                  var correct = 0;
+                  saveData(correct, false);
+                  setTimeout(next_question, 500);
+               }
+               else {
+                  i++;
+                  setTimeout(next_option, 500, present_sequence[i]);
+               }
 	         }
 	         else { //Option ist nicht Lösung
 	            $("#optionDOMC").html("<span style='color:transparent'>------</span>");
 	            i++;
 	            setTimeout(next_option, 500, present_sequence[i]);
 	         }
+            if (i === options.length) {
+               $("#optionDOMC").html("<span style='color:transparent'>------</span>");
+	            i++;
+	            setTimeout(next_question, 500, present_sequence[i]);
+            }
 	      }
 	   });
 	
@@ -111,9 +130,8 @@ Stimulus.prototype.addDOMC  = function(question, options, container, save_variab
 	   $("#true, #false").mouseleave(function() {
 	       $(this).css('opacity', '0.5');
 	   });
-	
-	   $("#question").html("<h3>" + question + "</h3>");
-	   $("#optionDOMC").html(present_sequence[i]);
+      
+      startItem();
 	};
 
 	that.features.push(DOMC_Item);

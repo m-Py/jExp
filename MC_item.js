@@ -67,7 +67,7 @@ Stimulus.prototype.addMC  = function(question, options, container, save_variable
       $("#continue").click(function() {
          if (clickable === 1) {
             clickable = 0;
-            $("#bigwrap").hide();
+            $("#bigwrap").remove();
             saveData();
             setTimeout(next_question, 500);
          }
