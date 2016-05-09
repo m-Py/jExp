@@ -60,7 +60,7 @@ Stimulus.prototype.showStimulus = function() {
 	}
 };
 // store reactions and reaction time
-// listen in its current form is deprecated and will not work - is to be reworked
+// listen() in its current form is deprecated and will not work - is to be reworked
 Stimulus.prototype.listen = function () {
 	var that = this; // save reaction time value into RT property of each object
 	var RT = 0;
