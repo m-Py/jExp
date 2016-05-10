@@ -1,4 +1,4 @@
-// stimulus property that presents a DOMC item
+// stimulus property that presents a MC item
 // to do: data storage
 Stimulus.prototype.addMC  = function(question, options, container, save_variables) {
 
@@ -56,7 +56,7 @@ Stimulus.prototype.addMC  = function(question, options, container, save_variable
          }
        });
    
-      var saveData = function() {
+      var saveData = function() { // this is to be reworked
          $("#saveMe_1").html('<input type='+saveThis+' name ='+save_variables[0]+' value="'+correct+'" />');
          $("#saveMe_2").html('<input type='+saveThis+' name ='+save_variables[1]+' value="'+selected+'" />');
       };

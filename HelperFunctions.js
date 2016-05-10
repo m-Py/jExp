@@ -1,13 +1,12 @@
 
 // create a random rgb color: "rgb(x,y,z)"
 var rndCol = function() {
-	return("rgb("+Math.floor(Math.random()*256)+","+Math.floor(Math.random()*256)+","+Math.floor(Math.random()*256)+")");
+   return("rgb("+Math.floor(Math.random()*256)+","+Math.floor(Math.random()*256)+","+Math.floor(Math.random()*256)+")");
 };
-	
 
 // create a random integer, includes passed min and max value
 var rndInt = function(min, max) {
-	return(Math.floor(Math.random()*(max-min+1))+min);
+   return(Math.floor(Math.random()*(max-min+1))+min);
 };
 
 /* 'hack' to save download the experimental data locally by downloading it
