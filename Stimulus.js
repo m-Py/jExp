@@ -68,7 +68,7 @@ Stimulus.prototype.listen = function () {
    that.correct = undefined;  // default: if no response is made, the correctness is not evaluated
 	
 	var recordResponse = function(key, rt) {
-		$(document).off();		
+		$(document).off();
 		that.event = key; // store key pressed as stimulus property
 		that.RT = RT;
 		if (that.event === that.correctResponse) {
@@ -109,7 +109,7 @@ Stimulus.prototype.present = function() {
 		this.listen();
 	}
 	// 3a) remove stimulus after its specified duration
-	if (this.duration >= 0) {
+	if (this.duration > 0) {
 		this.waitCountdown(this.duration);
 	}
 	// 3b) OR: remove after event has occured

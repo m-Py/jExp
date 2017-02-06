@@ -13,15 +13,14 @@ var blocks = 3;
 // how many trials per block?
 var trials = 12;
 
-
 // create Stimuli - fixation cross - this will be reused throughout the experiment
-var cross = new Stimulus("cross", 250, false);
+var cross = new Stimulus("cross", "canvas", 250, false);
 cross.addCross(30, 2);
 
 instrCol = rndCol();
 
 // create Stimulus - startscreen
-var startScreen = new Stimulus("startscreen", 0, false, [32]);
+var startScreen = new Stimulus("startscreen", "canvas", 0, false, [32]);
 startScreen.addText("Welcome to the experiment", 60, instrCol, 0, 160);
 startScreen.addText("React to the word that is presented on the screen", 40, instrCol, 0, 70);
 startScreen.addText("- Press 's' if you see 'left' -", 40, instrCol, 0, 0);
@@ -37,14 +36,14 @@ createBlock = function(blockRepetition) {
 	
 	for (var t = 0; t < blockRepetition; t++) {
 		
-		var startBlock = new Stimulus("startblock", 0, false);
+		var startBlock = new Stimulus("startblock", "canvas", 0, false);
 		startBlock.addText("Click to start " + (t+1) + ". block", 80, rndCol(), 0, 0);
 		simon.add(startBlock);	
 		
 		// test a countdown
-		var cd_1 = new Stimulus("cd_1", 1000, false);
-		var cd_2 = new Stimulus("cd_2", 1000, false);
-		var cd_3 = new Stimulus("cd_3", 1000, false);
+		var cd_1 = new Stimulus("cd_1", "canvas", 1000, false);
+		var cd_2 = new Stimulus("cd_2", "canvas", 1000, false);
+		var cd_3 = new Stimulus("cd_3", "canvas", 1000, false);
 		cd_1.addText("3", 40, instrCol, 0, 0);
 		cd_2.addText("2", 40, instrCol, 0, 0);
 		cd_3.addText("1", 40, instrCol, 0, 0);
@@ -86,14 +85,14 @@ createBlock = function(blockRepetition) {
 				var congruency = "incongruent";
 			}				
 			
-			var pausing1 = new Stimulus("pause", rndInt(350, 950), false);
-			var tempStim = new Stimulus(id, 400, true, [115, 107], correctKey);
+			var pausing1 = new Stimulus("pause", "canvas", rndInt(350, 950), false);
+			var tempStim = new Stimulus(id, "canvas", 400, true, [115, 107], correctKey);
 			tempStim.addText(text, 80, rndCol(), side, 0);
 			// add some properties to the stimulus that we want so save!
 			tempStim.block = t+1; // easy way to save in which block a stimulus has been presented
 			tempStim.trial = i+1; // easy way to save the trial number of a stimulus
 			tempStim.congruency = congruency; // congruency condition
-			var pausing2 = new Stimulus("pause", rndInt(350, 950), true, [115, 107], correctKey);
+			var pausing2 = new Stimulus("pause", "canvas", rndInt(350, 950), true, [115, 107], correctKey);
 			// add trial stimuli
 			simon.add(cross);
 			simon.add(pausing1)
@@ -107,7 +106,7 @@ createBlock = function(blockRepetition) {
 createBlock(blocks);
 
 // add endscreen
-var end = new Stimulus("endscreen", 0, false);
+var end = new Stimulus("endscreen", "canvas", 0, false);
 end.addText("The experiment is over, thank you!", 80, rndCol());
 simon.add(end);
 

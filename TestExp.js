@@ -55,7 +55,7 @@
 	myExp.add(nothing);	
 	myExp.add(stim3);
 	myExp.add(nothing);	
-   myExp.add(testAddFeature);
+        myExp.add(testAddFeature);
 	myExp.add(nothing);	
 	myExp.add(end);
 
